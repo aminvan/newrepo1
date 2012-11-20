@@ -31,7 +31,7 @@ public class ClerkDialog extends JFrame implements ActionListener{
 	private void addComponentsToPane(final Container pane)
 	{
 		JPanel panel = new JPanel();
-		panel.setLayout(new GridLayout(2, 3));
+		panel.setLayout(new GridLayout(3, 3));
 		
 		JButton addBorrowerButton = new JButton("Add Borrower");
 		addBorrowerButton.setVerticalTextPosition(AbstractButton.CENTER);
@@ -64,6 +64,13 @@ public class ClerkDialog extends JFrame implements ActionListener{
 		panel.add(new Label("Enter call number to process return"));
 		panel.add(returnField);
 		panel.add(processReturn);
+		
+		JButton backButton = new JButton ("Return to Choose User Dialog");
+		backButton.setVerticalAlignment(AbstractButton.CENTER);
+		backButton.setHorizontalAlignment(AbstractButton.CENTER);
+		backButton.setActionCommand(processReturnCommand);
+		backButton.addActionListener(this);
+		
 		
 		pane.add(panel);
 		
