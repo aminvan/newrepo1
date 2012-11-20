@@ -107,7 +107,7 @@ public class AddBorrowerDialog extends JFrame implements ActionListener{
 	
 	private void createBorrower()
 	{
-		
+	
 	}
 	
 }
