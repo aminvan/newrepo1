@@ -73,12 +73,12 @@ public class AddBorrowerDialog extends JFrame implements ActionListener{
 		returnToUserDialog.setActionCommand(returnToClerkDialogString);
 		returnToUserDialog.addActionListener(this);
 		
-		JButton searchButton = new JButton(add);
-		searchButton.setActionCommand(add);
-		searchButton.addActionListener(this);
+		JButton addButton = new JButton(add);
+		addButton.setActionCommand(add);
+		addButton.addActionListener(this);
 		
 		panel.add(returnToUserDialog);
-		panel.add(searchButton);
+		panel.add(addButton);
 		
 		pane.add(panel);
 	}
@@ -98,7 +98,16 @@ public class AddBorrowerDialog extends JFrame implements ActionListener{
 		if (AddBorrowerDialog.returnToClerkDialogString.equals(arg0.getActionCommand()))
 		{
 			this.dispose();
+		}else if (add.equals(arg0.getActionCommand()))
+		{
+			//doSomeWithing
 		}
 		
 	}
+	
+	private void createBorrower()
+	{
+		
+	}
+	
 }
