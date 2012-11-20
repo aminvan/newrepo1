@@ -22,6 +22,7 @@ public class ClerkDialog extends JFrame implements ActionListener{
 	static String processReturnCommand = "processReturnPressed";
 	static String checkOverdueCommand = "overduePressed";
 	
+	static String returnToChooseUserDialogCommand = "Return to User Dialog";
 	JTextField returnField = new JTextField();
 	public ClerkDialog(String name)
 	{
