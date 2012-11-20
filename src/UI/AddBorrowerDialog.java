@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -26,6 +27,9 @@ public class AddBorrowerDialog extends JFrame implements ActionListener{
 	
 	static String returnToClerkDialogString = "Return to Clerk Dialog";
 	static String add = "Add";
+	
+	public static final int VALIDATIONERROR = 2;
+	
 	
 	public AddBorrowerDialog(String name)
 	{
@@ -98,16 +102,81 @@ public class AddBorrowerDialog extends JFrame implements ActionListener{
 		if (AddBorrowerDialog.returnToClerkDialogString.equals(arg0.getActionCommand()))
 		{
 			this.dispose();
+			
 		}else if (add.equals(arg0.getActionCommand()))
 		{
-			//doSomeWithing
+			int createValid = createBorrower();
+			if (createValid == VALIDATIONERROR) {
+				JOptionPane errorPopup = new JOptionPane();
+				errorPopup.showMessageDialog(this, "Invalid Input", "Error", JOptionPane.ERROR_MESSAGE);
+			}
+			else if (createValid == 0) { this.dispose(); // It should close.. but it isn't
+			}
 		}
 		
 	}
 	
-	private void createBorrower()
+	private int createBorrower()
 	{
-	
+		int bid;
+		String bpw;
+		String bname;
+		String bphone;
+		String bemail;
+		String bsin;
+		String bexpiry;
+		String btype;
+		
+		// bid... Might need to make sequence
+		
+		if (password.getText().trim().length() != 0) {
+			bpw = password.getText().trim();
+		}
+		else {
+			return VALIDATIONERROR;
+		}
+		
+		if (name.getText().trim().length() != 0) {
+			bname = name.getText().trim();
+		}
+		else {
+			return VALIDATIONERROR;
+		}
+		
+		if (phone.getText().trim().length() != 0) {
+			bphone = phone.getText().trim();
+		}
+		else {
+			return VALIDATIONERROR;
+		}
+		
+		if (emailAddress.getText().trim().length() != 0) {
+			bemail = emailAddress.getText().trim();
+		}
+		else {
+			return VALIDATIONERROR;
+		}
+		
+		if (sinOrStNo.getText().trim().length() != 0) {
+			bsin = sinOrStNo.getText().trim();
+		}
+		else {
+			return VALIDATIONERROR;
+		}
+		
+		if (expiryDate.getText().trim().length() != 0) {
+			bexpiry = expiryDate.getText().trim();
+		}
+		else {
+			return VALIDATIONERROR;
+		}
+		
+		btype = type.getName().trim();
+		
+		
+		return 0;
+		// addBorrower(bid, bpw, bname, bphone, bemail, bsin, bexpiry, btype);
+		
 	}
 	
 }
