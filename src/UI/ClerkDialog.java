@@ -49,7 +49,7 @@ public class ClerkDialog extends JFrame implements ActionListener{
 		JButton overdueButton = new JButton ("Check Overdues");
 		overdueButton.setVerticalAlignment(AbstractButton.CENTER);
 		overdueButton.setHorizontalAlignment(AbstractButton.CENTER);
-		overdueButton.setActionCommand(processReturnCommand);
+		overdueButton.setActionCommand(checkOverdueCommand);
 		overdueButton.addActionListener(this);
 		
 		panel.add(addBorrowerButton);
@@ -101,7 +101,12 @@ public class ClerkDialog extends JFrame implements ActionListener{
 		{
 			//TODO do something with returnField.getText();
 			returnField.setText("");
+		}else if (ClerkDialog.checkOverdueCommand.equals(arg0.getActionCommand()))
+		{
+			CheckOverduesDialog.createAndShowGUI();
 		}
 		
 	}
+	
+
 }
