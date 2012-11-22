@@ -5,6 +5,9 @@ import java.awt.GridLayout;
 import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -18,10 +21,13 @@ public class AddNewBookDialog extends JFrame implements ActionListener {
 	JTextField isbn = new JTextField();
 	JTextField title = new JTextField();
 	JTextField mainAuthor = new JTextField();
+	JTextField publisher = new JTextField();
 	JTextField year = new JTextField();
 	
 	static String returnToLibrarianDialogCommand = "Return to Librarian Dialog";
 	static String add = "Add";
+	
+	private Connection con;
 	
 	public AddNewBookDialog(String name)
 	{
@@ -49,6 +55,9 @@ public class AddNewBookDialog extends JFrame implements ActionListener {
 		
 		panel.add(new Label("Main Author"));
 		panel.add(mainAuthor);
+		
+		panel.add(new Label("Publisher"));
+		panel.add(publisher);
 		
 		panel.add(new Label("Year"));
 		panel.add(year);
@@ -79,10 +88,49 @@ public class AddNewBookDialog extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
+		
 		if (returnToLibrarianDialogCommand.equals(arg0.getActionCommand()))
 		{
 			this.dispose();
+		}else if(arg0.getActionCommand().equals("Add"))
+		{
+			addBook();
 		}
 		
+	}
+	
+	public void addBook() {
+		PreparedStatement ps;
+		
+		try {
+			ps = con.prepareStatement("INSERT INTO Book VALUES (?,?,?,?,?,?)");
+			ps.setInt(1, Integer.parseInt(callNumber.getText()));
+			ps.setInt(2, Integer.parseInt(isbn.getText()));
+			ps.setString(3, title.getText());
+			ps.setString(4, mainAuthor.getText());
+			ps.setString(5, publisher.getText());
+			ps.setInt(6, Integer.parseInt(year.getText()));
+			
+			ps.executeUpdate();
+			
+			con.commit();
+
+			ps.close();
+			
+		} catch (SQLException ex)
+			{
+			    System.out.println("Message: " + ex.getMessage());
+			    try 
+			    {
+				// undo the insert
+				con.rollback();	
+			    }
+			    catch (SQLException ex2)
+			    {
+				System.out.println("Message: " + ex2.getMessage());
+				System.exit(-1);
+			    }
+		}
+	
 	}
 }

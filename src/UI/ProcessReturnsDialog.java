@@ -37,23 +37,32 @@ public class ProcessReturnsDialog extends JFrame implements ActionListener{
 		panel.add(new Label(""));
 		panel.add(new Label(""));
 		
-		panel.add(new Label("Borrower ID"));
-		panel.add(borrowerID);
-		panel.add(new Label(""));
-		
-		panel.add(new Label("Enter one call number and press add"));
+		panel.add(new Label("Call number"));
 		panel.add(bookCallNumber);
-		JButton addCallNumberButton = new JButton("Add");
-		addCallNumberButton.setActionCommand("Add");
-		addCallNumberButton.addActionListener(this);
-		panel.add(addCallNumberButton);
 		
-		panel.add(new Label(""));
+		JButton checkInBookButton = new JButton("Check In");
+		checkInBookButton.setActionCommand("Check In");
+		checkInBookButton.addActionListener(this);
+		panel.add(checkInBookButton);
 		
-		JList list = new JList(listModel);
-		JScrollPane scrollPane = new JScrollPane(list);
-		panel.add(scrollPane);
-		panel.add(new Label(""));
+//		panel.add(new Label("Borrower"));
+//		panel.add(borrowerID);
+//		panel.add(new Label(""));
+		
+		
+//		panel.add(new Label("Enter one call number and press add"));
+//		panel.add(bookCallNumber);
+//		JButton addCallNumberButton = new JButton("Add");
+//		addCallNumberButton.setActionCommand("Add");
+//		addCallNumberButton.addActionListener(this);
+//		panel.add(addCallNumberButton);
+//		
+//		panel.add(new Label(""));
+//		
+//		JList list = new JList(listModel);
+//		JScrollPane scrollPane = new JScrollPane(list);
+//		panel.add(scrollPane);
+//		panel.add(new Label(""));
 		
 		
 		panel.add(new Label(""));
@@ -86,7 +95,7 @@ public class ProcessReturnsDialog extends JFrame implements ActionListener{
 		if (returnToClerkDialogString.equals(arg0.getActionCommand()))
 		{
 			this.dispose();
-		}else if(arg0.getActionCommand().equals("Add"))
+		}else if(arg0.getActionCommand().equals(CHECKIN))
 		{
 			listModel.addElement(bookCallNumber.getText());
 			bookCallNumber.setText("");

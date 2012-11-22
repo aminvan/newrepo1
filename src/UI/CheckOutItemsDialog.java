@@ -5,6 +5,10 @@ import java.awt.GridLayout;
 import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -22,6 +26,8 @@ public class CheckOutItemsDialog extends JFrame implements ActionListener{
 	
 	static String CHECKOUT = "Check Out Books";
 	static String returnToClerkDialogString = "Return to Clerk Dialog";
+	
+    private Connection con;
 	
 	public CheckOutItemsDialog(String name)
 	{
@@ -90,7 +96,30 @@ public class CheckOutItemsDialog extends JFrame implements ActionListener{
 		{
 			listModel.addElement(bookCallNumber.getText());
 			bookCallNumber.setText("");
+		}else if(arg0.getActionCommand().equals(CHECKOUT))
+		{
+			checkout();
 		}
+
+	}
+	
+	public void checkout() {
+		PreparedStatement ps;
 		
+		try {
+			ps = con.prepareStatement("INSERT INTO Borrowing VALUES (?,?,?,?,?, ?)");
+//			ps.setInt(1, Integer.parseInt(borid.getText()));
+//			ps.setInt(2, Integer.parseInt(bid.getText()));
+//			ps.setInt(3, Integer.parseInt(callNumber.getText()));
+//			ps.setInt(4, Integer.parseInt(copyNo.getText()));
+//			ps.setString(5, outDate.getText());
+//			ps.setString(6, inDate.getText());
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
 	}
 }
