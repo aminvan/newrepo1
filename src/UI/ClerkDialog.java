@@ -100,7 +100,9 @@ public class ClerkDialog extends JFrame implements ActionListener{
 		}else if (ClerkDialog.processReturnCommand.equals(arg0.getActionCommand()))
 		{
 			//TODO do something with returnField.getText();
-			returnField.setText("");
+			//returnField.setText("");
+			
+			ProcessReturnsDialog.createAndShowGUI();
 		}else if (ClerkDialog.checkOverdueCommand.equals(arg0.getActionCommand()))
 		{
 			CheckOverduesDialog.createAndShowGUI();
