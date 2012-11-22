@@ -105,12 +105,12 @@ public class AddBorrowerDialog extends JFrame implements ActionListener{
 			
 		}else if (add.equals(arg0.getActionCommand()))
 		{
-			int createValid = createBorrower();
-			if (createValid == VALIDATIONERROR) {
+			if (createBorrower() != VALIDATIONERROR) {
+				dispose();
+			}
+			else {
 				JOptionPane errorPopup = new JOptionPane();
 				errorPopup.showMessageDialog(this, "Invalid Input", "Error", JOptionPane.ERROR_MESSAGE);
-			}
-			else if (createValid == 0) { this.dispose(); // It should close.. but it isn't
 			}
 		}
 		
