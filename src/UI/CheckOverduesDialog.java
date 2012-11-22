@@ -20,7 +20,7 @@ public class CheckOverduesDialog extends JFrame implements ActionListener{
 	JTextField bookCallNumber = new JTextField();
 	DefaultListModel listModel = new DefaultListModel();
 	
-	static String CHECKOVERDUE = "Check overdues";
+	static String EMAILBORROWER = "Email borrower";
 	static String returnToClerkDialogString = "Return to Clerk Dialog";
 	
 	public CheckOverduesDialog(String name)
@@ -37,34 +37,29 @@ public class CheckOverduesDialog extends JFrame implements ActionListener{
 		panel.add(new Label(""));
 		panel.add(new Label(""));
 		
-		panel.add(new Label("Call number"));
+		panel.add(new Label("Item"));
+		panel.add(new Label("Borrower"));
+		panel.add(new Label(""));
+		
 		panel.add(bookCallNumber);
-		panel.add(new Label(""));
-		
-		JButton checkCallNumberButton = new JButton("Check");
-		checkCallNumberButton.setActionCommand("Check");
-		checkCallNumberButton.addActionListener(this);
-		panel.add(checkCallNumberButton);
-		
-		panel.add(new Label(""));
+		panel.add(borrowerID);
 		
 		JList list = new JList(listModel);
 		JScrollPane scrollPane = new JScrollPane(list);
 		panel.add(scrollPane);
 		panel.add(new Label(""));
 		
-		
-		panel.add(new Label(""));
 		JButton returnToUserDialog = new JButton(returnToClerkDialogString);
 		returnToUserDialog.setActionCommand(returnToClerkDialogString);
 		returnToUserDialog.addActionListener(this);
 		
-		JButton checkOverdueButton = new JButton(CHECKOVERDUE);
-		checkOverdueButton.setActionCommand(CHECKOVERDUE);
-		checkOverdueButton.addActionListener(this);
+		JButton emailBorrowerButton = new JButton(EMAILBORROWER);
+		emailBorrowerButton.setActionCommand(EMAILBORROWER);
+		emailBorrowerButton.addActionListener(this);
+		
 		
 		panel.add(returnToUserDialog);
-		panel.add(checkOverdueButton);
+		panel.add(emailBorrowerButton);
 		
 		pane.add(panel);
 	}
@@ -84,7 +79,7 @@ public class CheckOverduesDialog extends JFrame implements ActionListener{
 		if (returnToClerkDialogString.equals(arg0.getActionCommand()))
 		{
 			this.dispose();
-		}else if(arg0.getActionCommand().equals(CHECKOVERDUE))
+		}else if(arg0.getActionCommand().equals(EMAILBORROWER))
 		{
 			//listModel.addElement(bookCallNumber.getText());
 			//bookCallNumber.setText("");
