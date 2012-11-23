@@ -32,7 +32,7 @@ public class ClerkDialog extends JFrame implements ActionListener{
 	private void addComponentsToPane(final Container pane)
 	{
 		JPanel panel = new JPanel();
-		panel.setLayout(new GridLayout(3, 3));
+		panel.setLayout(new GridLayout(2, 3));
 		
 		JButton addBorrowerButton = new JButton("Add Borrower");
 		addBorrowerButton.setVerticalTextPosition(AbstractButton.CENTER);
