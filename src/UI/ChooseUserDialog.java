@@ -66,6 +66,9 @@ public class ChooseUserDialog extends JPanel implements ActionListener{
                 createAndShowGUI();
             }
         });       
+        Transactions T = new Transactions();
+        ArrayList<String> test = T.showBorrower();
+        System.out.println(test);
     }
 
 	@Override
