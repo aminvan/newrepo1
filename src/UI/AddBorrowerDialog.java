@@ -129,7 +129,13 @@ public class AddBorrowerDialog extends JFrame implements ActionListener{
 		String bexpiry;
 		String btype;
 		
-		bid = 1;
+		//bid = 1;
+		if (borrowerID.getText().trim().length() != 0) {
+			bid = Integer.parseInt(borrowerID.getText().trim());
+		}
+		else {
+			return VALIDATIONERROR;
+		}
 		
 		if (password.getText().trim().length() != 0) {
 			bpw = password.getText().trim();

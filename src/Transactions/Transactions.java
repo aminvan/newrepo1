@@ -124,6 +124,81 @@ public class Transactions {
 		}
 	    }
 	
+	public void insertBook(int callnum, int isbn, String title, String mainAuthor, String publisher, int year ){
+		
+		
+		try
+		{
+		  ps = connection.prepareStatement("INSERT INTO book VALUES (?,?,?,?,?,?)");
+		  ps.setInt(1, callnum);
+		  ps.setInt(2, isbn);
+		  ps.setString(3, title);
+		  ps.setString(4, mainAuthor);
+		  ps.setString(5, publisher);
+		  ps.setInt(6, year);
+
+		  //System.out.println("all added");
+		  ps.executeUpdate();
+		  //System.out.println("executed");
+		  // commit work 
+		  connection.commit();
+		  //System.out.println("committed");
+		  ps.close();
+		  System.out.println("Inserted into book");
+		}
+		catch (SQLException ex)
+		{
+		    System.out.println("Message: " + ex.getMessage());
+		    try 
+		    {
+			// undo the insert
+			connection.rollback();	
+		    }
+		    catch (SQLException ex2)
+		    {
+			System.out.println("Message: " + ex2.getMessage());
+			System.exit(-1);
+		    }
+		}
+	    }
+	
+	public void insertBookCopy(int callnum, int copynum, String status){
+		
+		
+		try
+		{
+		  ps = connection.prepareStatement("INSERT INTO bookCopy VALUES (?,?,?)");
+		  ps.setInt(1, callnum);
+		  ps.setInt(2, copynum);
+		  ps.setString(3, status);
+
+
+		  //System.out.println("all added");
+		  ps.executeUpdate();
+		  //System.out.println("executed");
+		  // commit work 
+		  connection.commit();
+		  //System.out.println("committed");
+		  ps.close();
+		  System.out.println("Inserted into bookCopy");
+		}
+		catch (SQLException ex)
+		{
+		    System.out.println("Message: " + ex.getMessage());
+		    try 
+		    {
+			// undo the insert
+			connection.rollback();	
+		    }
+		    catch (SQLException ex2)
+		    {
+			System.out.println("Message: " + ex2.getMessage());
+			System.exit(-1);
+		    }
+		}
+	    }
+	
+	
 	public ArrayList<String> showBorrower()
  {
 		
@@ -199,7 +274,66 @@ public class Transactions {
 	}	
  }
  
+	
+//Not complete
+	public ArrayList<String> showCheckedOutBooks()
+ {
+		
+		//TODO
+		
+		String     callnum;
+		String     copynum;
+		String     status;
+		String     title;
+
+	ArrayList<String> returnQuery = new ArrayList<String>();
+	Statement  stmt;
+	ResultSet  rs;
+	
+	   
+	try
+	{
+	  stmt = connection.createStatement();
+	  rs = stmt.executeQuery("SELECT * FROM bookCopy, book WHERE status = 'out'and book.callnumber = bookCopy.callnumber");
+	  // get info on ResultSet
+	  ResultSetMetaData rsmd = rs.getMetaData();
+	  // get number of columns
+	  int numCols = rsmd.getColumnCount();
+	  //System.out.println(" ");
+	  // display column names;
+	  for (int i = 0; i < numCols; i++)
+	  {
+	      // get column name and print it
+	     // System.out.printf("%-15s", rsmd.getColumnName(i+1));    
+	  }
+	  //System.out.println(" ");
+	  while(rs.next())
+	  {
+	      
+	      	callnum = rs.getString("CALLNUMBER");
+	      	title = rs.getString("TITLE");
+	      	status = rs.getString("STATUS");
+
+	  		returnQuery.add(callnum);
+	  		returnQuery.add(title);
+	  		returnQuery.add(status);
+
+	  }
+
+	  // close the statement; 
+	  // the ResultSet will also be closed
+	  stmt.close();
+	  return returnQuery;
+	}
+	catch (SQLException ex)
+	{
+	    System.out.println("Message: " + ex.getMessage());
+	    return null;
+	}	
+ }
+ 
 }
+
 
 	
 
