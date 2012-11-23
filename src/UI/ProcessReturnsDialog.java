@@ -97,9 +97,24 @@ public class ProcessReturnsDialog extends JFrame implements ActionListener{
 			this.dispose();
 		}else if(arg0.getActionCommand().equals(CHECKIN))
 		{
-			listModel.addElement(bookCallNumber.getText());
+			listModel.addElement(bookCallNumber.getText().trim());
+			processReturn();
 			bookCallNumber.setText("");
 		}
 		
+		
+	}
+	
+	private int processReturn() {
+
+		/*
+		 *  Processing returns:
+		 *  find user
+		 *  - Check to see if it's overdue
+		 *  - If so, add fine to user
+		 *  - Then set book back to borrowable
+		 */
+		
+		return 0;
 	}
 }

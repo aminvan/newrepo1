@@ -108,7 +108,7 @@ public class AddBorrowerDialog extends JFrame implements ActionListener{
 		}else if (add.equals(arg0.getActionCommand()))
 		{
 			if (createBorrower() != VALIDATIONERROR) {
-				// dispose();
+				clearFields();
 			}
 			else {
 				JOptionPane.showMessageDialog(this, "Invalid Input", "Error", JOptionPane.ERROR_MESSAGE);
@@ -186,6 +186,18 @@ public class AddBorrowerDialog extends JFrame implements ActionListener{
 		trans.insertBorrower(bid, bpw, bname, baddress, bphone, bemail, bsin, bexpiry, btype);
 		
 		return 0;
+	}
+	
+	private void clearFields() {
+		borrowerID.setText("");
+		password.setText("");
+		name.setText("");
+		address.setText("");
+		phone.setText("");
+		emailAddress.setText("");
+		sinOrStNo.setText("");
+		expiryDate.setText("");
+		type.setSelectedItem("student");
 	}
 	
 }
