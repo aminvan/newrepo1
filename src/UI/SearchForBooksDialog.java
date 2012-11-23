@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -19,6 +20,8 @@ public class SearchForBooksDialog extends JFrame implements ActionListener{
 	
 	static String returnToUserDialogString = "Return to User Dialog";
 	static String search = "Search";
+	
+	public static final int VALIDATIONERROR = 2;
 	
 	public SearchForBooksDialog(String name)
 	{
@@ -70,7 +73,37 @@ public class SearchForBooksDialog extends JFrame implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
 		
+		if (returnToUserDialogString.equals(arg0.getActionCommand()))
+		{
+			this.dispose();
+			
+		}
+		else if (search.equals(arg0.getActionCommand()))
+		{ 
+			if (searchBooks() != VALIDATIONERROR) {
+				//dispose();
+			}
+			else {
+				JOptionPane.showMessageDialog(this, "Invalid Input", "Error", JOptionPane.ERROR_MESSAGE);
+			}
+			
+		}
+		
+	}
+	
+	
+	private int searchBooks() {
+		
+		String btitle = title.getText().trim();
+		String bauthor = author.getText().trim();
+		String bsubject = subject.getText().trim();
+		
+		if (btitle.length() != 0 | bauthor.length() != 0 | bsubject.length() != 0) {
+			// Something about sending it to get list of books
+			// Display list of books in a new separate window
+		}
+		
+		return VALIDATIONERROR;
 	}
 }

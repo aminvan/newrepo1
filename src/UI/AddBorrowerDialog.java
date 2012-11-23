@@ -13,6 +13,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import Transactions.Transactions;
+
 public class AddBorrowerDialog extends JFrame implements ActionListener{
 	JTextField borrowerID = new JTextField();
 	JTextField password = new JTextField();
@@ -22,7 +24,7 @@ public class AddBorrowerDialog extends JFrame implements ActionListener{
 	JTextField emailAddress = new JTextField();
 	JTextField sinOrStNo = new JTextField();
 	JTextField expiryDate = new JTextField();
-	String[] types = {"Student", "Faculty", "Staff"};
+	String[] types = {"student", "faculty", "staff"};
 	JComboBox type = new JComboBox(types);
 	
 	static String returnToClerkDialogString = "Return to Clerk Dialog";
@@ -106,11 +108,10 @@ public class AddBorrowerDialog extends JFrame implements ActionListener{
 		}else if (add.equals(arg0.getActionCommand()))
 		{
 			if (createBorrower() != VALIDATIONERROR) {
-				dispose();
+				// dispose();
 			}
 			else {
-				JOptionPane errorPopup = new JOptionPane();
-				errorPopup.showMessageDialog(this, "Invalid Input", "Error", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(this, "Invalid Input", "Error", JOptionPane.ERROR_MESSAGE);
 			}
 		}
 		
@@ -121,13 +122,14 @@ public class AddBorrowerDialog extends JFrame implements ActionListener{
 		int bid;
 		String bpw;
 		String bname;
+		String baddress;
 		String bphone;
 		String bemail;
 		String bsin;
 		String bexpiry;
 		String btype;
 		
-		// bid... Might need to make sequence
+		bid = 1;
 		
 		if (password.getText().trim().length() != 0) {
 			bpw = password.getText().trim();
@@ -138,6 +140,13 @@ public class AddBorrowerDialog extends JFrame implements ActionListener{
 		
 		if (name.getText().trim().length() != 0) {
 			bname = name.getText().trim();
+		}
+		else {
+			return VALIDATIONERROR;
+		}
+		
+		if (address.getText().trim().length() != 0) {
+			baddress = address.getText().trim();
 		}
 		else {
 			return VALIDATIONERROR;
@@ -171,12 +180,12 @@ public class AddBorrowerDialog extends JFrame implements ActionListener{
 			return VALIDATIONERROR;
 		}
 		
-		btype = type.getName().trim();
-		
+		btype = (String) type.getSelectedItem();
+
+		Transactions trans = new Transactions();
+		trans.insertBorrower(bid, bpw, bname, baddress, bphone, bemail, bsin, bexpiry, btype);
 		
 		return 0;
-		// addBorrower(bid, bpw, bname, bphone, bemail, bsin, bexpiry, btype);
-		
 	}
 	
 }
