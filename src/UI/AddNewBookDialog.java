@@ -15,6 +15,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import Transactions.Transactions;
+
 public class AddNewBookDialog extends JFrame implements ActionListener {
 
 	JTextField callNumber = new JTextField();
@@ -27,11 +29,12 @@ public class AddNewBookDialog extends JFrame implements ActionListener {
 	static String returnToLibrarianDialogCommand = "Return to Librarian Dialog";
 	static String add = "Add";
 	
-	private Connection con;
+	private Transactions con;
 	
 	public AddNewBookDialog(String name)
 	{
 		super (name);
+		
 
 		
 	}
@@ -39,7 +42,7 @@ public class AddNewBookDialog extends JFrame implements ActionListener {
 	private void addComponentsToPane(final Container pane)
 	{
 		JPanel panel = new JPanel();
-		panel.setLayout(new GridLayout(7, 2));
+		panel.setLayout(new GridLayout(8, 2));
 		
 		panel.add(new Label("Add a new book"));
 		panel.add(new Label(""));
@@ -100,37 +103,37 @@ public class AddNewBookDialog extends JFrame implements ActionListener {
 	}
 	
 	public void addBook() {
-		PreparedStatement ps;
-		
-		try {
-			ps = con.prepareStatement("INSERT INTO Book VALUES (?,?,?,?,?,?)");
-			ps.setInt(1, Integer.parseInt(callNumber.getText()));
-			ps.setInt(2, Integer.parseInt(isbn.getText()));
-			ps.setString(3, title.getText());
-			ps.setString(4, mainAuthor.getText());
-			ps.setString(5, publisher.getText());
-			ps.setInt(6, Integer.parseInt(year.getText()));
-			
-			ps.executeUpdate();
-			
-			con.commit();
-
-			ps.close();
-			
-		} catch (SQLException ex)
-			{
-			    System.out.println("Message: " + ex.getMessage());
-			    try 
-			    {
-				// undo the insert
-				con.rollback();	
-			    }
-			    catch (SQLException ex2)
-			    {
-				System.out.println("Message: " + ex2.getMessage());
-				System.exit(-1);
-			    }
-		}
+//		PreparedStatement ps;
+//		
+//		try {
+//			ps = con.prepareStatement("INSERT INTO Book VALUES (?,?,?,?,?,?)");
+//			ps.setInt(1, Integer.parseInt(callNumber.getText()));
+//			ps.setInt(2, Integer.parseInt(isbn.getText()));
+//			ps.setString(3, title.getText());
+//			ps.setString(4, mainAuthor.getText());
+//			ps.setString(5, publisher.getText());
+//			ps.setInt(6, Integer.parseInt(year.getText()));
+//			
+//			ps.executeUpdate();
+//			
+//			con.commit();
+//
+//			ps.close();
+//			
+//		} catch (SQLException ex)
+//			{
+//			    System.out.println("Message: " + ex.getMessage());
+//			    try 
+//			    {
+//				// undo the insert
+//				con.rollback();	
+//			    }
+//			    catch (SQLException ex2)
+//			    {
+//				System.out.println("Message: " + ex2.getMessage());
+//				System.exit(-1);
+//			    }
+//		}
 	
 	}
 }
