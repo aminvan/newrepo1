@@ -177,7 +177,9 @@ public class Transactions {
 		  ps.executeUpdate();
 		  //System.out.println("executed");
 		  // commit work 
+
 		  connection.commit();
+
 		  //System.out.println("committed");
 		  ps.close();
 		  System.out.println("Inserted into bookCopy");
@@ -275,16 +277,19 @@ public class Transactions {
  }
  
 	
-//Not complete
-	public ArrayList<String> showCheckedOutBooks()
+	
+	//set default input to null	
+	//returns callnumber, title, status, outdate, indate
+	public ArrayList<String> showCheckedOutBooks(String subject)
  {
 		
 		//TODO
 		
 		String     callnum;
-		String     copynum;
 		String     status;
 		String     title;
+		String     outdate;
+		String     indate;
 
 	ArrayList<String> returnQuery = new ArrayList<String>();
 	Statement  stmt;
@@ -293,8 +298,17 @@ public class Transactions {
 	   
 	try
 	{
+		
 	  stmt = connection.createStatement();
-	  rs = stmt.executeQuery("SELECT * FROM bookCopy, book WHERE status = 'out'and book.callnumber = bookCopy.callnumber");
+	  
+	  if (subject != null){
+		  String query = String.format("SELECT * FROM bookCopy, borrowing, book, hasSubject WHERE status = 'out' and hasSubject.callnumber = book.callnumber and bookcopy.callnumber = borrowing.callnumber and bookcopy.copyno = borrowing.copyno and bookcopy.callnumber = book.callnumber and subject = '%s'",subject);
+		  rs = stmt.executeQuery(query);
+	  }
+	  else{
+		  rs = stmt.executeQuery("SELECT * FROM bookCopy, borrowing, book WHERE status = 'out' and bookcopy.callnumber = borrowing.callnumber and bookcopy.copyno = borrowing.copyno and bookcopy.callnumber = book.callnumber");
+	  }
+	  
 	  // get info on ResultSet
 	  ResultSetMetaData rsmd = rs.getMetaData();
 	  // get number of columns
@@ -313,10 +327,14 @@ public class Transactions {
 	      	callnum = rs.getString("CALLNUMBER");
 	      	title = rs.getString("TITLE");
 	      	status = rs.getString("STATUS");
+	  		outdate = rs.getString("OUTDATE");
+	  		indate = rs.getString("INDATE");
 
 	  		returnQuery.add(callnum);
 	  		returnQuery.add(title);
 	  		returnQuery.add(status);
+	  		returnQuery.add(outdate);
+	  		returnQuery.add(indate);
 
 	  }
 
@@ -332,6 +350,157 @@ public class Transactions {
 	}	
  }
  
+	
+	//input null by default eg. showBookSearch(null,null,"adventure") to search for adventure books
+	//returns: callnumber, title, author, subject status
+	public ArrayList<String> showBookSearch(String titlein, String authorin, String subjectin)
+	 {
+			//TODO
+			//loop through columns and add variables to a String[]
+			//take out the prints
+			//add functionality to select a certain attribute
+			//return one long String[] for now
+			//divide up the string by the number of parameters and make a matrix?
+		String     callnum;
+		String     title;
+		String     mainauthor;
+		String     subject;
+		String     status;
+
+		ArrayList<String> returnQuery = new ArrayList<String>();
+		Statement  stmt;
+		ResultSet  rs;
+		
+		String titleString = "";
+		String authorString = "";
+		String subjectString = "";
+		
+		if (titlein != null){
+			titleString = String.format("and title = '%s'", titlein);
+		}
+		if(authorin != null){
+			authorString = String.format("and mainauthor = '%s'", authorin);
+		}
+		if(subjectin != null){
+			subjectString = String.format("and subject = '%s'", subjectin);			
+		}
+		
+		
+		String inputString = titleString + authorString + subjectString;
+		String queryString = String.format("Select *  FROM book, bookCopy, hasSubject WHERE book.callnumber = bookcopy.callnumber and book.callnumber = hasSubject.callnumber %s", inputString);
+		System.out.println(queryString);
+
+		try
+		{
+		  stmt = connection.createStatement();
+		  rs = stmt.executeQuery(queryString);
+		  // get info on ResultSet
+		  ResultSetMetaData rsmd = rs.getMetaData();
+		  // get number of columns
+		  int numCols = rsmd.getColumnCount();
+		  //System.out.println(" ");
+		  // display column names;
+		  for (int i = 0; i < numCols; i++)
+		  {
+		      // get column name and print it
+		     // System.out.printf("%-15s", rsmd.getColumnName(i+1));    
+		  }
+		  //System.out.println(" ");
+		  while(rs.next())
+		  {
+		      
+		      	callnum = rs.getString("CALLNUMBER");
+		  		title = rs.getString("TITLE");
+		  		mainauthor = rs.getString("MAINAUTHOR");
+		  		subject = rs.getString("SUBJECT");
+		  		status = rs.getString("STATUS");
+		  		
+		  		returnQuery.add(callnum);
+		  		returnQuery.add(title);
+		  		returnQuery.add(mainauthor);
+		  		returnQuery.add(subject);
+		  		returnQuery.add(status);
+		  }
+
+		  // close the statement; 
+		  // the ResultSet will also be closed
+		  stmt.close();
+		  return returnQuery;
+		}
+		catch (SQLException ex)
+		{
+		    System.out.println("Message: " + ex.getMessage());
+		    return null;
+		}	
+	 }
+	 
+	
+	
+	public ArrayList<String> showBookCopy()
+	 {
+			
+			//TODO
+			//loop through columns and add variables to a Srting[]
+			//take out the prints
+			//add functionality to select a certain attribute
+			//return one long String[] for now
+			//divide up the string by the number of parameters and make a matrix?
+		String     callnum;
+		String     copynum;
+		String     status;
+
+
+		ArrayList<String> returnQuery = new ArrayList<String>();
+		Statement  stmt;
+		ResultSet  rs;
+		
+		   
+		try
+		{
+		  stmt = connection.createStatement();
+		  rs = stmt.executeQuery("SELECT * FROM bookcopy");
+		  // get info on ResultSet
+		  ResultSetMetaData rsmd = rs.getMetaData();
+		  // get number of columns
+		  int numCols = rsmd.getColumnCount();
+		  //System.out.println(" ");
+		  // display column names;
+		  for (int i = 0; i < numCols; i++)
+		  {
+		      // get column name and print it
+		     // System.out.printf("%-15s", rsmd.getColumnName(i+1));    
+		  }
+		  //System.out.println(" ");
+		  while(rs.next())
+		  {
+		      
+		      	callnum = rs.getString("CALLNUMBER");
+		  		copynum = rs.getString("COPYNO");
+		  		status = rs.getString("STATUS");
+
+		  		
+		  		returnQuery.add(callnum);
+		  		returnQuery.add(copynum);
+		  		returnQuery.add(status);
+
+
+		  }
+
+		  // close the statement; 
+		  // the ResultSet will also be closed
+		  stmt.close();
+		  return returnQuery;
+		}
+		catch (SQLException ex)
+		{
+		    System.out.println("Message: " + ex.getMessage());
+		    return null;
+		}	
+	 }
+	 
+	
+	
+	
 }
 
 
