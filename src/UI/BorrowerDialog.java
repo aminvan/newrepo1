@@ -67,6 +67,15 @@ public class BorrowerDialog extends JPanel implements ActionListener{
 		if (BorrowerDialog.searchBooks.equals(arg0.getActionCommand()))
 		{
 			SearchForBooksDialog.createAndShowGUI();
+		} else if (BorrowerDialog.checkAccount.equals(arg0.getActionCommand()))
+		{
+			CheckBorrowerAcctDialog.createAndShowGUI();
+		} else if (BorrowerDialog.placeHoldRequest.equals(arg0.getActionCommand()))
+		{
+			PlaceHoldDialog.createAndShowGUI();
+		} else if (BorrowerDialog.payFine.equals(arg0.getActionCommand()))
+		{
+			PayFineDialog.createAndShowGUI();
 		}
 		
 	}

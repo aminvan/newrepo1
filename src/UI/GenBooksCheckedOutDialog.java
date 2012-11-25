@@ -14,22 +14,21 @@ import javax.swing.JTextField;
 
 import Transactions.Transactions;
 
-public class SearchForBooksDialog extends JFrame implements ActionListener{
+public class GenBooksCheckedOutDialog extends JFrame implements ActionListener{
 
+	JTextField callNum = new JTextField();
 	JTextField title = new JTextField();
-	JTextField author = new JTextField();
-	JTextField subject = new JTextField();
+	JTextField checkOutDate = new JTextField();
+	JTextField dueDate = new JTextField();
 	
 	static String returnToUserDialogString = "Return to User Dialog";
-	static String search = "Search";
+	static String genReport = "Generate Report";
 	
 	public static final int VALIDATIONERROR = 2;
 	
-	public SearchForBooksDialog(String name)
+	public GenBooksCheckedOutDialog(String name)
 	{
-		super (name);
-
-		
+		super (name);		
 	}
 	
 	private void addComponentsToPane(final Container pane)
@@ -37,34 +36,31 @@ public class SearchForBooksDialog extends JFrame implements ActionListener{
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(5, 2));
 		
-		panel.add(new Label("Search"));
+		panel.add(new Label("Books Currently Checked Out"));
 		panel.add(new Label(""));
 		
-		panel.add(new Label("titles"));
-		panel.add(title);
-		
-		panel.add(new Label("authors"));
-		panel.add(author);
-		
-		panel.add(new Label("subjects"));
-		panel.add(subject);
-		
+//		panel.add(new Label("Call"));
+//		panel.add(year);
+//		
+//		panel.add(new Label("Number"));
+//		panel.add(number);
+//			
 		JButton returnToUserDialog = new JButton(returnToUserDialogString);
 		returnToUserDialog.setActionCommand(returnToUserDialogString);
 		returnToUserDialog.addActionListener(this);
 		
-		JButton searchButton = new JButton(search);
-		searchButton.setActionCommand(search);
-		searchButton.addActionListener(this);
-		
+//		JButton genReportButton = new JButton(genReport);
+//		genReportButton.setActionCommand(genReport);
+//		genReportButton.addActionListener(this);
+//		
 		panel.add(returnToUserDialog);
-		panel.add(searchButton);
+//		panel.add(genReportButton);
 		
 		pane.add(panel);
 	}
     public static void createAndShowGUI() {
         //Create and set up the window.
-        SearchForBooksDialog frame = new SearchForBooksDialog("Search Dialog");
+        GenBooksCheckedOutDialog frame = new GenBooksCheckedOutDialog("Search Dialog");
        // frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //Set up the content pane.
         frame.addComponentsToPane(frame.getContentPane());
@@ -81,35 +77,18 @@ public class SearchForBooksDialog extends JFrame implements ActionListener{
 			this.dispose();
 			
 		}
-		else if (search.equals(arg0.getActionCommand()))
+		else if (genReport.equals(arg0.getActionCommand()))
 		{ 
-			if (searchBooks() != VALIDATIONERROR) {
-				//dispose();
-				searchBooks();
-			}
-			else {
-				JOptionPane.showMessageDialog(this, "Invalid Input", "Error", JOptionPane.ERROR_MESSAGE);
-			}
+			genBooksOutReport();
 			
 		}
 		
 	}
 	
 	
-	private int searchBooks() {
+	private int genBooksOutReport() {
 		
-		String btitle = title.getText().trim();
-		String bauthor = author.getText().trim();
-		String bsubject = subject.getText().trim();
 		
-		if (btitle.length() != 0 | bauthor.length() != 0 | bsubject.length() != 0) {
-			// Something about sending it to get list of books
-			// Display list of books in a new separate window
-			
-//			Transactions trans = new Transactions();
-//			trans.showBookSearch(btitle, bauthor, bsubject);
-			
-		}
 		
 		return VALIDATIONERROR;
 	}

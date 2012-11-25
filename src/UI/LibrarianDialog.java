@@ -18,7 +18,7 @@ public class LibrarianDialog extends JFrame implements ActionListener {
 	static JFrame mainFrame;
 	static String addBookCommand = "Add a Book";
 	static String checkOutBooksCommand = "Generate Report of Checked Out Books";
-	static String popularItemsCommand = "Generate Report";
+	static String popularItemsCommand = "Generate of Popular Items Report";
 	static String addCopyCommand = "Add Copy of Pre-existing Book";
 	JTextField nItems = new JTextField();
 	JTextField year = new JTextField();
@@ -102,10 +102,14 @@ public class LibrarianDialog extends JFrame implements ActionListener {
 		if (LibrarianDialog.addBookCommand.equals(arg0.getActionCommand()))
 		{
 			AddNewBookDialog.createAndShowGUI();
-		}else if (LibrarianDialog.addCopyCommand.equals(arg0.getActionCommand()))
+		} else if (LibrarianDialog.addCopyCommand.equals(arg0.getActionCommand()))
 		{
 			AddCopyDialog.createAndShowGUI();
+		} else if (LibrarianDialog.popularItemsCommand.equals(arg0.getActionCommand()))
+		{
+			GenPopItemsReportDialog.createAndShowGUI();
 		}
+		
 		
 	}
 }

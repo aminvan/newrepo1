@@ -14,18 +14,18 @@ import javax.swing.JTextField;
 
 import Transactions.Transactions;
 
-public class SearchForBooksDialog extends JFrame implements ActionListener{
+public class PlaceHoldDialog extends JFrame implements ActionListener{
 
-	JTextField title = new JTextField();
-	JTextField author = new JTextField();
-	JTextField subject = new JTextField();
+	JTextField callNo = new JTextField();
+//	JTextField author = new JTextField();
+//	JTextField subject = new JTextField();
 	
 	static String returnToUserDialogString = "Return to User Dialog";
-	static String search = "Search";
+	static String placeHold = "Place hold";
 	
 	public static final int VALIDATIONERROR = 2;
 	
-	public SearchForBooksDialog(String name)
+	public PlaceHoldDialog(String name)
 	{
 		super (name);
 
@@ -37,34 +37,30 @@ public class SearchForBooksDialog extends JFrame implements ActionListener{
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(5, 2));
 		
-		panel.add(new Label("Search"));
+		panel.add(new Label("Place Hold"));
 		panel.add(new Label(""));
 		
-		panel.add(new Label("titles"));
-		panel.add(title);
+		panel.add(new Label("Call number"));
+		panel.add(callNo);
 		
-		panel.add(new Label("authors"));
-		panel.add(author);
-		
-		panel.add(new Label("subjects"));
-		panel.add(subject);
+		// provide option to search ?
 		
 		JButton returnToUserDialog = new JButton(returnToUserDialogString);
 		returnToUserDialog.setActionCommand(returnToUserDialogString);
 		returnToUserDialog.addActionListener(this);
 		
-		JButton searchButton = new JButton(search);
-		searchButton.setActionCommand(search);
-		searchButton.addActionListener(this);
+		JButton placeHoldButton = new JButton(placeHold);
+		placeHoldButton.setActionCommand(placeHold);
+		placeHoldButton.addActionListener(this);
 		
 		panel.add(returnToUserDialog);
-		panel.add(searchButton);
+		panel.add(placeHoldButton);
 		
 		pane.add(panel);
 	}
     public static void createAndShowGUI() {
         //Create and set up the window.
-        SearchForBooksDialog frame = new SearchForBooksDialog("Search Dialog");
+        PlaceHoldDialog frame = new PlaceHoldDialog("Search Dialog");
        // frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //Set up the content pane.
         frame.addComponentsToPane(frame.getContentPane());
@@ -81,35 +77,21 @@ public class SearchForBooksDialog extends JFrame implements ActionListener{
 			this.dispose();
 			
 		}
-		else if (search.equals(arg0.getActionCommand()))
+		else if (placeHold.equals(arg0.getActionCommand()))
 		{ 
-			if (searchBooks() != VALIDATIONERROR) {
-				//dispose();
-				searchBooks();
-			}
-			else {
-				JOptionPane.showMessageDialog(this, "Invalid Input", "Error", JOptionPane.ERROR_MESSAGE);
-			}
+			
 			
 		}
 		
 	}
 	
 	
-	private int searchBooks() {
+	private int placeHold() {
 		
-		String btitle = title.getText().trim();
-		String bauthor = author.getText().trim();
-		String bsubject = subject.getText().trim();
+		String callNum = callNo.getText().trim();
 		
-		if (btitle.length() != 0 | bauthor.length() != 0 | bsubject.length() != 0) {
-			// Something about sending it to get list of books
-			// Display list of books in a new separate window
-			
-//			Transactions trans = new Transactions();
-//			trans.showBookSearch(btitle, bauthor, bsubject);
-			
-		}
+		
+
 		
 		return VALIDATIONERROR;
 	}
