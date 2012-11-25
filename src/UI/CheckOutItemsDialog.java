@@ -6,11 +6,13 @@ import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
+import java.util.Calendar;
 import java.util.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import javax.swing.DefaultListModel;
@@ -20,6 +22,8 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+
+import Transactions.Transactions;
 
 public class CheckOutItemsDialog extends JFrame implements ActionListener{
 
@@ -31,7 +35,9 @@ public class CheckOutItemsDialog extends JFrame implements ActionListener{
 	static String returnToClerkDialogString = "Return to Clerk Dialog";
 	
     private Connection con;
-	
+    
+    public static final int VALIDATIONERROR = 2;
+    
 	public CheckOutItemsDialog(String name)
 	{
 		super(name);
@@ -107,22 +113,50 @@ public class CheckOutItemsDialog extends JFrame implements ActionListener{
 	}
 	
 	
-	public void checkout() {
+	public int checkout() {
 		PreparedStatement ps;
 		
-	//	try {
+		int bid;
+		int borrowingPeriod;
+		
 			// input bid, callNum
 				// get bookTimeLimit, use to calculate how long to check out books
 			
-			DateFormat dateFormat = new SimpleDateFormat("dd-MMM-yy");//"yyyy/MM/dd");
-			Date date = new Date();
-			System.out.println(dateFormat.format(date));
+		if (borrowerID.getText().trim().length() != 0) {
+			bid = Integer.parseInt(borrowerID.getText());
+		}
+		else {
+			return VALIDATIONERROR;
+		}
+		
+		
+		Transactions trans = new Transactions();
+		
+		//borrowingPeriod = trans.showBorrowersTimeLimit(bid);
+		
 			
+		DateFormat dateFormat = new SimpleDateFormat("dd-MMM-yy");//"yyyy/MM/dd");
+		Date date = new Date();
+		String currDate = dateFormat.format(date);
+		System.out.println(currDate);
+		
+		Calendar c = Calendar.getInstance();
+		try {
+			c.setTime(dateFormat.parse(currDate));
+			c.add(Calendar.DATE, 14);
+			String duedate = dateFormat.format(c.getTime());
+			System.out.println(duedate);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		// maybe have pop-up window if borrower currently has overdue book or fines
+		
+		
 			
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		return 0;
+			
 	
 	}
 }

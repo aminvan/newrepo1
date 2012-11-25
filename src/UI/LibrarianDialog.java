@@ -14,6 +14,8 @@ import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
 
+import Transactions.Transactions;
+
 public class LibrarianDialog extends JFrame implements ActionListener {
 	static JFrame mainFrame;
 	static String addBookCommand = "Add a Book";
@@ -22,6 +24,8 @@ public class LibrarianDialog extends JFrame implements ActionListener {
 	static String addCopyCommand = "Add Copy of Pre-existing Book";
 	JTextField nItems = new JTextField();
 	JTextField year = new JTextField();
+	
+	public static final int VALIDATIONERROR = 2;
 	
 	public LibrarianDialog(String name)
 	{
@@ -107,12 +111,34 @@ public class LibrarianDialog extends JFrame implements ActionListener {
 			AddCopyDialog.createAndShowGUI();
 		} else if (LibrarianDialog.popularItemsCommand.equals(arg0.getActionCommand()))
 		{
-			GenPopItemsReportDialog.createAndShowGUI();
+			genPopItems();			
 		} else if (LibrarianDialog.checkOutBooksCommand.equals(arg0.getActionCommand()))
 		{
 			GenBooksCheckedOutDialog.createAndShowGUI();
 		}
-		
-		
 	}
+	
+	public int genPopItems() {
+		// something year and number
+		int yr, numItems;
+		
+		if (nItems.getText().trim().length() != 0) {
+			numItems = Integer.parseInt(nItems.getText());
+		}
+		else {
+			return VALIDATIONERROR;
+		}
+		if (year.getText().trim().length() != 0) {
+			yr = Integer.parseInt(year.getText());
+		}
+		else {
+			return VALIDATIONERROR;
+		}
+		
+		Transactions trans = new Transactions();
+//		trans.popItems(yr, numItems);
+		
+		return 0;
+	}
+	
 }

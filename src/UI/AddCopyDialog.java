@@ -117,6 +117,9 @@ public class AddCopyDialog extends JFrame implements ActionListener {
 			return VALIDATIONERROR;
 		}
 		
+		// need to check that callNumber is currently in system before we can add a copy
+		// maybe a sequence to increment copy No
+		
 		Transactions trans = new Transactions();
 		trans.insertBookCopy(callNo, copynum, stat);
 		
