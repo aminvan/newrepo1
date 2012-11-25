@@ -87,6 +87,10 @@ public class Borrower {
 		this.expiryDate = expiryDate;
 		this.type = type;
 	}
+
+	public Borrower() {
+		// TODO Auto-generated constructor stub
+	}
 	
 	
 }

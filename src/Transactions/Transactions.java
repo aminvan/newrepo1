@@ -7,6 +7,10 @@ import java.util.*;
 //import java.io.*;
 import java.sql.Connection;
 
+import Objects.Book;
+import Objects.Borrower;
+import Objects.CheckedOutBook;
+
 
 
 public class Transactions {
@@ -200,7 +204,7 @@ public class Transactions {
 		}
 	    }
 	
-	public ArrayList<String> showBorrower()
+	public ArrayList<Borrower> getAllBorrowers()
  {
 		
 		//TODO
@@ -209,16 +213,7 @@ public class Transactions {
 		//add functionality to select a certain attribute
 		//return one long String[] for now
 		//divide up the string by the number of parameters and make a matrix?
-	String     bid;
-	String     name;
-	String     addr;
-	String     password;
-	String     phone;
-	String     email;
-	String     sin;
-	String     exp;
-	String     type;
-	ArrayList<String> returnQuery = new ArrayList<String>();
+	ArrayList<Borrower> returnQuery = new ArrayList<Borrower>();
 	Statement  stmt;
 	ResultSet  rs;
 	
@@ -241,26 +236,19 @@ public class Transactions {
 	  //System.out.println(" ");
 	  while(rs.next())
 	  {
-	      
-	      	bid = rs.getString("BID");
-	  		password = rs.getString("PASSWORD");
-	  		name = rs.getString("NAME");
-	  		addr = rs.getString("ADDRESS");
-	  		phone = rs.getString("PHONE");
-	  		email = rs.getString("EMAILADDRESS");
-	  		sin = rs.getString("SINORSTNO");
-	  		exp = rs.getString("EXPIRYDATE");
-	  		type = rs.getString("TYPE");
+		    Borrower b = new Borrower ();
+	      	b.setBid(rs.getString("BID"));
+	  		b.setPassword(rs.getString("PASSWORD"));
+	  		b.setName(rs.getString("NAME"));
+	  		b.setAddress(rs.getString("ADDRESS"));
+	  		b.setPhone(rs.getString("PHONE"));
+	  		b.setEmailAddress(rs.getString("EMAILADDRESS"));
+	  		b.setSinOrStNo(rs.getString("SINORSTNO"));
+	  		b.setExpiryDate(rs.getString("EXPIRYDATE"));
+	  		b.setType(rs.getString("TYPE"));
 	  		
-	  		returnQuery.add(bid);
-	  		returnQuery.add(password);
-	  		returnQuery.add(name);
-	  		returnQuery.add(addr);
-	  		returnQuery.add(phone);
-	  		returnQuery.add(email);
-	  		returnQuery.add(sin);
-	  		returnQuery.add(exp);
-	  		returnQuery.add(type);
+	  		
+	  		returnQuery.add(b);
 	  }
 
 	  // close the statement; 
@@ -277,18 +265,10 @@ public class Transactions {
  
 	//set default input to null	
 	//returns callnumber, title, status, outdate, indate
-	public ArrayList<String> showCheckedOutBooks(String subject)
+	public ArrayList<CheckedOutBook> getCheckedOutBooks(String subject)
  {
-		
-		//TODO
-		
-		String     callnum;
-		String     status;
-		String     title;
-		String     outdate;
-		String     indate;
 
-	ArrayList<String> returnQuery = new ArrayList<String>();
+	ArrayList<CheckedOutBook> returnQuery = new ArrayList<CheckedOutBook>();
 	Statement  stmt;
 	ResultSet  rs;
 	
@@ -320,19 +300,14 @@ public class Transactions {
 	  //System.out.println(" ");
 	  while(rs.next())
 	  {
-	      
-	      	callnum = rs.getString("CALLNUMBER");
-	      	title = rs.getString("TITLE");
-	      	status = rs.getString("STATUS");
-	  		outdate = rs.getString("OUTDATE");
-	  		indate = rs.getString("INDATE");
+	        CheckedOutBook c = new CheckedOutBook();
+	      	c.callNumber = rs.getString("CALLNUMBER");
+	      	c.title = rs.getString("TITLE");
+	      	c.status = rs.getString("STATUS");
+	  		c.outDate = rs.getString("OUTDATE");
+	  		c.inDate = rs.getString("INDATE");
 
-	  		returnQuery.add(callnum);
-	  		returnQuery.add(title);
-	  		returnQuery.add(status);
-	  		returnQuery.add(outdate);
-	  		returnQuery.add(indate);
-
+	  		returnQuery.add(c);
 	  }
 
 	  // close the statement; 
@@ -349,7 +324,7 @@ public class Transactions {
  
 	//input null by default eg. showBookSearch(null,null,"adventure") to search for adventure books
 	//returns: callnumber, title, author, subject status
-	public ArrayList<String> showBookSearch(String titlein, String authorin, String subjectin)
+	public ArrayList<Book> showBookSearch(String titlein, String authorin, String subjectin)
 	 {
 			//TODO
 			//loop through columns and add variables to a String[]
@@ -363,7 +338,7 @@ public class Transactions {
 		String     subject;
 		String     status;
 
-		ArrayList<String> returnQuery = new ArrayList<String>();
+		ArrayList<Book> returnQuery = new ArrayList<Book>();
 		Statement  stmt;
 		ResultSet  rs;
 		
@@ -404,18 +379,13 @@ public class Transactions {
 		  //System.out.println(" ");
 		  while(rs.next())
 		  {
-		      
-		      	callnum = rs.getString("CALLNUMBER");
-		  		title = rs.getString("TITLE");
-		  		mainauthor = rs.getString("MAINAUTHOR");
-		  		subject = rs.getString("SUBJECT");
-		  		status = rs.getString("STATUS");
+		        Book b = new Book();
+		      	b.callNumber = rs.getString("CALLNUMBER");
+		  		b.title = rs.getString("TITLE");
+		  		b.mainAuthor = rs.getString("MAINAUTHOR");
+		  		b.subject = rs.getString("SUBJECT");
+		  		b.status = rs.getString("STATUS");
 		  		
-		  		returnQuery.add(callnum);
-		  		returnQuery.add(title);
-		  		returnQuery.add(mainauthor);
-		  		returnQuery.add(subject);
-		  		returnQuery.add(status);
 		  }
 
 		  // close the statement; 

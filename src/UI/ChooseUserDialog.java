@@ -70,6 +70,7 @@ public class ChooseUserDialog extends JPanel implements ActionListener{
         
         //T.insertBookCopy(11, 1, "out");
         System.out.println(T.processReturn(11,11));
+        T.getAllBorrowers();
 
     }
 
