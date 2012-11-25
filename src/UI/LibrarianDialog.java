@@ -108,6 +108,9 @@ public class LibrarianDialog extends JFrame implements ActionListener {
 		} else if (LibrarianDialog.popularItemsCommand.equals(arg0.getActionCommand()))
 		{
 			GenPopItemsReportDialog.createAndShowGUI();
+		} else if (LibrarianDialog.checkOutBooksCommand.equals(arg0.getActionCommand()))
+		{
+			GenBooksCheckedOutDialog.createAndShowGUI();
 		}
 		
 		
