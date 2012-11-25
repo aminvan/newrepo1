@@ -8,6 +8,7 @@ import java.util.*;
 import java.sql.Connection;
 
 import Objects.Book;
+import Objects.BookCopy;
 import Objects.Borrower;
 import Objects.CheckedOutBook;
 
@@ -400,21 +401,9 @@ public class Transactions {
 		}	
 	 }
 	 
-	public ArrayList<String> showBookCopy()
+	public ArrayList<BookCopy> getAllBookCopies()
 	 {
-			
-			//TODO
-			//loop through columns and add variables to a Srting[]
-			//take out the prints
-			//add functionality to select a certain attribute
-			//return one long String[] for now
-			//divide up the string by the number of parameters and make a matrix?
-		String     callnum;
-		String     copynum;
-		String     status;
-
-
-		ArrayList<String> returnQuery = new ArrayList<String>();
+		ArrayList<BookCopy> returnQuery = new ArrayList<BookCopy>();
 		Statement  stmt;
 		ResultSet  rs;
 		
@@ -437,15 +426,13 @@ public class Transactions {
 		  //System.out.println(" ");
 		  while(rs.next())
 		  {
-		      
-		      	callnum = rs.getString("CALLNUMBER");
-		  		copynum = rs.getString("COPYNO");
-		  		status = rs.getString("STATUS");
+		        BookCopy bc = new BookCopy();
+		      	bc.callNumber = rs.getString("CALLNUMBER");
+		  		bc.copyNum = rs.getString("COPYNO");
+		  		bc.status = rs.getString("STATUS");
 
 		  		
-		  		returnQuery.add(callnum);
-		  		returnQuery.add(copynum);
-		  		returnQuery.add(status);
+		  		returnQuery.add(bc);
 
 
 		  }
