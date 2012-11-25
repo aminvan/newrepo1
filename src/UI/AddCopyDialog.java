@@ -11,6 +11,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import Transactions.Transactions;
+
 public class AddCopyDialog extends JFrame implements ActionListener {
 
 
@@ -75,8 +77,26 @@ public class AddCopyDialog extends JFrame implements ActionListener {
 		if (returnToLibrarianDialogCommand.equals(arg0.getActionCommand()))
 		{
 			this.dispose();
+		}else if(arg0.getActionCommand().equals("Add"))
+		{
+			
+			
+			// need to check that status is "on-hold", "in" or "out"
+			
+			addCopy();
 		}
 		
+	}
+	
+	public void addCopy() {
+		
+		String callNo = callNumber.getText();
+		int copynum = Integer.parseInt(copyNo.getText());
+		String stat = status.getText();
+		
+		Transactions newBook = new Transactions();
+		
+		newBook.insertBookCopy(callNo, copynum, stat);
 	}
 
 }
