@@ -103,6 +103,18 @@ public class AddNewBookDialog extends JFrame implements ActionListener {
 	}
 	
 	public void addBook() {
+		
+		String callNo = callNumber.getText();
+		int iIsbn = Integer.parseInt(isbn.getText());
+		String sTitle = title.getText();
+		String mAuthor = mainAuthor.getText();
+		String sPublisher = publisher.getText();
+		int yr = Integer.parseInt(year.getText());
+		
+		Transactions newBook = new Transactions();
+		
+		newBook.insertBook(callNo, iIsbn, sTitle, mAuthor, sPublisher,yr);
+		
 //		PreparedStatement ps;
 //		
 //		try {

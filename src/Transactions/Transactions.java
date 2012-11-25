@@ -124,13 +124,13 @@ public class Transactions {
 		}
 	    }
 	
-	public void insertBook(int callnum, int isbn, String title, String mainAuthor, String publisher, int year ){
+	public void insertBook(String callnum, int isbn, String title, String mainAuthor, String publisher, int year ){
 		
 		
 		try
 		{
 		  ps = connection.prepareStatement("INSERT INTO book VALUES (?,?,?,?,?,?)");
-		  ps.setInt(1, callnum);
+		  ps.setString(1, callnum);
 		  ps.setInt(2, isbn);
 		  ps.setString(3, title);
 		  ps.setString(4, mainAuthor);
@@ -162,13 +162,13 @@ public class Transactions {
 		}
 	    }
 	
-	public void insertBookCopy(int callnum, int copynum, String status){
+	public void insertBookCopy(String callnum, int copynum, String status){
 		
 		
 		try
 		{
 		  ps = connection.prepareStatement("INSERT INTO bookCopy VALUES (?,?,?)");
-		  ps.setInt(1, callnum);
+		  ps.setString(1, callnum);
 		  ps.setInt(2, copynum);
 		  ps.setString(3, status);
 
