@@ -502,7 +502,7 @@ public class Transactions {
 		}	
 	 }
 	
-	public ArrayList<String> showBorrowedBooks()
+	public ArrayList<Book> showBorrowedBooks()
 	 {
 			
 			//TODO
@@ -510,7 +510,7 @@ public class Transactions {
 		String     callnum;
 		String     title;
 
-		ArrayList<String> returnQuery = new ArrayList<String>();
+		ArrayList<Book> returnQuery = new ArrayList<Book>();
 		Statement  stmt;
 		ResultSet  rs;
 		
@@ -540,10 +540,10 @@ public class Transactions {
 		  //System.out.println(" ");
 		  while(rs.next())
 		  {
-		      	callnum = rs.getString("CALLNUMBER");
-		      	title = rs.getString("TITLE");
-		  		returnQuery.add(callnum);
-		  		returnQuery.add(title);
+			  Book b = new Book();
+		      	b.callNumber = rs.getString("CALLNUMBER");
+		      	b.title = rs.getString("TITLE");
+		  		returnQuery.add(b);
 		  }
 
 		  // close the statement; 
