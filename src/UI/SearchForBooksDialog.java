@@ -5,6 +5,7 @@ import java.awt.GridLayout;
 import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -12,6 +13,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import Objects.Book;
 import Transactions.Transactions;
 
 public class SearchForBooksDialog extends JFrame implements ActionListener{
@@ -84,8 +86,9 @@ public class SearchForBooksDialog extends JFrame implements ActionListener{
 		else if (search.equals(arg0.getActionCommand()))
 		{ 
 			if (searchBooks() != VALIDATIONERROR) {
-				//dispose();
-				searchBooks();
+				title.setText("");
+				author.setText("");
+				subject.setText("");
 			}
 			else {
 				JOptionPane.showMessageDialog(this, "Invalid Input", "Error", JOptionPane.ERROR_MESSAGE);
@@ -103,11 +106,11 @@ public class SearchForBooksDialog extends JFrame implements ActionListener{
 		String bsubject = subject.getText().trim();
 		
 		if (btitle.length() != 0 | bauthor.length() != 0 | bsubject.length() != 0) {
-			// Something about sending it to get list of books
-			// Display list of books in a new separate window
+
+			Transactions trans = new Transactions();
+			ArrayList<Book> bookList = trans.showBookSearch(btitle, bauthor, bsubject);
 			
-//			Transactions trans = new Transactions();
-//			trans.showBookSearch(btitle, bauthor, bsubject);
+			// displayBooks(bookList);
 			
 		}
 		

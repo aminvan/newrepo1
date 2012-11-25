@@ -79,8 +79,12 @@ public class PlaceHoldDialog extends JFrame implements ActionListener{
 		}
 		else if (placeHold.equals(arg0.getActionCommand()))
 		{ 
-			
-			
+			if (placeHold() != VALIDATIONERROR) {
+				callNo.setText("");
+			}
+			else {
+				JOptionPane.showMessageDialog(this, "Invalid Input", "Error", JOptionPane.ERROR_MESSAGE);
+			}
 		}
 		
 	}
@@ -89,6 +93,12 @@ public class PlaceHoldDialog extends JFrame implements ActionListener{
 	private int placeHold() {
 		
 		String callNum = callNo.getText().trim();
+		
+		if (callNum.length() != 0) {
+			Transactions trans = new Transactions();
+			// trans.placeHold(callNum);
+			return 0;
+		}
 		
 		
 

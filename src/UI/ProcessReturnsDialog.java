@@ -97,8 +97,8 @@ public class ProcessReturnsDialog extends JFrame implements ActionListener{
 			this.dispose();
 		}else if(arg0.getActionCommand().equals(CHECKIN))
 		{
-			listModel.addElement(bookCallNumber.getText().trim());
-			processReturn();
+			String callNumber = bookCallNumber.getText().trim();
+			listModel.addElement(callNumber);
 			bookCallNumber.setText("");
 		}
 		
