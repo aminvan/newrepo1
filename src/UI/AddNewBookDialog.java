@@ -31,12 +31,12 @@ public class AddNewBookDialog extends JFrame implements ActionListener {
 	
 	private Transactions con;
 	
+	public static final int VALIDATIONERROR = 2;
+	
 	public AddNewBookDialog(String name)
 	{
 		super (name);
-		
-
-		
+				
 	}
 	
 	private void addComponentsToPane(final Container pane)
@@ -102,50 +102,62 @@ public class AddNewBookDialog extends JFrame implements ActionListener {
 		
 	}
 	
-	public void addBook() {
+	public int addBook() {
 		
-		String callNo = callNumber.getText();
-		int iIsbn = Integer.parseInt(isbn.getText());
-		String sTitle = title.getText();
-		String mAuthor = mainAuthor.getText();
-		String sPublisher = publisher.getText();
-		int yr = Integer.parseInt(year.getText());
+		String callNo;
+		int iIsbn;
+		String sTitle;
+		String mAuthor;
+		String sPublisher;
+		int yr;
 		
-		Transactions newBook = new Transactions();
+		if (callNumber.getText().trim().length() != 0) {
+			callNo = callNumber.getText();
+		}
+		else {
+			return VALIDATIONERROR;
+		}
 		
-		newBook.insertBook(callNo, iIsbn, sTitle, mAuthor, sPublisher,yr);
+		if (isbn.getText().trim().length() != 0) {
+			iIsbn = Integer.parseInt(isbn.getText());
+		}
+		else {
+			return VALIDATIONERROR;
+		}
 		
-//		PreparedStatement ps;
-//		
-//		try {
-//			ps = con.prepareStatement("INSERT INTO Book VALUES (?,?,?,?,?,?)");
-//			ps.setInt(1, Integer.parseInt(callNumber.getText()));
-//			ps.setInt(2, Integer.parseInt(isbn.getText()));
-//			ps.setString(3, title.getText());
-//			ps.setString(4, mainAuthor.getText());
-//			ps.setString(5, publisher.getText());
-//			ps.setInt(6, Integer.parseInt(year.getText()));
-//			
-//			ps.executeUpdate();
-//			
-//			con.commit();
-//
-//			ps.close();
-//			
-//		} catch (SQLException ex)
-//			{
-//			    System.out.println("Message: " + ex.getMessage());
-//			    try 
-//			    {
-//				// undo the insert
-//				con.rollback();	
-//			    }
-//			    catch (SQLException ex2)
-//			    {
-//				System.out.println("Message: " + ex2.getMessage());
-//				System.exit(-1);
-//			    }
-//		}
-	
+		if (title.getText().trim().length() != 0) {
+			sTitle = title.getText();
+		}
+		else {
+			return VALIDATIONERROR;
+		}
+		
+		if (mainAuthor.getText().trim().length() != 0) {
+			mAuthor = mainAuthor.getText();
+		}
+		else {
+			return VALIDATIONERROR;
+		}
+		
+		if (publisher.getText().trim().length() != 0) {
+			sPublisher = publisher.getText();
+		}
+		else {
+			return VALIDATIONERROR;
+		}
+		
+		if (year.getText().trim().length() != 0) {
+			yr = Integer.parseInt(year.getText());
+		}
+		else {
+			return VALIDATIONERROR;
+		}
+		
+		Transactions trans = new Transactions();
+		
+		trans.insertBook(callNo, iIsbn, sTitle, mAuthor, sPublisher,yr);
+		
+		return 0;
+		
 	}
 }

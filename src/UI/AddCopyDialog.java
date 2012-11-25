@@ -23,6 +23,8 @@ public class AddCopyDialog extends JFrame implements ActionListener {
 	static String returnToLibrarianDialogCommand = "Return to Librarian Dialog";
 	static String add = "Add";
 	
+	public static final int VALIDATIONERROR = 2;
+	
 	public AddCopyDialog(String name)
 	{
 		super (name);
@@ -88,15 +90,37 @@ public class AddCopyDialog extends JFrame implements ActionListener {
 		
 	}
 	
-	public void addCopy() {
+	public int addCopy() {
 		
-		String callNo = callNumber.getText();
-		int copynum = Integer.parseInt(copyNo.getText());
-		String stat = status.getText();
+		String callNo;
+		int copynum;
+		String stat;
 		
-		Transactions newBook = new Transactions();
+		if (callNumber.getText().trim().length() != 0) {
+			callNo = callNumber.getText();
+		}
+		else {
+			return VALIDATIONERROR;
+		}
 		
-		newBook.insertBookCopy(callNo, copynum, stat);
+		if (copyNo.getText().trim().length() != 0) {
+			copynum = Integer.parseInt(copyNo.getText());
+		}
+		else {
+			return VALIDATIONERROR;
+		}
+		
+		if (status.getText().trim().length() != 0) {
+			stat = status.getText();
+		}
+		else {
+			return VALIDATIONERROR;
+		}
+		
+		Transactions trans = new Transactions();
+		trans.insertBookCopy(callNo, copynum, stat);
+		
+		return 0;
 	}
 
 }
