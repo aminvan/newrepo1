@@ -200,7 +200,6 @@ public class Transactions {
 		}
 	    }
 	
-	
 	public ArrayList<String> showBorrower()
  {
 		
@@ -276,8 +275,6 @@ public class Transactions {
 	}	
  }
  
-	
-	
 	//set default input to null	
 	//returns callnumber, title, status, outdate, indate
 	public ArrayList<String> showCheckedOutBooks(String subject)
@@ -350,7 +347,6 @@ public class Transactions {
 	}	
  }
  
-	
 	//input null by default eg. showBookSearch(null,null,"adventure") to search for adventure books
 	//returns: callnumber, title, author, subject status
 	public ArrayList<String> showBookSearch(String titlein, String authorin, String subjectin)
@@ -434,8 +430,6 @@ public class Transactions {
 		}	
 	 }
 	 
-	
-	
 	public ArrayList<String> showBookCopy()
 	 {
 			
@@ -497,9 +491,174 @@ public class Transactions {
 		    return null;
 		}	
 	 }
-	 
+
+	public ArrayList<String> showBorrowersTimeLimit(int bidin)
+	 {
+			
+			//TODO
+			
+			String     timeLimit;
+
+		ArrayList<String> returnQuery = new ArrayList<String>();
+		Statement  stmt;
+		ResultSet  rs;
+		
+		   
+		try
+		{
+			
+		  stmt = connection.createStatement();
+		  
+
+			  String query = String.format("SELECT booktimelimit FROM borrower, borrowerType WHERE borrower.type = borrowerType.type and borrower.bid = %d",bidin);
+			  System.out.println(query);
+			  rs = stmt.executeQuery(query);
+
+		  
+		  // get info on ResultSet
+		  ResultSetMetaData rsmd = rs.getMetaData();
+		  // get number of columns
+		  int numCols = rsmd.getColumnCount();
+		  //System.out.println(" ");
+		  // display column names;
+		  for (int i = 0; i < numCols; i++)
+		  {
+		      // get column name and print it
+		     // System.out.printf("%-15s", rsmd.getColumnName(i+1));    
+		  }
+		  //System.out.println(" ");
+		  while(rs.next())
+		  {
+		      	timeLimit = rs.getString("BOOKTIMELIMIT");
+		  		returnQuery.add(timeLimit);
+		  }
+
+		  // close the statement; 
+		  // the ResultSet will also be closed
+		  stmt.close();
+		  return returnQuery;
+		}
+		catch (SQLException ex)
+		{
+		    System.out.println("Message: " + ex.getMessage());
+		    return null;
+		}	
+	 }
 	
+	public ArrayList<String> showBorrowedBooks()
+	 {
+			
+			//TODO
+			
+		String     callnum;
+		String     title;
+
+		ArrayList<String> returnQuery = new ArrayList<String>();
+		Statement  stmt;
+		ResultSet  rs;
+		
+		   
+		try
+		{
+			
+		  stmt = connection.createStatement();
+		  
+
+			  String query = String.format("SELECT book.callnumber, book.title FROM book, borrowing WHERE book.callnumber = borrowing.callnumber");
+			  System.out.println(query);
+			  rs = stmt.executeQuery(query);
+
+		  
+		  // get info on ResultSet
+		  ResultSetMetaData rsmd = rs.getMetaData();
+		  // get number of columns
+		  int numCols = rsmd.getColumnCount();
+		  //System.out.println(" ");
+		  // display column names;
+		  for (int i = 0; i < numCols; i++)
+		  {
+		      // get column name and print it
+		     // System.out.printf("%-15s", rsmd.getColumnName(i+1));    
+		  }
+		  //System.out.println(" ");
+		  while(rs.next())
+		  {
+		      	callnum = rs.getString("CALLNUMBER");
+		      	title = rs.getString("TITLE");
+		  		returnQuery.add(callnum);
+		  		returnQuery.add(title);
+		  }
+
+		  // close the statement; 
+		  // the ResultSet will also be closed
+		  stmt.close();
+		  return returnQuery;
+		}
+		catch (SQLException ex)
+		{
+		    System.out.println("Message: " + ex.getMessage());
+		    return null;
+		}	
+	 }
 	
+	public ArrayList<String> processReturn(int callnum, int copynum)
+	 {
+			
+			//TODO
+			
+		String     status;
+		String     bid;
+		String     indate;
+
+		ArrayList<String> returnQuery = new ArrayList<String>();
+		Statement  stmt;
+		ResultSet  rs;
+		
+		   
+		try
+		{
+			
+		  stmt = connection.createStatement();
+		  
+
+			  String query = String.format("SELECT bookCopy.status, borrowing.bid, borrowing.indate FROM bookCopy, borrowing WHERE bookCopy.callNumber = borrowing.callNumber and bookCopy.callNumber = %d and bookCopy.copyNo = %d ", callnum, copynum);
+			  System.out.println(query);
+			  rs = stmt.executeQuery(query);
+
+		  
+		  // get info on ResultSet
+		  ResultSetMetaData rsmd = rs.getMetaData();
+		  // get number of columns
+		  int numCols = rsmd.getColumnCount();
+		  //System.out.println(" ");
+		  // display column names;
+		  for (int i = 0; i < numCols; i++)
+		  {
+		      // get column name and print it
+		     // System.out.printf("%-15s", rsmd.getColumnName(i+1));    
+		  }
+		  //System.out.println(" ");
+		  while(rs.next())
+		  {
+		      	status = rs.getString("STATUS");
+		      	bid = rs.getString("BID");
+		      	indate = rs.getString("INDATE");
+		  		returnQuery.add(status);
+		  		returnQuery.add(bid);
+		  		returnQuery.add(indate);
+		  }
+
+		  // close the statement; 
+		  // the ResultSet will also be closed
+		  stmt.close();
+		  return returnQuery;
+		}
+		catch (SQLException ex)
+		{
+		    System.out.println("Message: " + ex.getMessage());
+		    return null;
+		}	
+	 }
 	
 }
 
