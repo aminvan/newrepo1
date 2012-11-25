@@ -43,10 +43,17 @@ public class BorrowerDialog extends JPanel implements ActionListener{
 		payFine.setActionCommand(BorrowerDialog.payFine);
 		payFine.addActionListener(this);
 		
+		JButton returnToChooseUserDialogBtn = new JButton (Constants.RETURN_TO_CHOOSE_USER_DIALOG);
+		returnToChooseUserDialogBtn.setVerticalAlignment(AbstractButton.CENTER);
+		returnToChooseUserDialogBtn.setHorizontalAlignment(AbstractButton.CENTER);
+		returnToChooseUserDialogBtn.setActionCommand(Constants.RETURN_TO_CHOOSE_USER_DIALOG);
+		returnToChooseUserDialogBtn.addActionListener(this);
+		
 		this.add(searchForBooks, BorderLayout.LINE_START);
 		this.add(checkAccount, BorderLayout.CENTER);
 		this.add(placeHoldRequest, BorderLayout.AFTER_LAST_LINE);
 		this.add(payFine, BorderLayout.AFTER_LAST_LINE);
+		this.add(returnToChooseUserDialogBtn, BorderLayout.AFTER_LAST_LINE);
 	}
 	
 	public static void createAndShowGUI(String borrowerID)
@@ -76,6 +83,10 @@ public class BorrowerDialog extends JPanel implements ActionListener{
 		} else if (BorrowerDialog.payFine.equals(arg0.getActionCommand()))
 		{
 			PayFineDialog.createAndShowGUI();
+		}else if (Constants.RETURN_TO_CHOOSE_USER_DIALOG.equals(arg0.getActionCommand()))
+		{
+			mainFrame.dispose();
+			ChooseUserDialog.createAndShowGUI();
 		}
 		
 	}

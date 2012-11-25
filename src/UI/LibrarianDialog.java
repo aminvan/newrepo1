@@ -20,7 +20,7 @@ public class LibrarianDialog extends JFrame implements ActionListener {
 	static JFrame mainFrame;
 	static String addBookCommand = "Add a Book";
 	static String checkOutBooksCommand = "Generate Report of Checked Out Books";
-	static String popularItemsCommand = "Generate of Popular Items Report";
+	static String popularItemsCommand = "Generate Report of Popular Items";
 	static String addCopyCommand = "Add Copy of Pre-existing Book";
 	JTextField nItems = new JTextField();
 	JTextField year = new JTextField();
@@ -78,10 +78,16 @@ public class LibrarianDialog extends JFrame implements ActionListener {
 		panel2.add(new Label("in year"));
 		panel2.add(year);
 		
+		JButton backButton = new JButton (Constants.RETURN_TO_CHOOSE_USER_DIALOG);
+		backButton.setVerticalAlignment(AbstractButton.CENTER);
+		backButton.setHorizontalAlignment(AbstractButton.CENTER);
+		backButton.setActionCommand(Constants.RETURN_TO_CHOOSE_USER_DIALOG);
+		backButton.addActionListener(this);
+		
 		panel2.add(new Label(""));
 		panel2.add(new Label(""));
 		panel2.add(popularItemsButton);
-		
+		panel2.add(backButton);
 		
 		pane.add(panel, BorderLayout.NORTH);
 		pane.add(new Label("Generate report of popular items by filling out the text fields and pressing Generate Report"),
@@ -115,6 +121,10 @@ public class LibrarianDialog extends JFrame implements ActionListener {
 		} else if (LibrarianDialog.checkOutBooksCommand.equals(arg0.getActionCommand()))
 		{
 			GenBooksCheckedOutDialog.createAndShowGUI();
+		}else if (Constants.RETURN_TO_CHOOSE_USER_DIALOG.equals(arg0.getActionCommand()))
+		{
+			this.dispose();
+			ChooseUserDialog.createAndShowGUI();
 		}
 	}
 	

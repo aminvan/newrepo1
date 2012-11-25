@@ -32,7 +32,7 @@ public class ClerkDialog extends JFrame implements ActionListener{
 	private void addComponentsToPane(final Container pane)
 	{
 		JPanel panel = new JPanel();
-		panel.setLayout(new GridLayout(2, 3));
+		panel.setLayout(new GridLayout(3, 3));
 		
 		JButton addBorrowerButton = new JButton("Add Borrower");
 		addBorrowerButton.setVerticalTextPosition(AbstractButton.CENTER);
@@ -66,12 +66,15 @@ public class ClerkDialog extends JFrame implements ActionListener{
 		panel.add(returnField);
 		panel.add(processReturn);
 		
-		JButton backButton = new JButton ("Return to Choose User Dialog");
+		JButton backButton = new JButton (Constants.RETURN_TO_CHOOSE_USER_DIALOG);
 		backButton.setVerticalAlignment(AbstractButton.CENTER);
 		backButton.setHorizontalAlignment(AbstractButton.CENTER);
-		backButton.setActionCommand(processReturnCommand);
+		backButton.setActionCommand(Constants.RETURN_TO_CHOOSE_USER_DIALOG);
 		backButton.addActionListener(this);
 		
+		panel.add(new Label(""));
+		panel.add(new Label(""));
+		panel.add(backButton);
 		
 		pane.add(panel);
 		
@@ -106,6 +109,10 @@ public class ClerkDialog extends JFrame implements ActionListener{
 		}else if (ClerkDialog.checkOverdueCommand.equals(arg0.getActionCommand()))
 		{
 			CheckOverduesDialog.createAndShowGUI();
+		}else if (Constants.RETURN_TO_CHOOSE_USER_DIALOG.equals(arg0.getActionCommand()))
+		{
+			this.dispose();
+			ChooseUserDialog.createAndShowGUI();
 		}
 		
 	}

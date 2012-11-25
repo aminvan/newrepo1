@@ -46,7 +46,7 @@ public class ChooseUserDialog extends JPanel implements ActionListener{
 		//return userList;
 	}
 	
-	private static void createAndShowGUI()
+	public static void createAndShowGUI()
 	{
 		mainFrame = new JFrame("Choose User!");
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
