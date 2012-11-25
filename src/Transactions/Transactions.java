@@ -328,16 +328,7 @@ public class Transactions {
 	public ArrayList<Book> showBookSearch(String titlein, String authorin, String subjectin)
 	 {
 			//TODO
-			//loop through columns and add variables to a String[]
-			//take out the prints
-			//add functionality to select a certain attribute
-			//return one long String[] for now
-			//divide up the string by the number of parameters and make a matrix?
-		String     callnum;
-		String     title;
-		String     mainauthor;
-		String     subject;
-		String     status;
+		
 
 		ArrayList<Book> returnQuery = new ArrayList<Book>();
 		Statement  stmt;
@@ -386,9 +377,11 @@ public class Transactions {
 		  		b.mainAuthor = rs.getString("MAINAUTHOR");
 		  		b.subject = rs.getString("SUBJECT");
 		  		b.status = rs.getString("STATUS");
-		  		
+		  		b.isbn= rs.getString("ISBN");
+		  		b.year = rs.getString("YEAR");
+		  		b.publisher = rs.getString("PUBLISHER");
+		  		returnQuery.add(b);
 		  }
-
 		  // close the statement; 
 		  // the ResultSet will also be closed
 		  stmt.close();
@@ -449,14 +442,13 @@ public class Transactions {
 		}	
 	 }
 
-	public ArrayList<String> showBorrowersTimeLimit(int bidin)
+	public int showBorrowersTimeLimit(int bidin)
 	 {
 			
 			//TODO
 			
-			String     timeLimit;
+			String     timeLimit="";
 
-		ArrayList<String> returnQuery = new ArrayList<String>();
 		Statement  stmt;
 		ResultSet  rs;
 		
@@ -487,18 +479,17 @@ public class Transactions {
 		  while(rs.next())
 		  {
 		      	timeLimit = rs.getString("BOOKTIMELIMIT");
-		  		returnQuery.add(timeLimit);
 		  }
 
 		  // close the statement; 
 		  // the ResultSet will also be closed
 		  stmt.close();
-		  return returnQuery;
+		  return Integer.parseInt( timeLimit );
 		}
 		catch (SQLException ex)
 		{
 		    System.out.println("Message: " + ex.getMessage());
-		    return null;
+		    return 0;
 		}	
 	 }
 	

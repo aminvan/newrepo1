@@ -69,8 +69,8 @@ public class ChooseUserDialog extends JPanel implements ActionListener{
         Transactions T = new Transactions();
         
         //T.insertBookCopy(11, 1, "out");
-        System.out.println(T.processReturn(11,11));
-        T.getAllBorrowers();
+        System.out.println(T.showBorrowersTimeLimit(3));
+        //T.getAllBorrowers();
 
     }
 
