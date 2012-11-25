@@ -6,9 +6,12 @@ import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
+import java.util.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -103,23 +106,23 @@ public class CheckOutItemsDialog extends JFrame implements ActionListener{
 
 	}
 	
+	
 	public void checkout() {
 		PreparedStatement ps;
 		
-		try {
-			ps = con.prepareStatement("INSERT INTO Borrowing VALUES (?,?,?,?,?, ?)");
-//			ps.setInt(1, Integer.parseInt(borid.getText()));
-//			ps.setInt(2, Integer.parseInt(bid.getText()));
-//			ps.setInt(3, Integer.parseInt(callNumber.getText()));
-//			ps.setInt(4, Integer.parseInt(copyNo.getText()));
-//			ps.setString(5, outDate.getText());
-//			ps.setString(6, inDate.getText());
+	//	try {
+			// input bid, callNum
+				// get bookTimeLimit, use to calculate how long to check out books
+			
+			DateFormat dateFormat = new SimpleDateFormat("dd-MMM-yy");//"yyyy/MM/dd");
+			Date date = new Date();
+			System.out.println(dateFormat.format(date));
 			
 			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 	
 	}
 }
