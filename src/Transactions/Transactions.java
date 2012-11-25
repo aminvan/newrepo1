@@ -502,7 +502,7 @@ public class Transactions {
 		}	
 	 }
 	
-	public ArrayList<Book> showBorrowedBooks()
+	public ArrayList<Book> getAllBorrowedBooks()
 	 {
 			
 			//TODO
