@@ -41,7 +41,7 @@ public class PlaceHoldDialog extends JFrame implements ActionListener{
 	private void addComponentsToPane(final Container pane)
 	{
 		JPanel panel = new JPanel();
-		panel.setLayout(new GridLayout(5, 2));
+		panel.setLayout(new GridLayout(3, 2));
 		
 		panel.add(new Label("Place Hold"));
 		panel.add(new Label(""));
