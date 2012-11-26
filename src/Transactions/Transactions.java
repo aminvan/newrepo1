@@ -88,7 +88,7 @@ public class Transactions {
 		}
 	    }
 		
-	public void insertBorrower(int bid, String password, String name, String address, String phone, String email, String sin, String exp, String type){
+	public boolean insertBorrower(int bid, String password, String name, String address, String phone, String email, String sin, String exp, String type){
 		//TODO make date an int?
 		
 		try
@@ -109,6 +109,7 @@ public class Transactions {
 		  connection.commit();
 		  ps.close();
 		  System.out.println("Inserted into borrower");
+		  return true;
 		}
 		catch (SQLException ex)
 		{
@@ -117,22 +118,24 @@ public class Transactions {
 		    {
 			// undo the insert
 			connection.rollback();	
+			return false;
 		    }
 		    catch (SQLException ex2)
 		    {
 			System.out.println("Message: " + ex2.getMessage());
 			System.exit(-1);
+			return false;
 		    }
 		}
 	    }
 	
-	public boolean insertBook(String callnum, int isbn, String title, String mainAuthor, String publisher, int year ){
+	public boolean insertBook(int callnum, int isbn, String title, String mainAuthor, String publisher, int year ){
 		
 		
 		try
 		{
 		  ps = connection.prepareStatement("INSERT INTO book VALUES (?,?,?,?,?,?)");
-		  ps.setString(1, callnum);
+		  ps.setInt(1, callnum);
 		  ps.setInt(2, isbn);
 		  ps.setString(3, title);
 		  ps.setString(4, mainAuthor);
@@ -167,13 +170,13 @@ public class Transactions {
 		}
 	    }
 	
-	public void insertBookCopy(String callnum, int copynum, String status){
+	public boolean insertBookCopy(int callnum, int copynum, String status){
 		
 		
 		try
 		{
 		  ps = connection.prepareStatement("INSERT INTO bookCopy VALUES (?,?,?)");
-		  ps.setString(1, callnum);
+		  ps.setInt(1, callnum);
 		  ps.setInt(2, copynum);
 		  ps.setString(3, status);
 
@@ -188,6 +191,7 @@ public class Transactions {
 		  //System.out.println("committed");
 		  ps.close();
 		  System.out.println("Inserted into bookCopy");
+		  return true;
 		}
 		catch (SQLException ex)
 		{
@@ -196,11 +200,13 @@ public class Transactions {
 		    {
 			// undo the insert
 			connection.rollback();	
+			 return false;
 		    }
 		    catch (SQLException ex2)
 		    {
 			System.out.println("Message: " + ex2.getMessage());
 			System.exit(-1);
+			 return false;
 		    }
 		}
 	    }
@@ -238,7 +244,7 @@ public class Transactions {
 	  while(rs.next())
 	  {
 		    Borrower b = new Borrower ();
-	      	b.setBid(rs.getString("BID"));
+	      	b.setBid(rs.getInt("BID"));
 	  		b.setPassword(rs.getString("PASSWORD"));
 	  		b.setName(rs.getString("NAME"));
 	  		b.setAddress(rs.getString("ADDRESS"));
@@ -372,7 +378,7 @@ public class Transactions {
 		  while(rs.next())
 		  {
 		        BookCopy b = new BookCopy();
-		      	b.callNumber = rs.getString("CALLNUMBER");
+		      	b.callNumber = rs.getInt("CALLNUMBER");
 		  		b.title = rs.getString("TITLE");
 		  		b.mainAuthor = rs.getString("MAINAUTHOR");
 		  		b.subject = rs.getString("SUBJECT");
@@ -420,8 +426,8 @@ public class Transactions {
 		  while(rs.next())
 		  {
 		        BookCopy bc = new BookCopy();
-		      	bc.callNumber = rs.getString("CALLNUMBER");
-		  		bc.copyNum = rs.getString("COPYNO");
+		      	bc.callNumber = rs.getInt("CALLNUMBER");
+		  		bc.copyNum = rs.getInt("COPYNO");
 		  		bc.status = rs.getString("STATUS");
 
 		  		
@@ -532,7 +538,7 @@ public class Transactions {
 		  while(rs.next())
 		  {
 			  Book b = new Book();
-		      	b.callNumber = rs.getString("CALLNUMBER");
+		      	b.callNumber = rs.getInt("CALLNUMBER");
 		      	b.title = rs.getString("TITLE");
 		  		returnQuery.add(b);
 		  }
@@ -609,12 +615,12 @@ public class Transactions {
 		}	
 	 }
 		
-	public boolean updateBookCopyStatus(int callnum, int copynum, String status){
+	public boolean updateBookCopyStatus(String callnum, int copynum, String status){
 		
 		
 		try
 		{
-			String query = String.format("UPDATE bookCopy SET status = '%s' WHERE callnumber = %d and copyno = %d",status, callnum, copynum);
+			String query = String.format("UPDATE bookCopy SET status = '%s' WHERE callnumber = %s and copyno = %d",status, callnum, copynum);
 			System.out.println(query);
 			ps = connection.prepareStatement(query);
 		  ps.executeUpdate();
@@ -667,8 +673,8 @@ public class Transactions {
 		  while(rs.next())
 		  {
 		        BookCopy bc = new BookCopy();
-		      	bc.callNumber = rs.getString("CALLNUMBER");
-		  		bc.copyNum = rs.getString("COPYNO");
+		      	bc.callNumber = rs.getInt("CALLNUMBER");
+		  		bc.copyNum = rs.getInt("COPYNO");
 		  		bc.status = rs.getString("STATUS");
 
 		  		
@@ -689,14 +695,14 @@ public class Transactions {
 		}	
 	 }
 	
-	public boolean insertBorrowing(int borid,int callnum,int copynum,int bid, String outDate, String inDate){
+	public boolean insertBorrowing(int borid,String callnum,int copynum,int bid, String outDate, String inDate){
 		
 		
 		try
 		{
 		  ps = connection.prepareStatement("INSERT INTO borrowing VALUES (?,?,?,?,?,?)");
 		  ps.setInt(1, borid);
-		  ps.setInt(2, callnum);
+		  ps.setString(2, callnum);
 		  ps.setInt(3, copynum);
 		  ps.setInt(4, bid);
 		  ps.setString(5, outDate);
@@ -769,7 +775,7 @@ public class Transactions {
 		}
 	    }
 
-	public ArrayList<Borrower> showBorrowerById(int bid)
+	public Borrower showBorrowerById(int bid)
 {
 		
 		//TODO
@@ -796,10 +802,11 @@ public class Transactions {
 	     // System.out.printf("%-15s", rsmd.getColumnName(i+1));    
 	  }
 	  //System.out.println(" ");
+	  Borrower b = new Borrower ();
 	  while(rs.next())
 	  {
-		    Borrower b = new Borrower ();
-	      	b.setBid(rs.getString("BID"));
+		    
+	      	b.setBid(rs.getInt("BID"));
 	  		b.setPassword(rs.getString("PASSWORD"));
 	  		b.setName(rs.getString("NAME"));
 	  		b.setAddress(rs.getString("ADDRESS"));
@@ -816,7 +823,7 @@ public class Transactions {
 	  // close the statement; 
 	  // the ResultSet will also be closed
 	  stmt.close();
-	  return returnQuery;
+	  return b;
 	}
 	catch (SQLException ex)
 	{
@@ -1006,7 +1013,7 @@ public class Transactions {
 		}	
 	 }
 
-	public ArrayList<BookCopy> showCopyOfGivenBook(int callnum, int copynum)
+	public BookCopy showCopyOfGivenBook(int callnum, int copynum)
 	 {
 		ArrayList<BookCopy> returnQuery = new ArrayList<BookCopy>();
 		Statement  stmt;
@@ -1030,15 +1037,15 @@ public class Transactions {
 		     // System.out.printf("%-15s", rsmd.getColumnName(i+1));    
 		  }
 		  //System.out.println(" ");
+		  BookCopy bc = new BookCopy();
 		  while(rs.next())
 		  {
-		        BookCopy bc = new BookCopy();
-		      	bc.callNumber = rs.getString("CALLNUMBER");
-		  		bc.copyNum = rs.getString("COPYNO");
+		        
+		      	bc.callNumber = rs.getInt("CALLNUMBER");
+		  		bc.copyNum = rs.getInt("COPYNO");
 		  		bc.status = rs.getString("STATUS");
 
 		  		
-		  		returnQuery.add(bc);
 
 
 		  }
@@ -1046,7 +1053,7 @@ public class Transactions {
 		  // close the statement; 
 		  // the ResultSet will also be closed
 		  stmt.close();
-		  return returnQuery;
+		  return bc;
 		}
 		catch (SQLException ex)
 		{

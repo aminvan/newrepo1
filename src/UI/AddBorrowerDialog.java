@@ -24,7 +24,7 @@ public class AddBorrowerDialog extends JFrame implements ActionListener{
 	JTextField emailAddress = new JTextField();
 	JTextField sinOrStNo = new JTextField();
 	JTextField expiryDate = new JTextField();
-	String[] types = {"student", "faculty", "staff"};
+	String[] types = {Constants.STUDENT, Constants.FACULTY, Constants.STAFF, Constants.GEN_PUB};
 	JComboBox type = new JComboBox(types);
 	
 	static String returnToClerkDialogString = "Return to Clerk Dialog";
@@ -189,7 +189,13 @@ public class AddBorrowerDialog extends JFrame implements ActionListener{
 		btype = (String) type.getSelectedItem();
 
 		Transactions trans = new Transactions();
-		trans.insertBorrower(bid, bpw, bname, baddress, bphone, bemail, bsin, bexpiry, btype);
+		if (trans.insertBorrower(bid, bpw, bname, baddress, bphone, bemail, bsin, bexpiry, btype))
+		{
+			GiveMeTitleAndMessageDialog.createAndShowGUI(Constants.SUCCESS, Constants.SUCCESS);
+		}else
+		{
+			GiveMeTitleAndMessageDialog.createAndShowGUI(Constants.ERROR, Constants.ERROR);
+		}
 		
 		return 0;
 	}

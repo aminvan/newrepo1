@@ -2,13 +2,14 @@ package Objects;
 
 public class Borrower {
 
-	String bid, password, name, address, phone, emailAddress, sinOrStNo, expiryDate, type;
+	Integer bid;
+	String password, name, address, phone, emailAddress, sinOrStNo, expiryDate, type;
 	
-	public String getBid() {
+	public Integer getBid() {
 		return bid;
 	}
 
-	public void setBid(String bid) {
+	public void setBid(Integer bid) {
 		this.bid = bid;
 	}
 
@@ -76,7 +77,7 @@ public class Borrower {
 		this.type = type;
 	}
 
-	public Borrower(String bid, String name, String address, String phone, String emailAddress,
+	public Borrower(Integer bid, String name, String address, String phone, String emailAddress,
 					String sinOrStNo, String expiryDate, String type)
 	{
 		this.bid = bid;

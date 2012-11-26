@@ -104,7 +104,7 @@ public class AddNewBookDialog extends JFrame implements ActionListener {
 	
 	public int addBook() {
 		
-		String callNo;
+		int callNo;
 		int iIsbn;
 		String sTitle;
 		String mAuthor;
@@ -112,7 +112,7 @@ public class AddNewBookDialog extends JFrame implements ActionListener {
 		int yr;
 		
 		if (callNumber.getText().trim().length() != 0) {
-			callNo = callNumber.getText();
+			callNo = Integer.parseInt(callNumber.getText());
 		}
 		else {
 			showErrorDialog();
@@ -164,7 +164,10 @@ public class AddNewBookDialog extends JFrame implements ActionListener {
 		if (trans.insertBook(callNo, iIsbn, sTitle, mAuthor, sPublisher,yr))
 		{
 			GiveMeTitleAndMessageDialog.createAndShowGUI(Constants.SUCCESS, "Book added successfully");
-			trans.insertBookCopy(callNo + " C1", 1, Constants.IN);
+			if (trans.insertBookCopy(callNo, 1, Constants.IN))
+			{
+				GiveMeTitleAndMessageDialog.createAndShowGUI(Constants.SUCCESS, "Copy added successfully");
+			}
 			clearTextFields();
 		}else
 		{

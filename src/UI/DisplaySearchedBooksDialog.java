@@ -63,8 +63,8 @@ public class DisplaySearchedBooksDialog extends JFrame implements ActionListener
        // frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //Set up the content pane.
         //TODO remove this;
-        books.add(new BookCopy("Something","Something", "Something", "Something", "Something", "Something", "Something", "status"));
-        books.add(new BookCopy("Something1","Something2", "Something3", "Something4", "Something5", "Something6", "Something7", "status"));
+        books.add(new BookCopy(1,"112", "Something", "Something", "Something", "Something", "Something", "status"));
+        books.add(new BookCopy(2,"241", "Something3", "Something4", "Something5", "Something6", "Something7", "status"));
        
         frame.addComponentsToPane(frame.getContentPane(), books);
         //Display the window.

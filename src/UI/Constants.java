@@ -11,4 +11,8 @@ public class Constants {
 	public static String IN = "in";
 	public static String OUT = "out";
 	public static String ON_HOLD = "on hold";
+	public static String STUDENT = "student";
+	public static String FACULTY = "faculty";
+	public static String STAFF = "staff";
+	public static String GEN_PUB = "general public";
 }

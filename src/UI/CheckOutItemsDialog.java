@@ -6,6 +6,7 @@ import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.sql.PreparedStatement;
@@ -23,13 +24,18 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
+import Objects.BookCopy;
+import Objects.Borrower;
 import Transactions.Transactions;
 
 public class CheckOutItemsDialog extends JFrame implements ActionListener{
 
 	JTextField borrowerID = new JTextField();
 	JTextField bookCallNumber = new JTextField();
+	JTextField copyNumber = new JTextField();
 	DefaultListModel listModel = new DefaultListModel();
+	ArrayList<String> callNumberList = new ArrayList<String>();
+	ArrayList<Integer> copyNumberList = new ArrayList<Integer>();
 	
 	static String CHECKOUT = "Check Out Books";
 	static String returnToClerkDialogString = "Return to Clerk Dialog";
@@ -46,7 +52,7 @@ public class CheckOutItemsDialog extends JFrame implements ActionListener{
 	private void addComponentsToPane(final Container pane)
 	{
 		JPanel panel = new JPanel();
-		panel.setLayout(new GridLayout(5, 3));
+		panel.setLayout(new GridLayout(6, 3));
 		
 		panel.add(new Label("Check Out Books"));
 		panel.add(new Label(""));
@@ -56,14 +62,16 @@ public class CheckOutItemsDialog extends JFrame implements ActionListener{
 		panel.add(borrowerID);
 		panel.add(new Label(""));
 		
-		panel.add(new Label("Enter one call number and press add"));
+		panel.add(new Label("Enter one call number"));
 		panel.add(bookCallNumber);
+		panel.add(new Label(""));
+		
+		panel.add(new Label("Enter Copy Number and press Add"));
 		JButton addCallNumberButton = new JButton("Add");
 		addCallNumberButton.setActionCommand("Add");
 		addCallNumberButton.addActionListener(this);
+		panel.add(copyNumber);
 		panel.add(addCallNumberButton);
-		
-		panel.add(new Label(""));
 		
 		JList list = new JList(listModel);
 		JScrollPane scrollPane = new JScrollPane(list);
@@ -87,7 +95,7 @@ public class CheckOutItemsDialog extends JFrame implements ActionListener{
 	}
     public static void createAndShowGUI() {
         //Create and set up the window.
-        CheckOutItemsDialog frame = new CheckOutItemsDialog("Check Out Items");
+        CheckOutItemsDialog frame = new CheckOutItemsDialog("Check Out Books");
        // frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //Set up the content pane.
         frame.addComponentsToPane(frame.getContentPane());
@@ -104,59 +112,112 @@ public class CheckOutItemsDialog extends JFrame implements ActionListener{
 		}else if(arg0.getActionCommand().equals("Add"))
 		{
 			listModel.addElement(bookCallNumber.getText());
-			bookCallNumber.setText("");
+			addCallAndCopyNumber();
+
 		}else if(arg0.getActionCommand().equals(CHECKOUT))
 		{
-			checkout();
+			String borrowerType = getBorrower().getType();
+			if (borrowerType != null)
+			{
+				checkOutBooks(borrowerType);
+			}
+			
 		}
 
 	}
 	
 	
-	public int checkout() {
-		PreparedStatement ps;
-		
-		int bid;
-		int borrowingPeriod;
-		
-			// input bid, callNum
-				// get bookTimeLimit, use to calculate how long to check out books
+	private Borrower getBorrower()
+	{
+		int bid = Integer.parseInt(borrowerID.getText().trim());
+		Transactions t = new Transactions();
+		Borrower b = t.showBorrowerById(bid);
+		return b;
+	}
+	private void checkOutBooks(String borrowerType)
+	{
+		ArrayList<String> errorCallNumberList = new ArrayList<String>();
+		String items = "";
+		String failedItems = "";
+		for (int i = 0; i < callNumberList.size(); i++)
+		{
 			
-		if (borrowerID.getText().trim().length() != 0) {
-			bid = Integer.parseInt(borrowerID.getText());
-		}
-		else {
-			return VALIDATIONERROR;
-		}
-		
-		
-		Transactions trans = new Transactions();
-		
-		//borrowingPeriod = trans.showBorrowersTimeLimit(bid);
-		
+			String callNumber = callNumberList.get(i);
+			int copyNumber = copyNumberList.get(i);
+			Transactions t = new Transactions();
+			BookCopy bc = t.showCopyOfGivenBook(Integer.parseInt(callNumber), copyNumber);
+			if (bc.status.equals(Constants.IN))
+			{
+				items = items + callNumber + " ";
+				t.updateBookCopyStatus(callNumber, copyNumber, Constants.OUT);
+				t.insertBorrowing(i, callNumber, copyNumber, Integer.parseInt(borrowerID.getText().trim()), getCurrentDateInStringFormat(), null);
+			}else
+			{
+				failedItems = failedItems + callNumber + " ";
+			}
 			
-		DateFormat dateFormat = new SimpleDateFormat("dd-MMM-yy");//"yyyy/MM/dd");
+		}
+		if (errorCallNumberList.size() == 0)
+		{
+			GiveMeTitleAndMessageDialog.createAndShowGUI("Check out success", "The following books " + items + "are due on " + this.getReturnDate(borrowerType));
+		}else
+		{
+			GiveMeTitleAndMessageDialog.createAndShowGUI("Check out result", "The following books " + items + "are due on " + this.getReturnDate(borrowerType) + ".  The following" +
+					"items were not checked out successfully " + failedItems);
+		}
+		clearAllFields();
+	}
+	
+	private void clearAllFields()
+	{
+		this.borrowerID.setText("");
+		this.bookCallNumber.setText("");
+		this.copyNumber.setText("");
+		copyNumberList.clear();
+		callNumberList.clear();
+	}
+	private void addCallAndCopyNumber()
+	{
+		this.callNumberList.add(bookCallNumber.getText());
+		this.copyNumberList.add(Integer.parseInt(copyNumber.getText().trim()));
+		bookCallNumber.setText("");
+		copyNumber.setText("");
+	}
+	
+	private String getCurrentDateInStringFormat()
+	{
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
 		Date date = new Date();
-		String currDate = dateFormat.format(date);
-		System.out.println(currDate);
-		
+		return dateFormat.format(date);
+	}
+	
+	private String getReturnDate(String borrowerType)
+	{
 		Calendar c = Calendar.getInstance();
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+		
 		try {
-			c.setTime(dateFormat.parse(currDate));
-			c.add(Calendar.DATE, 14);
+			c.setTime(dateFormat.parse(getCurrentDateInStringFormat()));
+			if (borrowerType.equals(Constants.STAFF))
+			{
+				c.add(Calendar.DATE, 42);
+			}else if (borrowerType.equals(Constants.STUDENT))
+			{
+				c.add(Calendar.DATE, 14);
+			}else if (borrowerType.equals(Constants.FACULTY))
+			{
+				c.add(Calendar.DATE, 84);
+			}else
+			{
+				c.add(Calendar.DATE, 14);
+			}
+			
 			String duedate = dateFormat.format(c.getTime());
-			System.out.println(duedate);
+			return duedate;
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return "Error occurred calculating due date";
 		}
-		
-		// maybe have pop-up window if borrower currently has overdue book or fines
-		
-		
-			
-		return 0;
-			
-	
 	}
 }
