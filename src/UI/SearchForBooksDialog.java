@@ -6,6 +6,7 @@ import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -85,21 +86,25 @@ public class SearchForBooksDialog extends JFrame implements ActionListener{
 		}
 		else if (search.equals(arg0.getActionCommand()))
 		{ 
-			if (searchBooks() != VALIDATIONERROR) {
+			//TODO remove comments and remove this line
+			DisplaySearchedBooksDialog.createAndShowGUI(new ArrayList<Book>());
+			/*List<Book> books = searchBooks();
+			if (books != null) {
 				title.setText("");
 				author.setText("");
 				subject.setText("");
+				DisplaySearchedBooksDialog.createAndShowGUI(books);
 			}
 			else {
 				JOptionPane.showMessageDialog(this, "Invalid Input", "Error", JOptionPane.ERROR_MESSAGE);
-			}
+			}*/
 			
 		}
 		
 	}
 	
 	
-	private int searchBooks() {
+	private List<Book> searchBooks() {
 		
 		String btitle = title.getText().trim();
 		String bauthor = author.getText().trim();
@@ -109,11 +114,11 @@ public class SearchForBooksDialog extends JFrame implements ActionListener{
 
 			Transactions trans = new Transactions();
 			ArrayList<Book> bookList = trans.showBookSearch(btitle, bauthor, bsubject);
-			
+			return bookList;
 			// displayBooks(bookList);
 			
 		}
 		
-		return VALIDATIONERROR;
+		return null;
 	}
 }
