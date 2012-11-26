@@ -1,24 +1,28 @@
 package UI;
 
+import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
+import javax.swing.AbstractButton;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableModel;
 
 public class CheckOverduesDialog extends JFrame implements ActionListener{
 
-	JTextField borrowerID = new JTextField();
-	JTextField bookCallNumber = new JTextField();
-	DefaultListModel listModel = new DefaultListModel();
+	String [] columnNames = {"Item Call Number", "Borrower"}; 
 	
 	static String EMAILBORROWER = "Email borrower";
 	static String returnToClerkDialogString = "Return to Clerk Dialog";
@@ -31,37 +35,27 @@ public class CheckOverduesDialog extends JFrame implements ActionListener{
 	private void addComponentsToPane(final Container pane)
 	{
 		JPanel panel = new JPanel();
-		panel.setLayout(new GridLayout(5, 3));
+		panel.setLayout(new GridLayout(1, 1));
 		
-		panel.add(new Label("Check Overdues"));
-		panel.add(new Label(""));
-		panel.add(new Label(""));
+		JTable table = new JTable(this.getTableModel());
+		panel.add(new JScrollPane(table));
 		
-		panel.add(new Label("Item"));
-		panel.add(new Label("Borrower"));
-		panel.add(new Label(""));
-		
-		panel.add(bookCallNumber);
-		panel.add(borrowerID);
-		
-		JList list = new JList(listModel);
-		JScrollPane scrollPane = new JScrollPane(list);
-		panel.add(scrollPane);
-		panel.add(new Label(""));
-		
-		JButton returnToUserDialog = new JButton(returnToClerkDialogString);
-		returnToUserDialog.setActionCommand(returnToClerkDialogString);
-		returnToUserDialog.addActionListener(this);
-		
-		JButton emailBorrowerButton = new JButton(EMAILBORROWER);
-		emailBorrowerButton.setActionCommand(EMAILBORROWER);
-		emailBorrowerButton.addActionListener(this);
+		JPanel panel2 = new JPanel();
+		panel2.setLayout(new GridLayout(1, 2));
 		
 		
-		panel.add(returnToUserDialog);
-		panel.add(emailBorrowerButton);
 		
-		pane.add(panel);
+		JButton backButton = new JButton (Constants.OK);
+		backButton.setVerticalAlignment(AbstractButton.CENTER);
+		backButton.setHorizontalAlignment(AbstractButton.CENTER);
+		backButton.setActionCommand(Constants.OK);
+		backButton.addActionListener(this);
+
+		panel2.add(new Label(""));
+		panel2.add(backButton);
+		
+		pane.add(panel, BorderLayout.NORTH);
+		pane.add(panel2, BorderLayout.SOUTH);
 	}
     public static void createAndShowGUI() {
         //Create and set up the window.
@@ -85,5 +79,35 @@ public class CheckOverduesDialog extends JFrame implements ActionListener{
 			//bookCallNumber.setText("");
 		}
 		
+	}
+	
+	private TableModel getTableModel()
+	{
+
+		@SuppressWarnings("serial")
+		TableModel tm = new AbstractTableModel(){
+
+			@Override
+			public String getColumnName(int col) {
+		        return columnNames[col];
+		    }
+			@Override
+			public int getColumnCount() {
+				return columnNames.length;
+			}
+
+			@Override
+			public int getRowCount() {
+				return 1;
+			}
+
+			@Override
+			public Object getValueAt(int y, int x) {
+				return "";
+				
+			}
+			
+		};
+		return tm;
 	}
 }

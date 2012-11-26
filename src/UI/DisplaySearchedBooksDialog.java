@@ -19,6 +19,7 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
 
 import Objects.Book;
+import Objects.BookCopy;
 
 public class DisplaySearchedBooksDialog extends JFrame implements ActionListener{
 	
@@ -28,7 +29,7 @@ public class DisplaySearchedBooksDialog extends JFrame implements ActionListener
 		super (name);
 	}
 	
-	private void addComponentsToPane(final Container pane, List<Book> books)
+	private void addComponentsToPane(final Container pane, List<BookCopy> books)
 	{
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(1, 1));
@@ -54,15 +55,16 @@ public class DisplaySearchedBooksDialog extends JFrame implements ActionListener
 		pane.add(panel2, BorderLayout.SOUTH);
 		
 	}
-	public static void createAndShowGUI(List<Book> books)
+	public static void createAndShowGUI(List<BookCopy> books)
 	{ 
 		  //Create and set up the window.
         DisplaySearchedBooksDialog frame = new DisplaySearchedBooksDialog("Search Results");
        // frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //Set up the content pane.
         //TODO remove this;
-        books.add(new Book("Something","Something", "Something", "Something", "Something", "Something", "Something"));
-        books.add(new Book("Something1","Something2", "Something3", "Something4", "Something5", "Something6", "Something7"));
+        books.add(new BookCopy("Something","Something", "Something", "Something", "Something", "Something", "Something", "status"));
+        books.add(new BookCopy("Something1","Something2", "Something3", "Something4", "Something5", "Something6", "Something7", "status"));
+       
         frame.addComponentsToPane(frame.getContentPane(), books);
         //Display the window.
         frame.pack();
@@ -75,7 +77,7 @@ public class DisplaySearchedBooksDialog extends JFrame implements ActionListener
 			this.dispose();
 	}
 	
-	private TableModel bookData(final List<Book> books)
+	private TableModel bookData(final List<BookCopy> books)
 	{
 		final int numRows = books.size();
 
@@ -88,7 +90,7 @@ public class DisplaySearchedBooksDialog extends JFrame implements ActionListener
 		    }
 			@Override
 			public int getColumnCount() {
-				return columnNames.length - 1;
+				return columnNames.length;
 			}
 
 			@Override

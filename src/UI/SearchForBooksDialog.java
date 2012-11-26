@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import Objects.Book;
+import Objects.BookCopy;
 import Transactions.Transactions;
 
 public class SearchForBooksDialog extends JFrame implements ActionListener{
@@ -87,7 +88,7 @@ public class SearchForBooksDialog extends JFrame implements ActionListener{
 		else if (search.equals(arg0.getActionCommand()))
 		{ 
 			//TODO remove comments and remove this line
-			DisplaySearchedBooksDialog.createAndShowGUI(new ArrayList<Book>());
+			DisplaySearchedBooksDialog.createAndShowGUI(new ArrayList<BookCopy>());
 			/*List<Book> books = searchBooks();
 			if (books != null) {
 				title.setText("");

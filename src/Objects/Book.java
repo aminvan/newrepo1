@@ -2,7 +2,7 @@ package Objects;
 
 public class Book {
 
-	public String callNumber, isbn, title, mainAuthor, publisher, year, subject, status;
+	public String callNumber, isbn, title, mainAuthor, publisher, year, subject;
 	
 	public Book()
 	{

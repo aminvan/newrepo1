@@ -374,7 +374,7 @@ public class Transactions {
 		  //System.out.println(" ");
 		  while(rs.next())
 		  {
-		        Book b = new Book();
+		        BookCopy b = new BookCopy();
 		      	b.callNumber = rs.getString("CALLNUMBER");
 		  		b.title = rs.getString("TITLE");
 		  		b.mainAuthor = rs.getString("MAINAUTHOR");
