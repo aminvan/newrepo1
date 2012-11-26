@@ -610,11 +610,8 @@ public class Transactions {
 		    return null;
 		}	
 	 }
-
-	
-	
-	
-public boolean updateBookCopyStatus(int callnum, int copynum, String status){
+		
+	public boolean updateBookCopyStatus(int callnum, int copynum, String status){
 		
 		
 		try
@@ -645,7 +642,194 @@ public boolean updateBookCopyStatus(int callnum, int copynum, String status){
 		}
 	    }
 
+	public ArrayList<BookCopy> showCopiesOfGivenBook(int callnum)
+	 {
+		ArrayList<BookCopy> returnQuery = new ArrayList<BookCopy>();
+		Statement  stmt;
+		ResultSet  rs;
+		
+		   
+		try
+		{
+			String query = String.format("SELECT * FROM bookCopy WHERE callNumber = %d", callnum);
+		  stmt = connection.createStatement();
+		  rs = stmt.executeQuery(query);
+		  // get info on ResultSet
+		  ResultSetMetaData rsmd = rs.getMetaData();
+		  // get number of columns
+		  int numCols = rsmd.getColumnCount();
+		  //System.out.println(" ");
+		  // display column names;
+		  for (int i = 0; i < numCols; i++)
+		  {
+		      // get column name and print it
+		     // System.out.printf("%-15s", rsmd.getColumnName(i+1));    
+		  }
+		  //System.out.println(" ");
+		  while(rs.next())
+		  {
+		        BookCopy bc = new BookCopy();
+		      	bc.callNumber = rs.getString("CALLNUMBER");
+		  		bc.copyNum = rs.getString("COPYNO");
+		  		bc.status = rs.getString("STATUS");
 
+		  		
+		  		returnQuery.add(bc);
+
+
+		  }
+
+		  // close the statement; 
+		  // the ResultSet will also be closed
+		  stmt.close();
+		  return returnQuery;
+		}
+		catch (SQLException ex)
+		{
+		    System.out.println("Message: " + ex.getMessage());
+		    return null;
+		}	
+	 }
+	
+	public boolean insertBorrowing(int borid,int callnum,int copynum,int bid, String outDate, String inDate){
+		
+		
+		try
+		{
+		  ps = connection.prepareStatement("INSERT INTO borrowing VALUES (?,?,?,?,?,?)");
+		  ps.setInt(1, borid);
+		  ps.setInt(2, callnum);
+		  ps.setInt(3, copynum);
+		  ps.setInt(4, bid);
+		  ps.setString(5, outDate);
+		  ps.setString(6, inDate);
+
+		  //System.out.println("all added");
+		  ps.executeUpdate();
+		  //System.out.println("executed");
+		  // commit work 
+		  connection.commit();
+		  //System.out.println("committed");
+		  ps.close();
+		  System.out.println("Inserted into borrowing");
+		  return true;
+		}
+		catch (SQLException ex)
+		{
+		    System.out.println("Message: " + ex.getMessage());
+		    try 
+		    {
+			// undo the insert
+			connection.rollback();	
+			return false;
+		    }
+		    catch (SQLException ex2)
+		    {
+			System.out.println("Message: " + ex2.getMessage());
+			System.exit(-1);
+			return false;
+		    }
+		}
+	    }
+
+	public boolean insertFine(int fid, int amount, String issueDate, String paidDate, int borid){
+		
+		try
+		{
+		  ps = connection.prepareStatement("INSERT INTO fine VALUES (?,?,?,?,?)");
+		  ps.setInt(1, fid);
+		  ps.setInt(2, amount);
+		  ps.setString(3, issueDate);
+		  ps.setString(4, paidDate);
+		  ps.setInt(5, borid);
+
+		  //System.out.println("all added");
+		  ps.executeUpdate();
+		  //System.out.println("executed");
+		  // commit work 
+		  connection.commit();
+		  //System.out.println("committed");
+		  ps.close();
+		  System.out.println("Inserted into fine");
+		  return true;
+		}
+		catch (SQLException ex)
+		{
+		    System.out.println("Message: " + ex.getMessage());
+		    try 
+		    {
+			// undo the insert
+			connection.rollback();	
+			return false;
+		    }
+		    catch (SQLException ex2)
+		    {
+			System.out.println("Message: " + ex2.getMessage());
+			System.exit(-1);
+			return false;
+		    }
+		}
+	    }
+
+	public ArrayList<Borrower> showBorrowerById(int bid)
+{
+		
+		//TODO
+		//loop through columns and add variables to a Srting[]
+		//take out the prints
+		//add functionality to select a certain attribute
+		//return one long String[] for now
+		//divide up the string by the number of parameters and make a matrix?
+	ArrayList<Borrower> returnQuery = new ArrayList<Borrower>();
+	Statement  stmt;
+	ResultSet  rs;
+	
+	   
+	try
+	{
+		String query = String.format("SELECT * FROM borrower WHERE bid = %d", bid);
+	  stmt = connection.createStatement();
+	  rs = stmt.executeQuery(query);
+	  // get info on ResultSet
+	  ResultSetMetaData rsmd = rs.getMetaData();
+	  // get number of columns
+	  int numCols = rsmd.getColumnCount();
+	  //System.out.println(" ");
+	  // display column names;
+	  for (int i = 0; i < numCols; i++)
+	  {
+	      // get column name and print it
+	     // System.out.printf("%-15s", rsmd.getColumnName(i+1));    
+	  }
+	  //System.out.println(" ");
+	  while(rs.next())
+	  {
+		    Borrower b = new Borrower ();
+	      	b.setBid(rs.getString("BID"));
+	  		b.setPassword(rs.getString("PASSWORD"));
+	  		b.setName(rs.getString("NAME"));
+	  		b.setAddress(rs.getString("ADDRESS"));
+	  		b.setPhone(rs.getString("PHONE"));
+	  		b.setEmailAddress(rs.getString("EMAILADDRESS"));
+	  		b.setSinOrStNo(rs.getString("SINORSTNO"));
+	  		b.setExpiryDate(rs.getString("EXPIRYDATE"));
+	  		b.setType(rs.getString("TYPE"));
+	  		
+	  		
+	  		returnQuery.add(b);
+	  }
+
+	  // close the statement; 
+	  // the ResultSet will also be closed
+	  stmt.close();
+	  return returnQuery;
+	}
+	catch (SQLException ex)
+	{
+	    System.out.println("Message: " + ex.getMessage());
+	    return null;
+	}	
+}
 
 
 }
