@@ -878,6 +878,183 @@ public class Transactions {
 	}	
 }
 
+	public ArrayList<String> showHoldRequestById(int bidin)
+	 {
+			
+			//TODO: Make hold class
+			
+		String     hid;
+		String     callnum;
+		String     bid;
+		String     issueDate;
+
+		ArrayList<String> returnQuery = new ArrayList<String>();
+		Statement  stmt;
+		ResultSet  rs;
+		
+		   
+		try
+		{
+			
+		  stmt = connection.createStatement();
+		  
+
+			  String query = String.format("SELECT * FROM holdRequest WHERE bid = %d", bidin);
+			  System.out.println(query);
+			  rs = stmt.executeQuery(query);
+
+		  
+		  // get info on ResultSet
+		  ResultSetMetaData rsmd = rs.getMetaData();
+		  // get number of columns
+		  int numCols = rsmd.getColumnCount();
+		  //System.out.println(" ");
+		  // display column names;
+		  for (int i = 0; i < numCols; i++)
+		  {
+		      // get column name and print it
+		     // System.out.printf("%-15s", rsmd.getColumnName(i+1));    
+		  }
+		  //System.out.println(" ");
+		  while(rs.next())
+		  {
+		      	hid = rs.getString("HID");
+		      	callnum = rs.getString("CALLNUMBER");
+		      	bid = rs.getString("BID");
+		      	issueDate = rs.getString("ISSUEDDATE");
+		  		returnQuery.add(hid);
+		  		returnQuery.add(callnum);
+		  		returnQuery.add(bid);
+		  		returnQuery.add(issueDate);
+		  }
+
+		  // close the statement; 
+		  // the ResultSet will also be closed
+		  stmt.close();
+		  return returnQuery;
+		}
+		catch (SQLException ex)
+		{
+		    System.out.println("Message: " + ex.getMessage());
+		    return null;
+		}	
+	 }
+
+	public ArrayList<String> showFineById(int boridin)
+	 {
+			
+			//TODO: Make hold class
+			
+		String     fid;
+		String     amount;
+		String     paidDate;
+		String     issueDate;
+		String     borid;
+
+		ArrayList<String> returnQuery = new ArrayList<String>();
+		Statement  stmt;
+		ResultSet  rs;
+		
+		   
+		try
+		{
+			
+		  stmt = connection.createStatement();
+		  
+
+			  String query = String.format("SELECT * FROM fine WHERE borid = %d", boridin);
+			  System.out.println(query);
+			  rs = stmt.executeQuery(query);
+
+		  
+		  // get info on ResultSet
+		  ResultSetMetaData rsmd = rs.getMetaData();
+		  // get number of columns
+		  int numCols = rsmd.getColumnCount();
+		  //System.out.println(" ");
+		  // display column names;
+		  for (int i = 0; i < numCols; i++)
+		  {
+		      // get column name and print it
+		     // System.out.printf("%-15s", rsmd.getColumnName(i+1));    
+		  }
+		  //System.out.println(" ");
+		  while(rs.next())
+		  {
+
+		      	fid = rs.getString("FID");
+		      	amount = rs.getString("AMOUNT");
+		      	paidDate = rs.getString("PAIDDATE");
+		      	issueDate = rs.getString("ISSUEDDATE");
+		      	borid = rs.getString("BORID");
+		  		returnQuery.add(fid);
+		  		returnQuery.add(amount);
+		  		returnQuery.add(paidDate);
+		  		returnQuery.add(issueDate);
+		  		returnQuery.add(borid);
+		  }
+
+		  // close the statement; 
+		  // the ResultSet will also be closed
+		  stmt.close();
+		  return returnQuery;
+		}
+		catch (SQLException ex)
+		{
+		    System.out.println("Message: " + ex.getMessage());
+		    return null;
+		}	
+	 }
+
+	public ArrayList<BookCopy> showCopyOfGivenBook(int callnum, int copynum)
+	 {
+		ArrayList<BookCopy> returnQuery = new ArrayList<BookCopy>();
+		Statement  stmt;
+		ResultSet  rs;
+		
+		   
+		try
+		{
+			String query = String.format("SELECT * FROM bookCopy WHERE callNumber = %d and copyNo = %d", callnum, copynum);
+		  stmt = connection.createStatement();
+		  rs = stmt.executeQuery(query);
+		  // get info on ResultSet
+		  ResultSetMetaData rsmd = rs.getMetaData();
+		  // get number of columns
+		  int numCols = rsmd.getColumnCount();
+		  //System.out.println(" ");
+		  // display column names;
+		  for (int i = 0; i < numCols; i++)
+		  {
+		      // get column name and print it
+		     // System.out.printf("%-15s", rsmd.getColumnName(i+1));    
+		  }
+		  //System.out.println(" ");
+		  while(rs.next())
+		  {
+		        BookCopy bc = new BookCopy();
+		      	bc.callNumber = rs.getString("CALLNUMBER");
+		  		bc.copyNum = rs.getString("COPYNO");
+		  		bc.status = rs.getString("STATUS");
+
+		  		
+		  		returnQuery.add(bc);
+
+
+		  }
+
+		  // close the statement; 
+		  // the ResultSet will also be closed
+		  stmt.close();
+		  return returnQuery;
+		}
+		catch (SQLException ex)
+		{
+		    System.out.println("Message: " + ex.getMessage());
+		    return null;
+		}	
+	 }
+	
 	
 }
 
