@@ -5,6 +5,11 @@ import java.awt.GridLayout;
 import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -22,6 +27,7 @@ public class PlaceHoldDialog extends JFrame implements ActionListener{
 	
 	static String returnToUserDialogString = "Return to User Dialog";
 	static String placeHold = "Place hold";
+	static String bid;
 	
 	public static final int VALIDATIONERROR = 2;
 	
@@ -58,7 +64,7 @@ public class PlaceHoldDialog extends JFrame implements ActionListener{
 		
 		pane.add(panel);
 	}
-    public static void createAndShowGUI() {
+    public static void createAndShowGUI(String borrowerID) {
         //Create and set up the window.
         PlaceHoldDialog frame = new PlaceHoldDialog("Search Dialog");
        // frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -67,6 +73,7 @@ public class PlaceHoldDialog extends JFrame implements ActionListener{
         //Display the window.
         frame.pack();
         frame.setVisible(true);
+        bid = borrowerID;
     }
 
 	@Override
@@ -95,8 +102,14 @@ public class PlaceHoldDialog extends JFrame implements ActionListener{
 		String callNum = callNo.getText().trim();
 		
 		if (callNum.length() != 0) {
+			
+			DateFormat dateFormat = new SimpleDateFormat("dd-MMM-yy");
+			Date date = new Date();
+			String currDate = dateFormat.format(date);
+			System.out.println(currDate);
+			
 			Transactions trans = new Transactions();
-			// trans.placeHold(callNum);
+			// trans.placeHold(bid, callNum, currDate);
 			return 0;
 		}
 		
