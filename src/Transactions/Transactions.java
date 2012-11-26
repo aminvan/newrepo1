@@ -7,10 +7,7 @@ import java.util.*;
 //import java.io.*;
 import java.sql.Connection;
 
-import Objects.Book;
-import Objects.BookCopy;
-import Objects.Borrower;
-import Objects.CheckedOutBook;
+import Objects.*;
 
 
 
@@ -552,6 +549,7 @@ public class Transactions {
 		}	
 	 }
 	
+	//return status, bid, inDate
 	public ArrayList<String> processReturn(int callnum, int copynum)
 	 {
 			
@@ -775,11 +773,7 @@ public class Transactions {
 {
 		
 		//TODO
-		//loop through columns and add variables to a Srting[]
-		//take out the prints
-		//add functionality to select a certain attribute
-		//return one long String[] for now
-		//divide up the string by the number of parameters and make a matrix?
+		
 	ArrayList<Borrower> returnQuery = new ArrayList<Borrower>();
 	Statement  stmt;
 	ResultSet  rs;
@@ -831,7 +825,60 @@ public class Transactions {
 	}	
 }
 
+	public ArrayList<Borrowing> showBorrowingById(int bid)
+{
+		
+		//TODO: make a borrowing class
+	ArrayList<Borrowing> returnQuery = new ArrayList<Borrowing>();
+	Statement  stmt;
+	ResultSet  rs;
+	
+	   
+	try
+	{
+		String query = String.format("SELECT * FROM borrowing WHERE bid = %d", bid);
+	  stmt = connection.createStatement();
+	  rs = stmt.executeQuery(query);
+	  // get info on ResultSet
+	  ResultSetMetaData rsmd = rs.getMetaData();
+	  // get number of columns
+	  int numCols = rsmd.getColumnCount();
+	  //System.out.println(" ");
+	  // display column names;
+	  for (int i = 0; i < numCols; i++)
+	  {
+	      // get column name and print it
+	     // System.out.printf("%-15s", rsmd.getColumnName(i+1));    
+	  }
+	  //System.out.println(" ");
+	  while(rs.next())
+	  {
+		    Borrowing b = new Borrowing ();
+	      	b.setBorid(rs.getString("BORID"));
+	  		b.setCallNumber(rs.getString("CALLNUMBER"));
+	  		b.setCopyNo(rs.getString("COPYNO"));
+	  		b.setBid(rs.getString("BID"));
+	  		b.setOutDate(rs.getString("OUTDATE"));
+	  		b.setInDate(rs.getString("INDATE"));
 
+	  		
+	  		
+	  		returnQuery.add(b);
+	  }
+
+	  // close the statement; 
+	  // the ResultSet will also be closed
+	  stmt.close();
+	  return returnQuery;
+	}
+	catch (SQLException ex)
+	{
+	    System.out.println("Message: " + ex.getMessage());
+	    return null;
+	}	
+}
+
+	
 }
 
 
