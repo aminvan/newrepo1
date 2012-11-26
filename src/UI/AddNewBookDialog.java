@@ -115,6 +115,7 @@ public class AddNewBookDialog extends JFrame implements ActionListener {
 			callNo = callNumber.getText();
 		}
 		else {
+			showErrorDialog();
 			return VALIDATIONERROR;
 		}
 		
@@ -122,6 +123,7 @@ public class AddNewBookDialog extends JFrame implements ActionListener {
 			iIsbn = Integer.parseInt(isbn.getText());
 		}
 		else {
+			showErrorDialog();
 			return VALIDATIONERROR;
 		}
 		
@@ -129,6 +131,7 @@ public class AddNewBookDialog extends JFrame implements ActionListener {
 			sTitle = title.getText();
 		}
 		else {
+			showErrorDialog();
 			return VALIDATIONERROR;
 		}
 		
@@ -136,6 +139,7 @@ public class AddNewBookDialog extends JFrame implements ActionListener {
 			mAuthor = mainAuthor.getText();
 		}
 		else {
+			showErrorDialog();
 			return VALIDATIONERROR;
 		}
 		
@@ -143,6 +147,7 @@ public class AddNewBookDialog extends JFrame implements ActionListener {
 			sPublisher = publisher.getText();
 		}
 		else {
+			showErrorDialog();
 			return VALIDATIONERROR;
 		}
 		
@@ -150,14 +155,36 @@ public class AddNewBookDialog extends JFrame implements ActionListener {
 			yr = Integer.parseInt(year.getText());
 		}
 		else {
+			showErrorDialog();
 			return VALIDATIONERROR;
 		}
 		
 		Transactions trans = new Transactions();
 		
-		trans.insertBook(callNo, iIsbn, sTitle, mAuthor, sPublisher,yr);
+		if (trans.insertBook(callNo, iIsbn, sTitle, mAuthor, sPublisher,yr))
+		{
+			GiveMeTitleAndMessageDialog.createAndShowGUI(Constants.SUCCESS, "Book added successfully");
+			trans.insertBookCopy(callNo + " C1", 1, "in");
+			clearTextFields();
+		}else
+		{
+			showErrorDialog();
+		}
 		
 		return 0;
 		
+	}
+	
+	private void showErrorDialog()
+	{
+		GiveMeTitleAndMessageDialog.createAndShowGUI(Constants.ERROR, Constants.AN_ERROR_OCCURRED);
+	}
+	private void clearTextFields(){
+		callNumber.setText("");
+		isbn.setText("");
+		title.setText("");
+		mainAuthor.setText("");
+		publisher.setText("");
+		year.setText("");
 	}
 }
