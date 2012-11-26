@@ -5,6 +5,11 @@ import java.awt.GridLayout;
 import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -97,8 +102,14 @@ public class PlaceHoldDialog extends JFrame implements ActionListener{
 		String callNum = callNo.getText().trim();
 		
 		if (callNum.length() != 0) {
+			
+			DateFormat dateFormat = new SimpleDateFormat("dd-MMM-yy");
+			Date date = new Date();
+			String currDate = dateFormat.format(date);
+			System.out.println(currDate);
+			
 			Transactions trans = new Transactions();
-			// trans.placeHold(bid, callNum);
+			// trans.placeHold(bid, callNum, currDate);
 			return 0;
 		}
 		
