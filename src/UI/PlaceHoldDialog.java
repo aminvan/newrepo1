@@ -22,6 +22,7 @@ public class PlaceHoldDialog extends JFrame implements ActionListener{
 	
 	static String returnToUserDialogString = "Return to User Dialog";
 	static String placeHold = "Place hold";
+	static String bid;
 	
 	public static final int VALIDATIONERROR = 2;
 	
@@ -58,7 +59,7 @@ public class PlaceHoldDialog extends JFrame implements ActionListener{
 		
 		pane.add(panel);
 	}
-    public static void createAndShowGUI() {
+    public static void createAndShowGUI(String borrowerID) {
         //Create and set up the window.
         PlaceHoldDialog frame = new PlaceHoldDialog("Search Dialog");
        // frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -67,6 +68,7 @@ public class PlaceHoldDialog extends JFrame implements ActionListener{
         //Display the window.
         frame.pack();
         frame.setVisible(true);
+        bid = borrowerID;
     }
 
 	@Override
@@ -96,7 +98,7 @@ public class PlaceHoldDialog extends JFrame implements ActionListener{
 		
 		if (callNum.length() != 0) {
 			Transactions trans = new Transactions();
-			// trans.placeHold(callNum);
+			// trans.placeHold(bid, callNum);
 			return 0;
 		}
 		

@@ -17,6 +17,7 @@ public class BorrowerDialog extends JPanel implements ActionListener{
 	static String checkAccount = "Check Account";
 	static String placeHoldRequest = "Place Hold Request";
 	static String payFine = "Pay Fine";
+	static String bid;
 	public BorrowerDialog()
 	{
 		JButton searchForBooks = new JButton(BorrowerDialog.searchBooks);
@@ -59,6 +60,7 @@ public class BorrowerDialog extends JPanel implements ActionListener{
 	public static void createAndShowGUI(String borrowerID)
 	{
 		//TODO user borrowerID to took up borrower
+		bid = borrowerID;
 		mainFrame = new JFrame("Borrower Interface");
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
@@ -79,7 +81,7 @@ public class BorrowerDialog extends JPanel implements ActionListener{
 			CheckBorrowerAcctDialog.createAndShowGUI();
 		} else if (BorrowerDialog.placeHoldRequest.equals(arg0.getActionCommand()))
 		{
-			PlaceHoldDialog.createAndShowGUI();
+			PlaceHoldDialog.createAndShowGUI(bid);
 		} else if (BorrowerDialog.payFine.equals(arg0.getActionCommand()))
 		{
 			PayFineDialog.createAndShowGUI();
