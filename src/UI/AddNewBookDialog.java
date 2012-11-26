@@ -164,7 +164,7 @@ public class AddNewBookDialog extends JFrame implements ActionListener {
 		if (trans.insertBook(callNo, iIsbn, sTitle, mAuthor, sPublisher,yr))
 		{
 			GiveMeTitleAndMessageDialog.createAndShowGUI(Constants.SUCCESS, "Book added successfully");
-			trans.insertBookCopy(callNo + " C1", 1, "in");
+			trans.insertBookCopy(callNo + " C1", 1, Constants.IN);
 			clearTextFields();
 		}else
 		{

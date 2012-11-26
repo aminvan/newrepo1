@@ -7,4 +7,7 @@ public class Constants {
 	public static String SUCCESS = "Success";
 	public static String ERROR = "Error";
 	public static String AN_ERROR_OCCURRED = "An error occurred.  Please check your inputs and try again.";
+	public static String IN = "in";
+	public static String OUT = "out";
+	public static String ON_HOLD = "on hold";
 }
