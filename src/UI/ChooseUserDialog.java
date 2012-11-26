@@ -1,6 +1,9 @@
 package UI;
 
 import Transactions.Transactions;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import java.awt.BorderLayout;
@@ -69,8 +72,7 @@ public class ChooseUserDialog extends JPanel implements ActionListener{
         Transactions T = new Transactions();
         
         //T.insertBookCopy(11, 1, "out");
-
-        System.out.println(T.updateBookCopyStatus(100,1,"on-hold"));
+        System.out.println(T.showBorrowerById(1));
        // System.out.println(T.showBorrowersTimeLimit(3));
         //T.getAllBorrowers();
 

@@ -44,11 +44,12 @@ public class CheckOverduesDialog extends JFrame implements ActionListener{
 		panel2.setLayout(new GridLayout(1, 2));
 		
 		
-		
-		JButton backButton = new JButton (Constants.OK);
+		//changed OK from constants
+		JButton backButton = new JButton ("Ok");
 		backButton.setVerticalAlignment(AbstractButton.CENTER);
 		backButton.setHorizontalAlignment(AbstractButton.CENTER);
-		backButton.setActionCommand(Constants.OK);
+		//changed OK from constants
+		backButton.setActionCommand("Ok");
 		backButton.addActionListener(this);
 
 		panel2.add(new Label(""));
