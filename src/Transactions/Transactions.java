@@ -607,7 +607,44 @@ public class Transactions {
 		    return null;
 		}	
 	 }
+
 	
+	
+	
+public boolean updateBookCopyStatus(int callnum, int copynum, String status){
+		
+		
+		try
+		{
+			String query = String.format("UPDATE bookCopy SET status = '%s' WHERE callnumber = %d and copyno = %d",status, callnum, copynum);
+			System.out.println(query);
+			ps = connection.prepareStatement(query);
+		  ps.executeUpdate();
+		  connection.commit();
+		  ps.close();
+		  System.out.println("Updated bookCopy");
+		  return true;
+		}
+		catch (SQLException ex)
+		{
+		    System.out.println("Message: " + ex.getMessage());
+		    try 
+		    {
+			// undo the insert
+			connection.rollback();	
+		    }
+		    catch (SQLException ex2)
+		    {
+			System.out.println("Message: " + ex2.getMessage());
+			System.exit(-1);
+		    }
+		    return false;
+		}
+	    }
+
+
+
+
 }
 
 
