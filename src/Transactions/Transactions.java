@@ -129,7 +129,7 @@ public class Transactions {
 		}
 	    }
 	
-	public void insertBook(String callnum, int isbn, String title, String mainAuthor, String publisher, int year ){
+	public boolean insertBook(String callnum, int isbn, String title, String mainAuthor, String publisher, int year ){
 		
 		
 		try
@@ -150,6 +150,7 @@ public class Transactions {
 		  //System.out.println("committed");
 		  ps.close();
 		  System.out.println("Inserted into book");
+		  return true;
 		}
 		catch (SQLException ex)
 		{
@@ -158,11 +159,13 @@ public class Transactions {
 		    {
 			// undo the insert
 			connection.rollback();	
+			return false;
 		    }
 		    catch (SQLException ex2)
 		    {
 			System.out.println("Message: " + ex2.getMessage());
 			System.exit(-1);
+			return false;
 		    }
 		}
 	    }
