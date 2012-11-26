@@ -57,7 +57,9 @@ public class EnterBorrowerIDDialog extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		BorrowerDialog.createAndShowGUI(this.idField.getText());
+		// TODO check that id exists
+		int bid = Integer.parseInt(idField.getText().trim());
+		BorrowerDialog.createAndShowGUI(bid);
 		this.dispose();
 		
 	}
