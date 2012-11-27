@@ -818,6 +818,37 @@ public boolean updateBorrowingInDate(int borid, String inDate){
 		    return false;
 		}
 	    }
+
+public boolean updateHoldRequestIssuedDate(int hid, String issuedDate){
+	
+	
+	try
+	{
+		String query = String.format("UPDATE holdRequest SET issuedDate = '%s' WHERE hid = %d",issuedDate, hid);
+		System.out.println(query);
+		ps = connection.prepareStatement(query);
+	  ps.executeUpdate();
+	  connection.commit();
+	  ps.close();
+	  System.out.println("hold updated");
+	  return true;
+	}
+	catch (SQLException ex)
+	{
+	    System.out.println("Message: " + ex.getMessage());
+	    try 
+	    {
+		// undo the insert
+		connection.rollback();	
+	    }
+	    catch (SQLException ex2)
+	    {
+		System.out.println("Message: " + ex2.getMessage());
+		System.exit(-1);
+	    }
+	    return false;
+	}
+    }
 	public boolean insertBorrowing(String callnum,int copynum,int bid, String outDate, String inDate){
 		
 		
@@ -984,7 +1015,6 @@ public boolean insertHoldRequest(int callNum, int bid, String issueDate){
 	public ArrayList<Borrowing> showBorrowingById(int bid)
 {
 		
-		//TODO: make a borrowing class
 	ArrayList<Borrowing> returnQuery = new ArrayList<Borrowing>();
 	Statement  stmt;
 	ResultSet  rs;
@@ -1033,11 +1063,61 @@ public boolean insertHoldRequest(int callNum, int bid, String issueDate){
 	    return null;
 	}	
 }
+	
+	public ArrayList<HoldRequest> getNonIssuedHoldRequestsByCallNumber(int callNumber)
+	{
+			
+		ArrayList<HoldRequest> returnQuery = new ArrayList<HoldRequest>();
+		Statement  stmt;
+		ResultSet  rs;
+		
+		   
+		try
+		{
+			String query = String.format("SELECT * FROM holdRequest WHERE callNumber = %d and issuedDate = 'null'", callNumber);
+		  stmt = connection.createStatement();
+		  rs = stmt.executeQuery(query);
+		  // get info on ResultSet
+		  ResultSetMetaData rsmd = rs.getMetaData();
+		  // get number of columns
+		  int numCols = rsmd.getColumnCount();
+		  //System.out.println(" ");
+		  // display column names;
+		  for (int i = 0; i < numCols; i++)
+		  {
+		      // get column name and print it
+		     // System.out.printf("%-15s", rsmd.getColumnName(i+1));    
+		  }
+		  //System.out.println(" ");
+		  while(rs.next())
+		  {
+				HoldRequest hr  = new HoldRequest();
+		      	hr.hid = rs.getInt("HID");
+		      	hr.callNumber = rs.getInt("CALLNUMBER");
+		      	hr.bid = rs.getInt("BID");
+		      	hr.issuedDate = rs.getString("ISSUEDDATE");
+		  		returnQuery.add(hr);
+
+		  		
+		  		
+		  		returnQuery.add(hr);
+		  }
+
+		  // close the statement; 
+		  // the ResultSet will also be closed
+		  stmt.close();
+		  return returnQuery;
+		}
+		catch (SQLException ex)
+		{
+		    System.out.println("Message: " + ex.getMessage());
+		    return null;
+		}	
+	}
 
 	public ArrayList<HoldRequest> showHoldRequestById(int bidin)
 	 {
-			
-			//TODO: Make hold class
+	
 			
 		String     hid;
 		String     callnum;
@@ -1256,6 +1336,7 @@ public boolean insertHoldRequest(int callNum, int bid, String issueDate){
 	    return null;
 	}	
 }
+
 
 	public ArrayList<Borrowing> showAllBorrowing()
 {

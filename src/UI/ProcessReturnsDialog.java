@@ -23,6 +23,7 @@ import javax.swing.JTextField;
 import Objects.BookCopy;
 import Objects.Borrower;
 import Objects.Borrowing;
+import Objects.HoldRequest;
 import Transactions.Transactions;
 
 public class ProcessReturnsDialog extends JFrame implements ActionListener{
@@ -98,9 +99,10 @@ public class ProcessReturnsDialog extends JFrame implements ActionListener{
 					{
 						insertFineIfNeeded(b, ber);
 					}
+					
 				}
 				
-				
+				placeHoldIfNeeded(bc);
 				
 				
 			}else
@@ -116,6 +118,37 @@ public class ProcessReturnsDialog extends JFrame implements ActionListener{
 		
 	}
 	
+	private void placeHoldIfNeeded(BookCopy bc)
+	{
+		Transactions t = new Transactions();
+		List<HoldRequest> holds = t.getNonIssuedHoldRequestsByCallNumber(bc.callNumber);	
+		HoldRequest toPlace = null;
+		for (HoldRequest hr : holds)
+		{
+			// TODO Will change
+			if (hr.callNumber == bc.callNumber)
+			{
+				if (toPlace == null)
+				{
+					toPlace = hr;
+				}else
+				{
+					if (hr.hid < toPlace.hid)
+					{
+						toPlace = hr;
+					}
+				}
+			}
+		}
+		
+		if (toPlace != null)
+		{
+			t.updateHoldRequestIssuedDate(toPlace.hid, Constants.getCurrentDateInStringFormat());
+			t.updateBookCopyStatus(bc.callNumber, bc.copyNum, Constants.ON_HOLD);
+			GiveMeTitleAndMessageDialog.createAndShowGUI("Hold", "Hold placed for borrower " + toPlace.bid + " for this book copy");
+		}
+		
+	}
 	private void insertFineIfNeeded(Borrowing bor, Borrower b)
 	{
 		String type = b.getType();

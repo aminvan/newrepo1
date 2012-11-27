@@ -10,6 +10,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
 import javax.swing.JButton;
@@ -18,6 +19,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import Objects.BookCopy;
 import Transactions.Transactions;
 
 public class PlaceHoldDialog extends JFrame implements ActionListener{
@@ -104,14 +106,24 @@ public class PlaceHoldDialog extends JFrame implements ActionListener{
 		
 		if (callNum != 0) {
 			
-			DateFormat dateFormat = new SimpleDateFormat("dd-MMM-yy");
-			Date date = new Date();
-			String currDate = dateFormat.format(date);
 			Transactions trans = new Transactions();
+			List<BookCopy> bc = trans.showCopiesOfGivenBook(callNum);
+			{
+				for (BookCopy b : bc)
+				{
+					if (b.status.equals(Constants.IN))
+					{
+						GiveMeTitleAndMessageDialog.createAndShowGUI("Error", "Book with Copy Number " + b.copyNum + " is in.  No hold placed.");
+						return 0;
+					}
+				}
+			}
 			if (trans.showCopiesOfGivenBook(callNum).size() > 0)
 			{
-				Random r = new Random();
-				trans.insertHoldRequest(callNum, bid, currDate);
+				if (trans.insertHoldRequest(callNum, bid, null))
+				{
+					GiveMeTitleAndMessageDialog.createAndShowGUI("Sucess", "Hold Placed");
+				}
 			}else
 			{
 				GiveMeTitleAndMessageDialog.createAndShowGUI("Error", "No books with that call number");

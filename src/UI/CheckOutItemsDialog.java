@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -27,6 +28,7 @@ import javax.swing.JTextField;
 
 import Objects.BookCopy;
 import Objects.Borrower;
+import Objects.HoldRequest;
 import Transactions.Transactions;
 
 public class CheckOutItemsDialog extends JFrame implements ActionListener{
@@ -117,10 +119,12 @@ public class CheckOutItemsDialog extends JFrame implements ActionListener{
 
 		}else if(arg0.getActionCommand().equals(CHECKOUT))
 		{
-			String borrowerType = getBorrower().getType();
+			
+			Borrower b = getBorrower();
+			String borrowerType = b.getType();
 			if (borrowerType != null)
 			{
-				checkOutBooks(borrowerType);
+				checkOutBooks(borrowerType, b.getBid());
 			}
 			
 		}
@@ -135,23 +139,35 @@ public class CheckOutItemsDialog extends JFrame implements ActionListener{
 		Borrower b = t.showBorrowerById(bid);
 		return b;
 	}
-	private void checkOutBooks(String borrowerType)
+	private void checkOutBooks(String borrowerType, int bid)
 	{
 		String items = "";
 		String failedItems = "";
+		Transactions t = new Transactions();
+		List<HoldRequest> holds = t.showHoldRequestById(bid);
+
 		for (int i = 0; i < callNumberList.size(); i++)
 		{
 			
 			String callNumber = callNumberList.get(i);
 			int copyNumber = copyNumberList.get(i);
-			Transactions t = new Transactions();
+			
 			BookCopy bc = t.showCopyOfGivenBook(Integer.parseInt(callNumber), copyNumber);
+			HoldRequest h = thisUsersHold(holds, bc);
 			if (bc.status.equals(Constants.IN))
 			{
 				items = items + callNumber + " ";
 				t.updateBookCopyStatus(Integer.parseInt(callNumber), copyNumber, Constants.OUT);
 				
 				t.insertBorrowing(callNumber, copyNumber, Integer.parseInt(borrowerID.getText().trim()), getCurrentDateInStringFormat(), null);
+			}else if (bc.status.equals(Constants.ON_HOLD) && h != null)
+			{
+				
+				items = items + callNumber + " ";
+				t.updateBookCopyStatus(Integer.parseInt(callNumber), copyNumber, Constants.OUT);
+				
+				t.insertBorrowing(callNumber, copyNumber, Integer.parseInt(borrowerID.getText().trim()), getCurrentDateInStringFormat(), null);
+				t.deleteHoldREquest(h.hid);
 			}else
 			{
 				failedItems = failedItems + callNumber + " ";
@@ -167,6 +183,18 @@ public class CheckOutItemsDialog extends JFrame implements ActionListener{
 					" items were not checked out successfully " + failedItems);
 		}
 		clearAllFields();
+	}
+	
+	private HoldRequest thisUsersHold(List<HoldRequest> holds, BookCopy bc)
+	{
+		for (HoldRequest hr : holds)
+		{
+			if (hr.issuedDate != "null" && hr.callNumber == bc.callNumber)
+			{
+				return hr;
+			}
+		}
+		return null;
 	}
 	
 	private void clearAllFields()
