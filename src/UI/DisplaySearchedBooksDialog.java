@@ -20,10 +20,11 @@ import javax.swing.table.TableModel;
 
 import Objects.Book;
 import Objects.BookCopy;
+import Transactions.Transactions;
 
 public class DisplaySearchedBooksDialog extends JFrame implements ActionListener{
 	
-	String [] columnNames = {"Call Number", "Title", "ISBN", "Author", "Publisher", "Year", "Subject", "Status"}; 
+	String [] columnNames = {"Call Number", "Title", "ISBN", "Author", "Publisher", "Year", "Subject", "Copies In", "Copies Out"}; 
 	public DisplaySearchedBooksDialog(String name)
 	{
 		super (name);
@@ -117,8 +118,30 @@ public class DisplaySearchedBooksDialog extends JFrame implements ActionListener
 						return books.get(y).year;
 					case 6:
 						return books.get(y).subject;
-					case 7:
-						return books.get(y).status;
+					case 7:{
+						int counter = 0;
+						Transactions t = new Transactions();
+						for (BookCopy bc : t.showCopiesOfGivenBook(books.get(y).callNumber))
+						{
+							if (bc.status.equals(Constants.IN))
+							{
+								counter++;
+							}
+						}
+						return Integer.toString(counter);
+					}
+					case 8:{
+						int counter = 0;
+						Transactions t = new Transactions();
+						for (BookCopy bc : t.showCopiesOfGivenBook(books.get(y).callNumber))
+						{
+							if (bc.status.equals(Constants.OUT))
+							{
+								counter++;
+							}
+						}
+						return Integer.toString(counter);
+					}
 					default:
 						return "";
 				}

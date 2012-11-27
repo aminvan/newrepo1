@@ -87,9 +87,9 @@ public class SearchForBooksDialog extends JFrame implements ActionListener{
 		}
 		else if (search.equals(arg0.getActionCommand()))
 		{ 
-			//TODO remove comments and remove this line
-			DisplaySearchedBooksDialog.createAndShowGUI(searchBooks());
-			/*List<Book> books = searchBooks();
+
+			//DisplaySearchedBooksDialog.createAndShowGUI(searchBooks());
+			List<BookCopy> books = searchBooks();
 			if (books != null) {
 				title.setText("");
 				author.setText("");
@@ -98,7 +98,7 @@ public class SearchForBooksDialog extends JFrame implements ActionListener{
 			}
 			else {
 				JOptionPane.showMessageDialog(this, "Invalid Input", "Error", JOptionPane.ERROR_MESSAGE);
-			}*/
+			}
 			
 		}
 		
@@ -116,11 +116,27 @@ public class SearchForBooksDialog extends JFrame implements ActionListener{
 
 			Transactions trans = new Transactions();
 			ArrayList<BookCopy> bookList = trans.showBookSearch(btitle, bauthor, bsubject);
-			return bookList;
+			
+			return removeDuplicates(bookList);
 			// displayBooks(bookList);
 			
 		}
 		
 		return null;
+	}
+
+	private List<BookCopy> removeDuplicates(ArrayList<BookCopy> bookList) {
+		for (int i = 0; i < bookList.size(); i++)
+		{
+			BookCopy currentCopy = bookList.get(i);
+			for (int j = i + 1; j < bookList.size(); j++)
+			{
+				if (currentCopy.callNumber == bookList.get(j).callNumber){
+					bookList.remove(j);
+					return removeDuplicates(bookList);
+				}
+			}
+		}
+		return bookList;
 	}
 }

@@ -398,9 +398,6 @@ public class Transactions {
 	//returns: callnumber, title, author, subject status
 	public ArrayList<BookCopy> showBookSearch(String titlein, String authorin, String subjectin)
 	 {
-			//TODO
-		
-
 		ArrayList<BookCopy> returnQuery = new ArrayList<BookCopy>();
 		Statement  stmt;
 		ResultSet  rs;
