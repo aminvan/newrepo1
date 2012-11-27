@@ -7,6 +7,7 @@ import java.awt.GridLayout;
 import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -18,6 +19,7 @@ import javax.swing.JTextField;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
 
+import Objects.Borrowing;
 import Transactions.Transactions;
 
 public class CheckBorrowerAcctDialog extends JFrame implements ActionListener{
@@ -26,6 +28,9 @@ public class CheckBorrowerAcctDialog extends JFrame implements ActionListener{
 	JTextField pwd = new JTextField();
 	JTable borrowedItems, fines, holdRequests;
 	
+	static List<Borrowing> borrowing;
+	//List<HoldRequest>
+	//List<Fine>
 	static String done = "Done";
 	String returnToBorrowerDialog = "Return to Borrower Dialog";
 	String[] borrowColumns = {"Call Number", "Copy Number", "OutDate", "InDate"};
@@ -86,6 +91,8 @@ public class CheckBorrowerAcctDialog extends JFrame implements ActionListener{
         CheckBorrowerAcctDialog frame = new CheckBorrowerAcctDialog("Account Overview");
        // frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //Set up the content pane.
+        Transactions t = new Transactions();
+        borrowing = t.showBorrowingById(borrowerID);
         frame.addComponentsToPane(frame.getContentPane());
         //Display the window.
         frame.pack();
@@ -108,12 +115,22 @@ public class CheckBorrowerAcctDialog extends JFrame implements ActionListener{
 
 			@Override
 			public int getRowCount() {
-				return 1;
+				return borrowing.size();
 			}
 
 			@Override
 			public Object getValueAt(int y, int x) {
-				return "";
+				switch(x)
+				{
+					case 0:
+						return Integer.toString(borrowing.get(y).getCallNumber());
+					case 1:
+						return Integer.toString(borrowing.get(y).getCopyNo());
+					case 2:
+						return borrowing.get(y).getOutDate();
+					default:
+						return borrowing.get(y).getInDate();
+				}
 				
 			}
 			
@@ -141,7 +158,7 @@ public class CheckBorrowerAcctDialog extends JFrame implements ActionListener{
 			}
 
 			@Override
-			public Object getValueAt(int y, int x) {
+			public String getValueAt(int y, int x) {
 				return "";
 				
 			}
