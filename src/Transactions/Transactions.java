@@ -167,17 +167,8 @@ public class Transactions {
 		
 		try
 		{
-		  ps = connection.prepareStatement("INSERT INTO borrower VALUES (?,?,?,?,?,?,?,?,?)");
-		  ps.setInt(1, bid);
-		  ps.setString(2, password);
-		  ps.setString(3, name);
-		  ps.setString(4, address);
-		  ps.setString(5, phone);
-		  ps.setString(6, email);
-		  ps.setString(7, sin);
-		  ps.setString(8, exp);
-		  ps.setString(9, type);
-
+			String query = String.format("INSERT INTO borrower VALUES (%s, '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')","bid_counter.nextval",password, name, address, phone, email, sin, exp, type);
+		  ps = connection.prepareStatement(query);
 		  ps.executeUpdate();
 		  // commit work 
 		  connection.commit();
@@ -422,7 +413,7 @@ public class Transactions {
 			titleString = String.format("and title = '%s'", titlein);
 		}
 		if(authorin != null){
-			authorString = String.format("and mainauthor = '%s'", authorin);
+			authorString = String.format("and name = '%s'", authorin);
 		}
 		if(subjectin != null){
 			subjectString = String.format("and subject = '%s'", subjectin);			
@@ -430,7 +421,7 @@ public class Transactions {
 		
 		
 		String inputString = titleString + authorString + subjectString;
-		String queryString = String.format("Select *  FROM book, bookCopy, hasSubject WHERE book.callnumber = bookcopy.callnumber and book.callnumber = hasSubject.callnumber %s", inputString);
+		String queryString = String.format("Select *  FROM book, hasSubject, bookCopy, hasAuthor WHERE book.callNumber = bookCopy.callNumber and book.callnumber = hasSubject.callnumber and book.callnumber = hasAuthor.callNumber %s", inputString);
 		System.out.println(queryString);
 
 		try
@@ -454,7 +445,7 @@ public class Transactions {
 		        BookCopy b = new BookCopy();
 		      	b.callNumber = rs.getInt("CALLNUMBER");
 		  		b.title = rs.getString("TITLE");
-		  		b.mainAuthor = rs.getString("MAINAUTHOR");
+		  		b.mainAuthor = rs.getString("NAME");
 		  		b.subject = rs.getString("SUBJECT");
 		  		b.status = rs.getString("STATUS");
 		  		b.isbn= rs.getString("ISBN");
@@ -805,13 +796,8 @@ public class Transactions {
 		
 		try
 		{
-		  ps = connection.prepareStatement("INSERT INTO borrowing VALUES (?,?,?,?,?,?)");
-		  ps.setInt(1, borid);
-		  ps.setString(2, callnum);
-		  ps.setInt(3, copynum);
-		  ps.setInt(4, bid);
-		  ps.setString(5, outDate);
-		  ps.setString(6, inDate);
+			String query = String.format("INSERT INTO borrowing VALUES (%s, '%s', %d, %d, '%s', '%s')","borid_counter.nextval",callnum, copynum,bid, outDate, inDate);
+			  ps = connection.prepareStatement(query);
 
 		  //System.out.println("all added");
 		  ps.executeUpdate();
@@ -845,12 +831,10 @@ public class Transactions {
 		
 		try
 		{
-		  ps = connection.prepareStatement("INSERT INTO fine VALUES (?,?,?,?,?)");
-		  ps.setInt(1, fid);
-		  ps.setInt(2, amount);
-		  ps.setString(3, issueDate);
-		  ps.setString(4, paidDate);
-		  ps.setInt(5, borid);
+			
+			String query = String.format("INSERT INTO fine VALUES (%s, %d, '%s', '%s', %d)","fid_counter.nextval",amount, issueDate, paidDate, borid);
+			  ps = connection.prepareStatement(query);
+
 
 		  //System.out.println("all added");
 		  ps.executeUpdate();
@@ -884,12 +868,8 @@ public boolean insertHoldRequest(int hid, int callNum, int bid, String issueDate
 		
 		try
 		{
-		  ps = connection.prepareStatement("INSERT INTO holdRequest VALUES (?,?,?,?)");
-		  ps.setInt(1, hid);
-		  ps.setInt(2, callNum);
-		  ps.setInt(3, bid);
-		  ps.setString(4, issueDate);
-
+			String query = String.format("INSERT INTO holdRequest VALUES (%s, %d, %d, '%s')","hid_counter.nextval",callNum, bid, issueDate);
+			  ps = connection.prepareStatement(query);
 		  //System.out.println("all added");
 		  ps.executeUpdate();
 		  //System.out.println("executed");
