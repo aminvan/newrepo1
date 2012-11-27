@@ -88,7 +88,7 @@ public class SearchForBooksDialog extends JFrame implements ActionListener{
 		else if (search.equals(arg0.getActionCommand()))
 		{ 
 			//TODO remove comments and remove this line
-			DisplaySearchedBooksDialog.createAndShowGUI(new ArrayList<BookCopy>());
+			DisplaySearchedBooksDialog.createAndShowGUI(searchBooks());
 			/*List<Book> books = searchBooks();
 			if (books != null) {
 				title.setText("");
@@ -105,16 +105,17 @@ public class SearchForBooksDialog extends JFrame implements ActionListener{
 	}
 	
 	
-	private List<Book> searchBooks() {
+	private List<BookCopy> searchBooks() {
 		
 		String btitle = title.getText().trim();
 		String bauthor = author.getText().trim();
 		String bsubject = subject.getText().trim();
 		
+		
 		if (btitle.length() != 0 | bauthor.length() != 0 | bsubject.length() != 0) {
 
 			Transactions trans = new Transactions();
-			ArrayList<Book> bookList = trans.showBookSearch(btitle, bauthor, bsubject);
+			ArrayList<BookCopy> bookList = trans.showBookSearch(btitle, bauthor, bsubject);
 			return bookList;
 			// displayBooks(bookList);
 			

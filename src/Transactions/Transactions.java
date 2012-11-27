@@ -396,12 +396,12 @@ public class Transactions {
  
 	//input null by default eg. showBookSearch(null,null,"adventure") to search for adventure books
 	//returns: callnumber, title, author, subject status
-	public ArrayList<Book> showBookSearch(String titlein, String authorin, String subjectin)
+	public ArrayList<BookCopy> showBookSearch(String titlein, String authorin, String subjectin)
 	 {
 			//TODO
 		
 
-		ArrayList<Book> returnQuery = new ArrayList<Book>();
+		ArrayList<BookCopy> returnQuery = new ArrayList<BookCopy>();
 		Statement  stmt;
 		ResultSet  rs;
 		
@@ -409,13 +409,13 @@ public class Transactions {
 		String authorString = "";
 		String subjectString = "";
 		
-		if (titlein != null){
+		if (titlein.length() > 0){
 			titleString = String.format("and title = '%s'", titlein);
 		}
-		if(authorin != null){
+		if(authorin.length() > 0){
 			authorString = String.format("and name = '%s'", authorin);
 		}
-		if(subjectin != null){
+		if(subjectin.length() > 0){
 			subjectString = String.format("and subject = '%s'", subjectin);			
 		}
 		
