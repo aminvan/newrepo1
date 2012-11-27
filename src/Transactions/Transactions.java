@@ -54,13 +54,13 @@ public class Transactions {
    }
  }
 	
-	public boolean insertHasSubject(int callNumber, String subject){
+	public boolean insertHasSubject(String callNumber, String subject){
 		
 		
 		try
 		{
 		  ps = connection.prepareStatement("INSERT INTO hasSubject VALUES (?,?)");
-		  ps.setInt(1, callNumber);
+		  ps.setString(1, callNumber);
 		  ps.setString(2, subject);
 
 		  //System.out.println("all added");
@@ -91,13 +91,13 @@ public class Transactions {
 		}
 	    }
 	
-	public boolean insertHasAuthor(int callNumber, String author){
+	public boolean insertHasAuthor(String callNumber, String author){
 		
 		
 		try
 		{
 		  ps = connection.prepareStatement("INSERT INTO hasAuthor VALUES (?,?)");
-		  ps.setInt(1, callNumber);
+		  ps.setString(1, callNumber);
 		  ps.setString(2, author);
 
 		  //System.out.println("all added");
@@ -194,13 +194,13 @@ public class Transactions {
 		}
 	    }
 	
-	public boolean insertBook(int callnum, int isbn, String title, String mainAuthor, String publisher, int year ){
+	public boolean insertBook(String callnum, int isbn, String title, String mainAuthor, String publisher, int year ){
 		
 		
 		try
 		{
 		  ps = connection.prepareStatement("INSERT INTO book VALUES (?,?,?,?,?,?)");
-		  ps.setInt(1, callnum);
+		  ps.setString(1, callnum);
 		  ps.setInt(2, isbn);
 		  ps.setString(3, title);
 		  ps.setString(4, mainAuthor);
@@ -235,13 +235,13 @@ public class Transactions {
 		}
 	    }
 	
-	public boolean insertBookCopy(int callnum, int copynum, String status){
+	public boolean insertBookCopy(String callnum, int copynum, String status){
 		
 		
 		try
 		{
 		  ps = connection.prepareStatement("INSERT INTO bookCopy VALUES (?,?,?)");
-		  ps.setInt(1, callnum);
+		  ps.setString(1, callnum);
 		  ps.setInt(2, copynum);
 		  ps.setString(3, status);
 
@@ -1483,8 +1483,181 @@ public boolean deleteHoldREquest(int hid){
 		    }
 		}
 	    }
+public boolean testInsertHasSubject(String callNumber, String subject){
+    
+    
+    try
+    {
+      ps = connection.prepareStatement("INSERT INTO hasSubject VALUES (?,?)");
+      ps.setString(1, callNumber);
+      ps.setString(2, subject);
+
+      //System.out.println("all added");
+      ps.executeUpdate();
+      //System.out.println("executed");
+      // commit work
+      connection.commit();
+      //System.out.println("committed");
+      ps.close();
+      System.out.println("Inserted into hasSubject");
+      return true;
+    }
+    catch (SQLException ex)
+    {
+        System.out.println("Message: " + ex.getMessage());
+        try
+        {
+        // undo the insert
+        connection.rollback();    
+        return false;
+        }
+        catch (SQLException ex2)
+        {
+        System.out.println("Message: " + ex2.getMessage());
+        System.exit(-1);
+        return false;
+        }
+    }
+    }
+
+public boolean testInsertHasAuthor(String callNumber, String author){
+    
+    
+    try
+    {
+      ps = connection.prepareStatement("INSERT INTO hasAuthor VALUES (?,?)");
+      ps.setString(1, callNumber);
+      ps.setString(2, author);
+
+      //System.out.println("all added");
+      ps.executeUpdate();
+      //System.out.println("executed");
+      // commit work
+      connection.commit();
+      //System.out.println("committed");
+      ps.close();
+      System.out.println("Inserted into hasAuthor");
+      return true;
+    }
+    catch (SQLException ex)
+    {
+        System.out.println("Message: " + ex.getMessage());
+        try
+        {
+        // undo the insert
+        connection.rollback();    
+        return false;
+        }
+        catch (SQLException ex2)
+        {
+        System.out.println("Message: " + ex2.getMessage());
+        System.exit(-1);
+        return false;
+        }
+    }
+    }
+
+public void testInsertBorrowerType(String type, String time){
+    
+    
+    try
+    {
+      ps = connection.prepareStatement("INSERT INTO borrowerType VALUES (?,?)");
+      ps.setString(1, type);
+      ps.setString(2, time);
+
+      //System.out.println("all added");
+      ps.executeUpdate();
+      //System.out.println("executed");
+      // commit work
+      connection.commit();
+      //System.out.println("committed");
+      ps.close();
+      System.out.println("Inserted into borrowerType");
+    }
+    catch (SQLException ex)
+    {
+        System.out.println("Message: " + ex.getMessage());
+        try
+        {
+        // undo the insert
+        connection.rollback();    
+        }
+        catch (SQLException ex2)
+        {
+        System.out.println("Message: " + ex2.getMessage());
+        System.exit(-1);
+        }
+    }
+    }
+
+public boolean insertBorrowingForTestData(int borid, int bid, String callnum,int copynum, String outDate, String inDate){
+	   
+	   
+	   try
+	   {
+	       String query = String.format("INSERT INTO borrowing VALUES (%d, %d, %s, '%d', %d, %d, '%s', '%s')",borid, bid,callnum, copynum,bid, outDate, inDate);
+	         ps = connection.prepareStatement(query);
+
+	     //System.out.println("all added");
+	     ps.executeUpdate();
+	     //System.out.println("executed");
+	     // commit work
+	     connection.commit();
+	     //System.out.println("committed");
+	     ps.close();
+	     System.out.println("Inserted into borrowing");
+	     return true;
+	   }
+	   catch (SQLException ex)
+	   {
+	       System.out.println("Message: " + ex.getMessage());
+	       try
+	       {
+	       // undo the insert
+	       connection.rollback();    
+	       return false;
+	       }
+	       catch (SQLException ex2)
+	       {
+	       System.out.println("Message: " + ex2.getMessage());
+	       System.exit(-1);
+	       return false;
+	       }
+	   }
+	    }
 	
-	
+public boolean insertBorrowerForTestData(String bid, String password, String name, String address, String phone, String email, String sin, String exp, String type){
+    //TODO make date an int?
+    
+    try
+    {
+        String query = String.format("INSERT INTO borrower VALUES (%s, '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')","bid_counter.nextval",password, name, address, phone, email, sin, exp, type);
+      ps = connection.prepareStatement(query);
+      ps.executeUpdate();
+      // commit work
+      connection.commit();
+      ps.close();
+      System.out.println("Inserted into borrower");
+      return true;
+    }
+    catch (SQLException ex)
+    {
+        System.out.println("Message: " + ex.getMessage());
+        try
+        {
+        // undo the insert
+        connection.rollback();    
+        return false;
+        }
+        catch (SQLException ex2)
+        {
+        System.out.println("Message: " + ex2.getMessage());
+        System.exit(-1);
+        return false;
+        }
+    }
+    }
 }
 
 

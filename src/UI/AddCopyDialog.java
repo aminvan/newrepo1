@@ -96,11 +96,11 @@ public class AddCopyDialog extends JFrame implements ActionListener {
 	
 	public int addCopy() {
 		
-		int callNo;
+		String callNo;
 		int copynum;
 		
 		if (callNumber.getText().trim().length() != 0) {
-			callNo = Integer.parseInt(callNumber.getText().trim());
+			callNo = callNumber.getText().trim();
 		}
 		else {
 			return VALIDATIONERROR;

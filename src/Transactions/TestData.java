@@ -12,65 +12,65 @@ public class TestData {
 	}
 	
 	public void insertBookData() {
-		trans.insertBook("QA76.73.J38 2004", 1590591232, "Advanced Java Game Programming", "David Wallace Croft", "Berkley Press", 2004);
-		trans.insertBook("QA39.3.E65 2004", 534490964, "Discrete Mathematics with Applications", "Susanna S. Epp", "Thomson-Brooks/Cole", 2004);
-		trans.insertBook("QA76.9.A43 G67 2002", 471383651, "Algorithm Design", "Michael T. Goodrich", "Wiley", 2002);
-		trans.insertBook("PR6068.O93 Z68 2003", 403912645, "Re-reading Harry Potter", "Suman Gupta", "Palgrave Macmillan", 2003);
-		trans.insertBook("GE160.A35 O35 2010", 781617288, "Africa: the driest continent", "Abdeen Mustafa Omer", "Nova Science", 2010);
-		trans.insertBook("QC990.I4 S55 2010", 176580597, "Global warming: India's response to climate change, disasster mitigation and adaptation", "Pawan Sikka", "Uppal Publishing House", 2010);
-		trans.insertBook("QA76.73.J38 L25 2000", 534366910, "Java: a framework for program design and data structures", "Martin Osborne", "Brooks/Cole", 2000);
-		trans.insertBook("QA76.73.C153 M268 2011", 471383651, "C++ programming: from problem analysis to program design", "D.S. Malik", "Course Technology", 2011);
-		trans.insertBook("QA297.A748 2011", 898719976, "A first course in numerical methods", "U.M. Ascher", "Society for Industrial and Applied Mathematics", 2011);
-		trans.insertBook("QA76.6.M3585 2009", 0071624724, "Programming: a beginner's guide", "Richard Mansfield", "McGraw-Hill", 2009);
+		trans.testInsertBook("QA76.73.J38 2004", 1590591232, "Advanced Java Game Programming", "David Wallace Croft", "Berkley Press", 2004);
+		trans.testInsertBook("QA39.3.E65 2004", 534490964, "Discrete Mathematics with Applications", "Susanna S. Epp", "Thomson-Brooks/Cole", 2004);
+		trans.testInsertBook("QA76.9.A43 G67 2002", 471383651, "Algorithm Design", "Michael T. Goodrich", "Wiley", 2002);
+		trans.testInsertBook("PR6068.O93 Z68 2003", 403912645, "Re-reading Harry Potter", "Suman Gupta", "Palgrave Macmillan", 2003);
+		trans.testInsertBook("GE160.A35 O35 2010", 781617288, "Africa: the driest continent", "Abdeen Mustafa Omer", "Nova Science", 2010);
+		trans.testInsertBook("QC990.I4 S55 2010", 176580597, "Global warming: India's response to climate change, disasster mitigation and adaptation", "Pawan Sikka", "Uppal Publishing House", 2010);
+		trans.testInsertBook("QA76.73.J38 L25 2000", 534366910, "Java: a framework for program design and data structures", "Martin Osborne", "Brooks/Cole", 2000);
+		trans.testInsertBook("QA76.73.C153 M268 2011", 471383651, "C++ programming: from problem analysis to program design", "D.S. Malik", "Course Technology", 2011);
+		trans.testInsertBook("QA297.A748 2011", 898719976, "A first course in numerical methods", "U.M. Ascher", "Society for Industrial and Applied Mathematics", 2011);
+		trans.testInsertBook("QA76.6.M3585 2009", 0071624724, "Programming: a beginner's guide", "Richard Mansfield", "McGraw-Hill", 2009);
 	}
 	
 	public void insertHasSubjData() {
-		trans.insertHasSubject("QA76.73.J38 2004","java");
-		trans.insertHasSubject("QA76.73.J38 2004","programming");
-		trans.insertHasSubject("QA76.73.J38 2004","computer games");
-		trans.insertHasSubject("QA76.73.J38 2004","computer science");
+		trans.testInsertHasSubject("QA76.73.J38 2004","java");
+		trans.testInsertHasSubject("QA76.73.J38 2004","programming");
+		trans.testInsertHasSubject("QA76.73.J38 2004","computer games");
+		trans.testInsertHasSubject("QA76.73.J38 2004","computer science");
 		
-		trans.insertHasSubject("QA39.3.E65 2004","discrete mathematics");
+		trans.testInsertHasSubject("QA39.3.E65 2004","discrete mathematics");
 		
-		trans.insertHasSubject("QA76.9.A43 G67 2002","computer science");
-		trans.insertHasSubject("QA76.9.A43 G67 2002","programming");
-		trans.insertHasSubject("QA76.9.A43 G67 2002","algorithms");
+		trans.testInsertHasSubject("QA76.9.A43 G67 2002","computer science");
+		trans.testInsertHasSubject("QA76.9.A43 G67 2002","programming");
+		trans.testInsertHasSubject("QA76.9.A43 G67 2002","algorithms");
 		
-		trans.insertHasSubject("PR6068.O93 Z68 2003","harry potter");
+		trans.testInsertHasSubject("PR6068.O93 Z68 2003","harry potter");
 		
-		trans.insertHasSubject("GE160.A35 O35 2010","africa");
-		trans.insertHasSubject("GE160.A35 O35 2010","continent");
+		trans.testInsertHasSubject("GE160.A35 O35 2010","africa");
+		trans.testInsertHasSubject("GE160.A35 O35 2010","continent");
 		
-		trans.insertHasSubject("QC990.I4 S55 2010","global warming");
-		trans.insertHasSubject("QC990.I4 S55 2010","india");
-		trans.insertHasSubject("QC990.I4 S55 2010","climate change");
+		trans.testInsertHasSubject("QC990.I4 S55 2010","global warming");
+		trans.testInsertHasSubject("QC990.I4 S55 2010","india");
+		trans.testInsertHasSubject("QC990.I4 S55 2010","climate change");
 		
-		trans.insertHasSubject("QA76.73.J38 L25 2000","java");
-		trans.insertHasSubject("QA76.73.J38 L25 2000","computer science");
-		trans.insertHasSubject("QA76.73.J38 L25 2000","programming");
+		trans.testInsertHasSubject("QA76.73.J38 L25 2000","java");
+		trans.testInsertHasSubject("QA76.73.J38 L25 2000","computer science");
+		trans.testInsertHasSubject("QA76.73.J38 L25 2000","programming");
 		
-		trans.insertHasSubject("QA76.73.C153 M268 2011","c++");
-		trans.insertHasSubject("QA76.73.C153 M268 2011","computer science");
-		trans.insertHasSubject("QA76.73.C153 M268 2011","programming");
+		trans.testInsertHasSubject("QA76.73.C153 M268 2011","c++");
+		trans.testInsertHasSubject("QA76.73.C153 M268 2011","computer science");
+		trans.testInsertHasSubject("QA76.73.C153 M268 2011","programming");
 		
-		trans.insertHasSubject("QA297.A748 2011","numerical methods");
-		trans.insertHasSubject("QA297.A748 2011","computer science");
+		trans.testInsertHasSubject("QA297.A748 2011","numerical methods");
+		trans.testInsertHasSubject("QA297.A748 2011","computer science");
 		
-		trans.insertHasSubject("QA76.6.M3585 2009","computer science");
-		trans.insertHasSubject("QA76.6.M3585 2009","programming");		
+		trans.testInsertHasSubject("QA76.6.M3585 2009","computer science");
+		trans.testInsertHasSubject("QA76.6.M3585 2009","programming");		
 	}
 	
 	public void insertHasAuthorData() {
-		trans.insertHasAuthor("QA76.73.J38 2004", "David Wallace Croft");
-		trans.insertHasAuthor("QA39.3.E65 2004", "Susanna S. Epp");
-		trans.insertHasAuthor("QA76.9.A43 G67 2002", "Michael T. Goodrich");
-		trans.insertHasAuthor("PR6068.O93 Z68 2003", "Suman Gupta");
-		trans.insertHasAuthor("GE160.A35 O35 2010", "Abdeen Mustafa Omer");
-		trans.insertHasAuthor("QC990.I4 S55 2010", "Pawan Sikka");
-		trans.insertHasAuthor("QA76.73.J38 L25 2000", "Martin Osborne");
-		trans.insertHasAuthor("QA76.73.C153 M268 2011", "D.S. Malik");
-		trans.insertHasAuthor("QA297.A748 2011", "U.M. Ascher");
-		trans.insertHasAuthor("QA76.6.M3585 2009", "Richard Mansfield");
+		trans.testInsertHasAuthor("QA76.73.J38 2004", "David Wallace Croft");
+		trans.testInsertHasAuthor("QA39.3.E65 2004", "Susanna S. Epp");
+		trans.testInsertHasAuthor("QA76.9.A43 G67 2002", "Michael T. Goodrich");
+		trans.testInsertHasAuthor("PR6068.O93 Z68 2003", "Suman Gupta");
+		trans.testInsertHasAuthor("GE160.A35 O35 2010", "Abdeen Mustafa Omer");
+		trans.testInsertHasAuthor("QC990.I4 S55 2010", "Pawan Sikka");
+		trans.testInsertHasAuthor("QA76.73.J38 L25 2000", "Martin Osborne");
+		trans.testInsertHasAuthor("QA76.73.C153 M268 2011", "D.S. Malik");
+		trans.testInsertHasAuthor("QA297.A748 2011", "U.M. Ascher");
+		trans.testInsertHasAuthor("QA76.6.M3585 2009", "Richard Mansfield");
 	}
 	
 	
