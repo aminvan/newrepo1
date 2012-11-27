@@ -162,7 +162,7 @@ public class Transactions {
 		}
 	    }
 		
-	public boolean insertBorrower(int bid, String password, String name, String address, String phone, String email, String sin, String exp, String type){
+	public boolean insertBorrower(String password, String name, String address, String phone, String email, String sin, String exp, String type){
 		//TODO make date an int?
 		
 		try
@@ -821,7 +821,7 @@ public boolean updateBorrowingInDate(int borid, String inDate){
 		    return false;
 		}
 	    }
-	public boolean insertBorrowing(int borid,String callnum,int copynum,int bid, String outDate, String inDate){
+	public boolean insertBorrowing(String callnum,int copynum,int bid, String outDate, String inDate){
 		
 		
 		try
@@ -857,7 +857,7 @@ public boolean updateBorrowingInDate(int borid, String inDate){
 		}
 	    }
 
-	public boolean insertFine(int fid, int amount, String issueDate, String paidDate, int borid){
+	public boolean insertFine(int amount, String issueDate, String paidDate, int borid){
 		
 		try
 		{
@@ -894,7 +894,7 @@ public boolean updateBorrowingInDate(int borid, String inDate){
 		}
 	    }
 
-public boolean insertHoldRequest(int hid, int callNum, int bid, String issueDate){
+public boolean insertHoldRequest(int callNum, int bid, String issueDate){
 		
 		try
 		{
@@ -1318,8 +1318,6 @@ public boolean insertHoldRequest(int hid, int callNum, int bid, String issueDate
 	
 	public int showMostRecentBorrower()
 	{
-			
-			//TODO
 			
 		ArrayList<Borrower> returnQuery = new ArrayList<Borrower>();
 		Statement  stmt;

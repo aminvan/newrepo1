@@ -13,10 +13,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import Objects.Borrower;
 import Transactions.Transactions;
 
 public class AddBorrowerDialog extends JFrame implements ActionListener{
-	JTextField borrowerID = new JTextField();
 	JTextField password = new JTextField();
 	JTextField name = new JTextField();
 	JTextField address = new JTextField();
@@ -43,13 +43,10 @@ public class AddBorrowerDialog extends JFrame implements ActionListener{
 	private void addComponentsToPane(final Container pane)
 	{
 		JPanel panel = new JPanel();
-		panel.setLayout(new GridLayout(11, 2));
+		panel.setLayout(new GridLayout(10, 2));
 		
 		panel.add(new Label("Add a Borrower"));
 		panel.add(new Label(""));
-		
-		panel.add(new Label("Borrower ID"));
-		panel.add(borrowerID);
 		
 		panel.add(new Label("password"));
 		panel.add(password);
@@ -119,7 +116,7 @@ public class AddBorrowerDialog extends JFrame implements ActionListener{
 	
 	private int createBorrower()
 	{
-		int bid;
+
 		String bpw;
 		String bname;
 		String baddress;
@@ -128,14 +125,6 @@ public class AddBorrowerDialog extends JFrame implements ActionListener{
 		String bsin;
 		String bexpiry;
 		String btype;
-		
-		//bid = 1;
-		if (borrowerID.getText().trim().length() != 0) {
-			bid = Integer.parseInt(borrowerID.getText().trim());
-		}
-		else {
-			return VALIDATIONERROR;
-		}
 		
 		if (password.getText().trim().length() != 0) {
 			bpw = password.getText().trim();
@@ -189,9 +178,10 @@ public class AddBorrowerDialog extends JFrame implements ActionListener{
 		btype = (String) type.getSelectedItem();
 
 		Transactions trans = new Transactions();
-		if (trans.insertBorrower(bid, bpw, bname, baddress, bphone, bemail, bsin, bexpiry, btype))
+		if (trans.insertBorrower(bpw, bname, baddress, bphone, bemail, bsin, bexpiry, btype))
 		{
-			GiveMeTitleAndMessageDialog.createAndShowGUI(Constants.SUCCESS, Constants.SUCCESS);
+			int newBid = trans.showMostRecentBorrower();
+			GiveMeTitleAndMessageDialog.createAndShowGUI(Constants.SUCCESS, "Borrower added successfully, the borrower's id is " + newBid);
 		}else
 		{
 			GiveMeTitleAndMessageDialog.createAndShowGUI(Constants.ERROR, Constants.ERROR);
@@ -201,7 +191,6 @@ public class AddBorrowerDialog extends JFrame implements ActionListener{
 	}
 	
 	private void clearFields() {
-		borrowerID.setText("");
 		password.setText("");
 		name.setText("");
 		address.setText("");

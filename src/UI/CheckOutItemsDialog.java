@@ -150,9 +150,8 @@ public class CheckOutItemsDialog extends JFrame implements ActionListener{
 			{
 				items = items + callNumber + " ";
 				t.updateBookCopyStatus(Integer.parseInt(callNumber), copyNumber, Constants.OUT);
-				Random r = new Random();
 				
-				t.insertBorrowing(r.nextInt(), callNumber, copyNumber, Integer.parseInt(borrowerID.getText().trim()), getCurrentDateInStringFormat(), null);
+				t.insertBorrowing(callNumber, copyNumber, Integer.parseInt(borrowerID.getText().trim()), getCurrentDateInStringFormat(), null);
 			}else
 			{
 				failedItems = failedItems + callNumber + " ";
