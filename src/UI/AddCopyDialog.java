@@ -83,9 +83,12 @@ public class AddCopyDialog extends JFrame implements ActionListener {
 			
 			if (addCopy() == 1)
 			{
-				GiveMeTitleAndMessageDialog.createAndShowGUI("Success", "Copy addded Successfully");
+				GiveMeTitleAndMessageDialog.createAndShowGUI("Success", "Copy added Successfully");
 				callNumber.setText("");
 				copyNo.setText("");
+			}else
+			{
+				GiveMeTitleAndMessageDialog.createAndShowGUI("Error", "Copy not added Successfully");
 			}
 		}
 		
