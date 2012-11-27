@@ -111,7 +111,7 @@ public class PlaceHoldDialog extends JFrame implements ActionListener{
 			if (trans.showCopiesOfGivenBook(callNum).size() > 0)
 			{
 				Random r = new Random();
-				trans.insertHoldRequest(r.nextInt(), callNum, bid, currDate);
+				trans.insertHoldRequest(callNum, bid, currDate);
 			}else
 			{
 				GiveMeTitleAndMessageDialog.createAndShowGUI("Error", "No books with that call number");

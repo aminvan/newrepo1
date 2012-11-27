@@ -127,7 +127,7 @@ public class ProcessReturnsDialog extends JFrame implements ActionListener{
 			if (expDate.before(this.getCurrentDate()))
 			{
 				Transactions t = new Transactions();
-				t.insertFine(1, 2, dateFormat.format(this.getCurrentDate()), null, bor.borid);
+				t.insertFine(2, dateFormat.format(this.getCurrentDate()), null, bor.borid);
 			}
 		}catch (Exception e)
 		{

@@ -1,7 +1,9 @@
 package UI;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class Constants {
@@ -26,5 +28,41 @@ public class Constants {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
 		Date date = new Date();
 		return dateFormat.format(date);
+	}
+	
+	public static Date stringToDate(String s)
+	{
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+		try
+		{
+			return dateFormat.parse(s);
+		}catch(Exception e){
+			return null;
+			
+		}
+	}
+	
+	public static Date getReturnDateGivenOutDate(String borrowerType, Date outDate)
+	{
+		Calendar c = Calendar.getInstance();
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+		
+		c.setTime(outDate);
+		if (borrowerType.equals(Constants.STAFF))
+		{
+			c.add(Calendar.DATE, 42);
+		}else if (borrowerType.equals(Constants.STUDENT))
+		{
+			c.add(Calendar.DATE, 14);
+		}else if (borrowerType.equals(Constants.FACULTY))
+		{
+			c.add(Calendar.DATE, 84);
+		}else
+		{
+			c.add(Calendar.DATE, 14);
+		}
+
+		return c.getTime();
+		 
 	}
 }
