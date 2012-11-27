@@ -6,6 +6,18 @@ import java.awt.GridLayout;
 import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+import java.util.TreeMap;
 
 import javax.swing.AbstractButton;
 import javax.swing.JButton;
@@ -14,6 +26,7 @@ import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
 
+import Objects.Borrowing;
 import Transactions.Transactions;
 
 public class LibrarianDialog extends JFrame implements ActionListener {
@@ -117,7 +130,7 @@ public class LibrarianDialog extends JFrame implements ActionListener {
 			AddCopyDialog.createAndShowGUI();
 		} else if (LibrarianDialog.popularItemsCommand.equals(arg0.getActionCommand()))
 		{
-			genPopItems();			
+			PopularItemsDialog.createAndShowGUI(genPopItems());			
 		} else if (LibrarianDialog.checkOutBooksCommand.equals(arg0.getActionCommand()))
 		{
 			GenBooksCheckedOutDialog.createAndShowGUI();
@@ -128,7 +141,7 @@ public class LibrarianDialog extends JFrame implements ActionListener {
 		}
 	}
 	
-	public int genPopItems() {
+	public List<List<Integer>> genPopItems() {
 		// something year and number
 		int yr, numItems;
 		
@@ -136,19 +149,81 @@ public class LibrarianDialog extends JFrame implements ActionListener {
 			numItems = Integer.parseInt(nItems.getText());
 		}
 		else {
-			return VALIDATIONERROR;
+			return null;
 		}
 		if (year.getText().trim().length() != 0) {
 			yr = Integer.parseInt(year.getText());
 		}
 		else {
-			return VALIDATIONERROR;
+			return null;
 		}
+		yr = yr - 1900;
 		
 		Transactions trans = new Transactions();
-//		trans.popItems(yr, numItems);
+		List<Borrowing> borrowing = trans.showAllBorrowing();
+		List<Borrowing> tempBorrowing = borrowing;
+		for (int i = 0; i < tempBorrowing.size(); i++){
+			if (Constants.stringToDate(tempBorrowing.get(i).outDate) == null)
+			{
+				borrowing.remove(i);
+			}else
+			{
+				int year = Constants.stringToDate(tempBorrowing.get(i).outDate).getYear();
+				if (yr == year)
+				{
+				
+				}else
+				{
+					borrowing.remove(i);
+				}
+			}
+		}
+		HashMap<Integer, Integer> counts = new HashMap<Integer, Integer>();
+		for (Borrowing b : borrowing)
+		{
+			if (counts.containsKey(b.callNumber))
+			{
+				counts.put(b.callNumber, counts.get(b.callNumber) + 1);
+			}else
+			{
+				counts.put(b.callNumber, 1);
+			}
+		}
+		Collection<Integer> values = counts.values();
+		List<Integer> temp = new ArrayList(values);
+		Collections.sort(temp);
 		
-		return 0;
-	}
+		List<List<Integer>> returnList= new ArrayList<List<Integer>>(); 
+		List<Integer> callNumbers = new ArrayList<Integer>();
+		
+		List<Integer> quantity = new ArrayList<Integer>();
 	
+		if (numItems > temp.size())
+		{
+			numItems = temp.size();
+		}
+		for (int i = 1; i <= numItems; i++)
+		{
+			Integer q = temp.get(temp.size() - i);
+			Set<Integer> keys = getKeysByValue(counts, q);
+			callNumbers.add((Integer) keys.toArray()[0]);
+			quantity.add(q);
+			counts.remove((Integer) keys.toArray()[0]);
+		}
+		
+				//		trans.popItems(yr, numItems);
+		returnList.add(callNumbers);
+		returnList.add(quantity);
+		return returnList;
+	}
+
+	public static <T, E> Set<T> getKeysByValue(Map<T, E> map, E value) {
+	     Set<T> keys = new HashSet<T>();
+	     for (Entry<T, E> entry : map.entrySet()) {
+	         if (value.equals(entry.getValue())) {
+	             keys.add(entry.getKey());
+	         }
+	     }
+	     return keys;
+	}
 }
