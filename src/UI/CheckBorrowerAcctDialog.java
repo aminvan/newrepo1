@@ -127,7 +127,7 @@ public class CheckBorrowerAcctDialog extends JFrame implements ActionListener{
 				switch(x)
 				{
 					case 0:
-						return Integer.toString(borrowing.get(y).getCallNumber());
+						return borrowing.get(y).getCallNumber();
 					case 1:
 						return Integer.toString(borrowing.get(y).getCopyNo());
 					case 2:
@@ -200,7 +200,7 @@ public class CheckBorrowerAcctDialog extends JFrame implements ActionListener{
 				switch(x)
 				{
 					case 0:
-						return Integer.toString(holds.get(y).callNumber);
+						return holds.get(y).callNumber;
 					default:
 						return holds.get(y).issuedDate;
 				}

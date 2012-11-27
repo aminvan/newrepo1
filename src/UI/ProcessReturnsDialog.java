@@ -125,8 +125,7 @@ public class ProcessReturnsDialog extends JFrame implements ActionListener{
 		HoldRequest toPlace = null;
 		for (HoldRequest hr : holds)
 		{
-			// TODO Will change
-			if (hr.callNumber == bc.callNumber)
+			if (hr.callNumber.equals(bc.callNumber));
 			{
 				if (toPlace == null)
 				{
@@ -183,7 +182,7 @@ public class ProcessReturnsDialog extends JFrame implements ActionListener{
 		
 		for (Borrowing b : t.showCheckedOutBorrowing())
 		{
-			if (b.callNumber == bc.callNumber && b.copyNo == bc.copyNum && b.inDate.equals("null"))
+			if (b.callNumber.equals(bc.callNumber) && b.copyNo == bc.copyNum && b.inDate.equals("null"))
 			{
 				
 				t.updateBorrowingInDate(b.borid, Constants.getCurrentDateInStringFormat());

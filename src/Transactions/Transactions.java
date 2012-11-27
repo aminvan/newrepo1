@@ -440,7 +440,7 @@ public class Transactions {
 		  while(rs.next())
 		  {
 		        BookCopy b = new BookCopy();
-		      	b.callNumber = rs.getInt("CALLNUMBER");
+		      	b.callNumber = rs.getString("CALLNUMBER");
 		  		b.title = rs.getString("TITLE");
 		  		b.mainAuthor = rs.getString("NAME");
 		  		b.subject = rs.getString("SUBJECT");
@@ -488,7 +488,7 @@ public class Transactions {
 		  while(rs.next())
 		  {
 		        BookCopy bc = new BookCopy();
-		      	bc.callNumber = rs.getInt("CALLNUMBER");
+		      	bc.callNumber = rs.getString("CALLNUMBER");
 		  		bc.copyNum = rs.getInt("COPYNO");
 		  		bc.status = rs.getString("STATUS");
 
@@ -600,7 +600,7 @@ public class Transactions {
 		  while(rs.next())
 		  {
 			  Book b = new Book();
-		      	b.callNumber = rs.getInt("CALLNUMBER");
+		      	b.callNumber = rs.getString("CALLNUMBER");
 		      	b.title = rs.getString("TITLE");
 		  		returnQuery.add(b);
 		  }
@@ -677,12 +677,12 @@ public class Transactions {
 		}	
 	 }
 		
-	public boolean updateBookCopyStatus(int callnum, int copynum, String status){
+	public boolean updateBookCopyStatus(String callnum, int copynum, String status){
 		
 		
 		try
 		{
-			String query = String.format("UPDATE bookCopy SET status = '%s' WHERE callnumber = %d and copyno = %d",status, callnum, copynum);
+			String query = String.format("UPDATE bookCopy SET status = '%s' WHERE callnumber = %s and copyno = %d",status, callnum, copynum);
 			System.out.println(query);
 			ps = connection.prepareStatement(query);
 		  ps.executeUpdate();
@@ -739,7 +739,7 @@ public class Transactions {
 		}
 	    }
 
-	public ArrayList<BookCopy> showCopiesOfGivenBook(int callnum)
+	public ArrayList<BookCopy> showCopiesOfGivenBook(String callnum)
 	 {
 		ArrayList<BookCopy> returnQuery = new ArrayList<BookCopy>();
 		Statement  stmt;
@@ -748,7 +748,7 @@ public class Transactions {
 		   
 		try
 		{
-			String query = String.format("SELECT * FROM bookCopy WHERE callNumber = %d", callnum);
+			String query = String.format("SELECT * FROM bookCopy WHERE callNumber = %s", callnum);
 		  stmt = connection.createStatement();
 		  rs = stmt.executeQuery(query);
 		  // get info on ResultSet
@@ -766,7 +766,7 @@ public class Transactions {
 		  while(rs.next())
 		  {
 		        BookCopy bc = new BookCopy();
-		      	bc.callNumber = rs.getInt("CALLNUMBER");
+		      	bc.callNumber = rs.getString("CALLNUMBER");
 		  		bc.copyNum = rs.getInt("COPYNO");
 		  		bc.status = rs.getString("STATUS");
 
@@ -922,11 +922,11 @@ public boolean updateHoldRequestIssuedDate(int hid, String issuedDate){
 		}
 	    }
 
-public boolean insertHoldRequest(int callNum, int bid, String issueDate){
+public boolean insertHoldRequest(String callNum, int bid, String issueDate){
 		
 		try
 		{
-			String query = String.format("INSERT INTO holdRequest VALUES (%s, %d, %d, '%s')","hid_counter.nextval",callNum, bid, issueDate);
+			String query = String.format("INSERT INTO holdRequest VALUES (%s, %s, %d, '%s')","hid_counter.nextval",callNum, bid, issueDate);
 			  ps = connection.prepareStatement(query);
 		  //System.out.println("all added");
 		  ps.executeUpdate();
@@ -1041,7 +1041,7 @@ public boolean insertHoldRequest(int callNum, int bid, String issueDate){
 	  {
 		    Borrowing b = new Borrowing ();
 	      	b.setBorid(rs.getInt("BORID"));
-	  		b.setCallNumber(rs.getInt("CALLNUMBER"));
+	  		b.setCallNumber(rs.getString("CALLNUMBER"));
 	  		b.setCopyNo(rs.getInt("COPYNO"));
 	  		b.setBid(rs.getInt("BID"));
 	  		b.setOutDate(rs.getString("OUTDATE"));
@@ -1064,7 +1064,7 @@ public boolean insertHoldRequest(int callNum, int bid, String issueDate){
 	}	
 }
 	
-	public ArrayList<HoldRequest> getNonIssuedHoldRequestsByCallNumber(int callNumber)
+	public ArrayList<HoldRequest> getNonIssuedHoldRequestsByCallNumber(String callNumber)
 	{
 			
 		ArrayList<HoldRequest> returnQuery = new ArrayList<HoldRequest>();
@@ -1074,7 +1074,7 @@ public boolean insertHoldRequest(int callNum, int bid, String issueDate){
 		   
 		try
 		{
-			String query = String.format("SELECT * FROM holdRequest WHERE callNumber = %d and issuedDate = 'null'", callNumber);
+			String query = String.format("SELECT * FROM holdRequest WHERE callNumber = %s and issuedDate = 'null'", callNumber);
 		  stmt = connection.createStatement();
 		  rs = stmt.executeQuery(query);
 		  // get info on ResultSet
@@ -1093,7 +1093,7 @@ public boolean insertHoldRequest(int callNum, int bid, String issueDate){
 		  {
 				HoldRequest hr  = new HoldRequest();
 		      	hr.hid = rs.getInt("HID");
-		      	hr.callNumber = rs.getInt("CALLNUMBER");
+		      	hr.callNumber = rs.getString("CALLNUMBER");
 		      	hr.bid = rs.getInt("BID");
 		      	hr.issuedDate = rs.getString("ISSUEDDATE");
 		  		returnQuery.add(hr);
@@ -1157,7 +1157,7 @@ public boolean insertHoldRequest(int callNum, int bid, String issueDate){
 		  {
 			  	HoldRequest hr  = new HoldRequest();
 		      	hr.hid = rs.getInt("HID");
-		      	hr.callNumber = rs.getInt("CALLNUMBER");
+		      	hr.callNumber = rs.getString("CALLNUMBER");
 		      	hr.bid = rs.getInt("BID");
 		      	hr.issuedDate = rs.getString("ISSUEDDATE");
 		  		returnQuery.add(hr);
@@ -1263,7 +1263,7 @@ public boolean insertHoldRequest(int callNum, int bid, String issueDate){
 		  while(rs.next())
 		  {
 		        
-		      	bc.callNumber = rs.getInt("CALLNUMBER");
+		      	bc.callNumber = rs.getString("CALLNUMBER");
 		  		bc.copyNum = rs.getInt("COPYNO");
 		  		bc.status = rs.getString("STATUS");
 
@@ -1314,7 +1314,7 @@ public boolean insertHoldRequest(int callNum, int bid, String issueDate){
 	  {
 		    Borrowing b = new Borrowing ();
 	      	b.setBorid(rs.getInt("BORID"));
-	  		b.setCallNumber(rs.getInt("CALLNUMBER"));
+	  		b.setCallNumber(rs.getString("CALLNUMBER"));
 	  		b.setCopyNo(rs.getInt("COPYNO"));
 	  		b.setBid(rs.getInt("BID"));
 	  		b.setOutDate(rs.getString("OUTDATE"));
@@ -1368,7 +1368,7 @@ public boolean insertHoldRequest(int callNum, int bid, String issueDate){
 	  {
 		    Borrowing b = new Borrowing ();
 	      	b.setBorid(rs.getInt("BORID"));
-	  		b.setCallNumber(rs.getInt("CALLNUMBER"));
+	  		b.setCallNumber(rs.getString("CALLNUMBER"));
 	  		b.setCopyNo(rs.getInt("COPYNO"));
 	  		b.setBid(rs.getInt("BID"));
 	  		b.setOutDate(rs.getString("OUTDATE"));

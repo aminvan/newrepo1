@@ -183,7 +183,7 @@ public class CheckOverduesDialog extends JFrame implements ActionListener{
 			public Object getValueAt(int y, int x) {
 				if (x == 0)
 				{
-					return Integer.toString(overDues.get(y).callNumber);
+					return overDues.get(y).callNumber;
 				}else
 				{
 					return Integer.toString(overDues.get(y).bid);

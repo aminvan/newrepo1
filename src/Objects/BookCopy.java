@@ -9,13 +9,13 @@ public class BookCopy extends Book {
 		
 	}
 	
-	public BookCopy (int callNumber, String isbn, String title, String mainAuthor, String publisher, String year, String subject, String status)
+	public BookCopy (String callNumber, String isbn, String title, String mainAuthor, String publisher, String year, String subject, String status)
 	{
 		super(callNumber, isbn, title, mainAuthor, publisher, year, subject);
 		this.status = status;
 	}
 	
-	public BookCopy (int copyNum, int callNumber, String isbn, String title, String mainAuthor, String publisher, String year, String subject, String status)
+	public BookCopy (int copyNum, String callNumber, String isbn, String title, String mainAuthor, String publisher, String year, String subject, String status)
 	{
 		super(callNumber, isbn, title, mainAuthor, publisher, year, subject);
 		this.status = status;

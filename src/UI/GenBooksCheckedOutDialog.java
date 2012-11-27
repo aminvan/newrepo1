@@ -120,7 +120,7 @@ public class GenBooksCheckedOutDialog extends JFrame implements ActionListener{
 	{
 		for (BookCopy c : bcs)
 		{
-			if (b.callNumber == c.callNumber)
+			if (b.callNumber.equals(c.callNumber))
 			{
 				return true;
 			}

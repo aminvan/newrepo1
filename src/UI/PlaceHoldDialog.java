@@ -102,9 +102,9 @@ public class PlaceHoldDialog extends JFrame implements ActionListener{
 	
 	private int placeHold() {
 		
-		int callNum = Integer.parseInt(callNo.getText().trim());
+		String callNum = callNo.getText().trim();
 		
-		if (callNum != 0) {
+		if (callNum.length() > 0) {
 			
 			Transactions trans = new Transactions();
 			List<BookCopy> bc = trans.showCopiesOfGivenBook(callNum);

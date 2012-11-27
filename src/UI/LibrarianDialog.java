@@ -178,7 +178,7 @@ public class LibrarianDialog extends JFrame implements ActionListener {
 				}
 			}
 		}
-		HashMap<Integer, Integer> counts = new HashMap<Integer, Integer>();
+		HashMap<String, Integer> counts = new HashMap<String, Integer>();
 		for (Borrowing b : borrowing)
 		{
 			if (counts.containsKey(b.callNumber))
@@ -193,8 +193,8 @@ public class LibrarianDialog extends JFrame implements ActionListener {
 		List<Integer> temp = new ArrayList(values);
 		Collections.sort(temp);
 		
-		List<List<Integer>> returnList= new ArrayList<List<Integer>>(); 
-		List<Integer> callNumbers = new ArrayList<Integer>();
+		List returnList= new ArrayList(); 
+		List<String> callNumbers = new ArrayList<String>();
 		
 		List<Integer> quantity = new ArrayList<Integer>();
 	
@@ -205,10 +205,10 @@ public class LibrarianDialog extends JFrame implements ActionListener {
 		for (int i = 1; i <= numItems; i++)
 		{
 			Integer q = temp.get(temp.size() - i);
-			Set<Integer> keys = getKeysByValue(counts, q);
-			callNumbers.add((Integer) keys.toArray()[0]);
+			Set<String> keys = getKeysByValue(counts, q);
+			callNumbers.add((String) keys.toArray()[0]);
 			quantity.add(q);
-			counts.remove((Integer) keys.toArray()[0]);
+			counts.remove((String) keys.toArray()[0]);
 		}
 		
 				//		trans.popItems(yr, numItems);

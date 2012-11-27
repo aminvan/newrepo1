@@ -131,7 +131,7 @@ public class SearchForBooksDialog extends JFrame implements ActionListener{
 			BookCopy currentCopy = bookList.get(i);
 			for (int j = i + 1; j < bookList.size(); j++)
 			{
-				if (currentCopy.callNumber == bookList.get(j).callNumber){
+				if (currentCopy.callNumber.equals(bookList.get(j).callNumber)){
 					bookList.remove(j);
 					return removeDuplicates(bookList);
 				}

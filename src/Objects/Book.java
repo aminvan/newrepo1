@@ -2,14 +2,14 @@ package Objects;
 
 public class Book {
 
-	public int callNumber;
+	public String callNumber;
 	public String isbn, title, mainAuthor, publisher, year, subject;
 	
 	public Book()
 	{
 		
 	}
-	public Book (int callNumber, String isbn, String title, String mainAuthor, String publisher, String year, String subject)
+	public Book (String callNumber, String isbn, String title, String mainAuthor, String publisher, String year, String subject)
 	{
 		this.callNumber = callNumber;
 		this.isbn = isbn;
@@ -20,11 +20,11 @@ public class Book {
 		this.subject = subject;
 	}
 
-	public int getCallNumber() {
+	public String getCallNumber() {
 		return callNumber;
 	}
 
-	public void setCallNumber(int callNumber) {
+	public void setCallNumber(String callNumber) {
 		this.callNumber = callNumber;
 	}
 

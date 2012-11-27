@@ -2,28 +2,27 @@ package Objects;
 
 public class Borrowing {
 
-	public int callNumber, copyNo, bid, borid;
-	public String outDate, inDate;
+	public int copyNo, bid, borid;
+	public String outDate, inDate, callNumber;
 	public Borrowing()
 	{
 		
 	}
-	public Borrowing (int borid, int callNumber, int copyNo, int bid, String outDate, String inDate)
+	public Borrowing (int borid, String callNumber, int copyNo, int bid, String outDate, String inDate)
 	{
 		this.callNumber = callNumber;
 		this.borid = borid;
-		this.callNumber = callNumber;
 		this.copyNo = copyNo;
 		this.bid = bid;
 		this.outDate = outDate;
 		this.inDate = inDate;
 	}
 
-	public int getCallNumber() {
+	public String getCallNumber() {
 		return callNumber;
 	}
 
-	public void setCallNumber(int callNumber) {
+	public void setCallNumber(String callNumber) {
 		this.callNumber = callNumber;
 	}
 

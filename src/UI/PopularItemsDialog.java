@@ -30,7 +30,7 @@ public class PopularItemsDialog extends JFrame implements ActionListener {
 		super (name);
 	}
 	
-	private void addComponentsToPane(final Container pane, List<List <Integer>> borrowing)
+	private void addComponentsToPane(final Container pane, List borrowing)
 	{
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(1, 1));
@@ -57,7 +57,7 @@ public class PopularItemsDialog extends JFrame implements ActionListener {
 		pane.add(panel2, BorderLayout.SOUTH);
 		
 	}
-	public static void createAndShowGUI(List<List<Integer>> list)
+	public static void createAndShowGUI(List list)
 	{ 
 		  //Create and set up the window.
         PopularItemsDialog frame = new PopularItemsDialog("Popular Items");
@@ -76,9 +76,9 @@ public class PopularItemsDialog extends JFrame implements ActionListener {
 			this.dispose();
 	}
 	
-	private TableModel getData(final List<List<Integer>> borrowing)
+	private TableModel getData(final List borrowing)
 	{
-		final int numRows = borrowing.get(0).size();
+		final int numRows = ((List) borrowing.get(0)).size();
 
 		@SuppressWarnings("serial")
 		TableModel tm = new AbstractTableModel(){
@@ -102,9 +102,9 @@ public class PopularItemsDialog extends JFrame implements ActionListener {
 				
 				switch(x){
 					case 0:
-						return borrowing.get(0).get(y);
+						return (String) ((List) borrowing.get(0)).get(y);
 					case 1:{
-						return borrowing.get(1).get(y);
+						return ((List) borrowing.get(1)).get(y);
 					}
 				
 					default:
