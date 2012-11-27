@@ -1284,7 +1284,65 @@ public boolean insertHoldRequest(int hid, int callNum, int bid, String issueDate
 }
 
 	
+
 	
+	public int showMostRecentBorrower()
+	{
+			
+			//TODO
+			
+		ArrayList<Borrower> returnQuery = new ArrayList<Borrower>();
+		Statement  stmt;
+		ResultSet  rs;
+		int bid =0;
+		
+		   
+		try
+		{
+			String query = String.format("SELECT MAX(bid) FROM borrower");
+		  stmt = connection.createStatement();
+		  rs = stmt.executeQuery(query);
+		  // get info on ResultSet
+		  ResultSetMetaData rsmd = rs.getMetaData();
+		  // get number of columns
+		  int numCols = rsmd.getColumnCount();
+		  //System.out.println(" ");
+		  // display column names;
+		  for (int i = 0; i < numCols; i++)
+		  {
+		      // get column name and print it
+		     // System.out.printf("%-15s", rsmd.getColumnName(i+1));    
+		  }
+		  //System.out.println(" ");
+		  Borrower b = new Borrower ();
+		  while(rs.next())
+		  {
+			    
+		      	bid = rs.getInt("MAX(BID)");
+		  	/*	b.setPassword(rs.getString("PASSWORD"));
+		  		b.setName(rs.getString("NAME"));
+		  		b.setAddress(rs.getString("ADDRESS"));
+		  		b.setPhone(rs.getString("PHONE"));
+		  		b.setEmailAddress(rs.getString("EMAILADDRESS"));
+		  		b.setSinOrStNo(rs.getString("SINORSTNO"));
+		  		b.setExpiryDate(rs.getString("EXPIRYDATE"));
+		  		b.setType(rs.getString("TYPE"));
+		  		
+		  		*/
+		  		returnQuery.add(b);
+		  }
+
+		  // close the statement; 
+		  // the ResultSet will also be closed
+		  stmt.close();
+		  return bid;
+		}
+		catch (SQLException ex)
+		{
+		    System.out.println("Message: " + ex.getMessage());
+		    return 0;
+		}	
+	}
 }
 
 
