@@ -6,6 +6,11 @@ import java.awt.GridLayout;
 import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import javax.swing.AbstractButton;
 import javax.swing.JButton;
@@ -18,12 +23,14 @@ import javax.swing.JTextField;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
 
+import Objects.Fine;
 import Transactions.Transactions;
 
 public class PayFineDialog extends JFrame implements ActionListener{
 
 	JTable table;
-	
+	static int bid;
+	static List<Fine> fines;
 	String [] columnNames = {"Fid", "Amount", "IssuedDate", "BorID"};
 	static String payFine = "Pay Selected Fine";
 	static String returnToBorrowerDialog = "Return to Borrower Dialog";
@@ -70,8 +77,15 @@ public class PayFineDialog extends JFrame implements ActionListener{
         PayFineDialog frame = new PayFineDialog("Search Dialog");
        // frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Transactions t = new Transactions();
-        //TODO
-        //t.getFines(borrowerID);
+        fines = new ArrayList<Fine>();
+        for (Fine f : t.showFineById(borrowerID))
+        	{
+        		if (f.paidDate == null || f.paidDate.length() < 9)
+        		{
+        			fines.add(f);
+        		}
+        	}
+        bid = borrowerID;
         //Set up the content pane.
         frame.addComponentsToPane(frame.getContentPane());
         //Display the window.
@@ -90,6 +104,19 @@ public class PayFineDialog extends JFrame implements ActionListener{
 		else if (payFine.equals(arg0.getActionCommand()))
 		{ 
 			int selectedRow = table.getSelectedRow();
+			Fine toPay = fines.get(selectedRow);
+			Transactions t = new Transactions();
+			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+			if (t.payFine(toPay.fid, toPay.amount, dateFormat.format(new Date())))
+			{
+				GiveMeTitleAndMessageDialog.createAndShowGUI("Success", "Fine paid successfully");
+				fines.remove(selectedRow);
+				this.dispose();
+				PayFineDialog.createAndShowGUI(bid);
+			}else
+			{
+				GiveMeTitleAndMessageDialog.createAndShowGUI("Error", "Fine could not be paid, please try again");
+			}
 			
 		}
 		
@@ -112,12 +139,22 @@ public class PayFineDialog extends JFrame implements ActionListener{
 
 			@Override
 			public int getRowCount() {
-				return 1;
+				return fines.size();
 			}
 
 			@Override
 			public Object getValueAt(int y, int x) {
-				return "";
+				switch(x){
+				
+				case 0:
+					return Integer.toString(fines.get(y).fid);
+				case 1:
+					return Integer.toString(fines.get(y).amount);
+				case 2:
+					return fines.get(y).issuedDate;
+				default:
+					return fines.get(y).borid;
+				}
 				
 			}
 			

@@ -645,6 +645,37 @@ public class Transactions {
 		    return false;
 		}
 	    }
+	
+	public boolean payFine(int fid, int amount, String paidDate){
+		
+		
+		try
+		{
+			String query = String.format("UPDATE Fine SET paidDate = '%s' WHERE fid = %d and amount = %d",paidDate, fid, amount);
+			System.out.println(query);
+			ps = connection.prepareStatement(query);
+		  ps.executeUpdate();
+		  connection.commit();
+		  ps.close();
+		  System.out.println("Paid Fine");
+		  return true;
+		}
+		catch (SQLException ex)
+		{
+		    System.out.println("Message: " + ex.getMessage());
+		    try 
+		    {
+			// undo the insert
+			connection.rollback();	
+		    }
+		    catch (SQLException ex2)
+		    {
+			System.out.println("Message: " + ex2.getMessage());
+			System.exit(-1);
+		    }
+		    return false;
+		}
+	    }
 
 	public ArrayList<BookCopy> showCopiesOfGivenBook(int callnum)
 	 {
