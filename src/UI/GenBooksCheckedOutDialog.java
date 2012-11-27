@@ -5,6 +5,7 @@ import java.awt.GridLayout;
 import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -12,14 +13,13 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import Objects.BookCopy;
+import Objects.Borrowing;
 import Transactions.Transactions;
 
 public class GenBooksCheckedOutDialog extends JFrame implements ActionListener{
 
-	JTextField callNum = new JTextField();
-	JTextField title = new JTextField();
-	JTextField checkOutDate = new JTextField();
-	JTextField dueDate = new JTextField();
+	JTextField subject = new JTextField();
 	
 	static String returnToUserDialogString = "Return to User Dialog";
 	static String genReport = "Generate Report";
@@ -34,11 +34,13 @@ public class GenBooksCheckedOutDialog extends JFrame implements ActionListener{
 	private void addComponentsToPane(final Container pane)
 	{
 		JPanel panel = new JPanel();
-		panel.setLayout(new GridLayout(5, 2));
+		panel.setLayout(new GridLayout(3, 2));
 		
-		panel.add(new Label("Books Currently Checked Out"));
+		panel.add(new Label("Provide Subject (optional)"));
+		panel.add(subject);
+		
 		panel.add(new Label(""));
-		
+		panel.add(new Label(""));
 //		panel.add(new Label("Call"));
 //		panel.add(year);
 //		
@@ -49,11 +51,15 @@ public class GenBooksCheckedOutDialog extends JFrame implements ActionListener{
 		returnToUserDialog.setActionCommand(returnToUserDialogString);
 		returnToUserDialog.addActionListener(this);
 		
+		JButton generateReport = new JButton(genReport);
+		generateReport.setActionCommand(genReport);
+		generateReport.addActionListener(this);
 //		JButton genReportButton = new JButton(genReport);
 //		genReportButton.setActionCommand(genReport);
 //		genReportButton.addActionListener(this);
 //		
 		panel.add(returnToUserDialog);
+		panel.add(generateReport);
 //		panel.add(genReportButton);
 		
 		pane.add(panel);
@@ -79,17 +85,48 @@ public class GenBooksCheckedOutDialog extends JFrame implements ActionListener{
 		}
 		else if (genReport.equals(arg0.getActionCommand()))
 		{ 
-			genBooksOutReport();
+			Transactions t = new Transactions();
+			List<Borrowing> outBooks = t.showCheckedOutBorrowing();
 			
+			String subjectStr;
+			if (subject.getText().trim().length() > 0)
+			{
+				subjectStr = subject.getText().trim();
+				List<Borrowing> tempList = outBooks;
+				List<BookCopy> bcs = t.showBookSearch("", "", subjectStr);
+				{
+					for (int i = 0; i < tempList.size(); i++)
+					{
+						if (!keepBorrowing(tempList.get(i), bcs))
+						{
+							outBooks.remove(i);
+						}
+					}
+				}
+				LibrarianDisplayCheckedOutBooks.createAndShowGUI(outBooks);
+			}else
+			{
+				LibrarianDisplayCheckedOutBooks.createAndShowGUI(outBooks);
+			}	
+		}	
+	}
+	
+	private List<Borrowing> orderByCallNumber(List<Borrowing> b)
+	{
+		return null;
+	}
+	
+	private boolean keepBorrowing(Borrowing b, List<BookCopy> bcs)
+	{
+		for (BookCopy c : bcs)
+		{
+			if (b.callNumber == c.callNumber)
+			{
+				return true;
+			}
 		}
-		
+		return false;
 	}
 	
 	
-	private int genBooksOutReport() {
-		
-		
-		
-		return VALIDATIONERROR;
-	}
 }

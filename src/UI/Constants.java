@@ -41,6 +41,11 @@ public class Constants {
 			
 		}
 	}
+	public static String DateToString(Date d)
+	{
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+		return dateFormat.format(d);
+	}
 	
 	public static Date getReturnDateGivenOutDate(String borrowerType, Date outDate)
 	{

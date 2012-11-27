@@ -1215,7 +1215,7 @@ public boolean insertHoldRequest(int callNum, int bid, String issueDate){
 	   
 	try
 	{
-		String query = ("SELECT * FROM borrowing WHERE inDate = 'null'");
+		String query = ("SELECT * FROM borrowing WHERE inDate = 'null' ORDER BY callNumber");
 	  stmt = connection.createStatement();
 	  rs = stmt.executeQuery(query);
 	  // get info on ResultSet
