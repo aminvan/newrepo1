@@ -791,6 +791,36 @@ public class Transactions {
 		}	
 	 }
 	
+public boolean updateBorrowingInDate(int borid, String inDate){
+		
+		
+		try
+		{
+			String query = String.format("UPDATE borrowing SET inDate = '%s' WHERE borid = %d",inDate, borid);
+			System.out.println(query);
+			ps = connection.prepareStatement(query);
+		  ps.executeUpdate();
+		  connection.commit();
+		  ps.close();
+		  System.out.println("BorrowingUpdated");
+		  return true;
+		}
+		catch (SQLException ex)
+		{
+		    System.out.println("Message: " + ex.getMessage());
+		    try 
+		    {
+			// undo the insert
+			connection.rollback();	
+		    }
+		    catch (SQLException ex2)
+		    {
+			System.out.println("Message: " + ex2.getMessage());
+			System.exit(-1);
+		    }
+		    return false;
+		}
+	    }
 	public boolean insertBorrowing(int borid,String callnum,int copynum,int bid, String outDate, String inDate){
 		
 		

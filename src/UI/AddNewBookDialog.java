@@ -258,5 +258,7 @@ public class AddNewBookDialog extends JFrame implements ActionListener {
 		mainAuthor.setText("");
 		publisher.setText("");
 		year.setText("");
+		authorListModel.clear();
+		subjectListModel.clear();
 	}
 }

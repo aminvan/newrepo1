@@ -1,5 +1,9 @@
 package UI;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Constants {
 
 
@@ -15,4 +19,12 @@ public class Constants {
 	public static String FACULTY = "faculty";
 	public static String STAFF = "staff";
 	public static String GEN_PUB = "general public";
+	public static String NULL = "null";
+	
+	public static String getCurrentDateInStringFormat()
+	{
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+		Date date = new Date();
+		return dateFormat.format(date);
+	}
 }

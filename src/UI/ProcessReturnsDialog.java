@@ -152,6 +152,8 @@ public class ProcessReturnsDialog extends JFrame implements ActionListener{
 		{
 			if (b.callNumber == bc.callNumber && b.copyNo == bc.copyNum && b.inDate.equals("null"))
 			{
+				
+				t.updateBorrowingInDate(b.borid, Constants.getCurrentDateInStringFormat());
 				return b;
 			
 			}
