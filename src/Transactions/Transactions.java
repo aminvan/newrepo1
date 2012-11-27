@@ -1658,6 +1658,78 @@ public boolean insertBorrowerForTestData(String bid, String password, String nam
         }
     }
     }
+
+public boolean insertHoldReqForTestData(int hid, String callNum, int bid, String issueDate){
+	
+	try
+	{
+		String query = String.format("INSERT INTO holdRequest VALUES (%d, %s, %d, '%s')",hid,callNum, bid, issueDate);
+		  ps = connection.prepareStatement(query);
+	  //System.out.println("all added");
+	  ps.executeUpdate();
+	  //System.out.println("executed");
+	  // commit work 
+	  connection.commit();
+	  //System.out.println("committed");
+	  ps.close();
+	  System.out.println("Inserted into holdRequest");
+	  return true;
+	}
+	catch (SQLException ex)
+	{
+	    System.out.println("Message: " + ex.getMessage());
+	    try 
+	    {
+		// undo the insert
+		connection.rollback();	
+		return false;
+	    }
+	    catch (SQLException ex2)
+	    {
+		System.out.println("Message: " + ex2.getMessage());
+		System.exit(-1);
+		return false;
+	    }
+	}
+    }
+
+public boolean insertFineForTestData(int fid, int amount, String issueDate, String paidDate, int borid){
+	
+	try
+	{
+		
+		String query = String.format("INSERT INTO fine VALUES (%d, %d, '%s', '%s', %d)",fid,amount, issueDate, paidDate, borid);
+		ps = connection.prepareStatement(query);
+
+
+	  //System.out.println("all added");
+	  ps.executeUpdate();
+	  //System.out.println("executed");
+	  // commit work 
+	  connection.commit();
+	  //System.out.println("committed");
+	  ps.close();
+	  System.out.println("Inserted into fine");
+	  return true;
+	}
+	catch (SQLException ex)
+	{
+	    System.out.println("Message: " + ex.getMessage());
+	    try 
+	    {
+		// undo the insert
+		connection.rollback();	
+		return false;
+	    }
+	    catch (SQLException ex2)
+	    {
+		System.out.println("Message: " + ex2.getMessage());
+		System.exit(-1);
+		return false;
+	    }
+	}
+    }
+
 }
 
 

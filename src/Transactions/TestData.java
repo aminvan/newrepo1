@@ -12,16 +12,16 @@ public class TestData {
 	}
 	
 	public void insertBookData() {
-		trans.testInsertBook("QA76.73.J38 2004", 1590591232, "Advanced Java Game Programming", "David Wallace Croft", "Berkley Press", 2004);
-		trans.testInsertBook("QA39.3.E65 2004", 534490964, "Discrete Mathematics with Applications", "Susanna S. Epp", "Thomson-Brooks/Cole", 2004);
-		trans.testInsertBook("QA76.9.A43 G67 2002", 471383651, "Algorithm Design", "Michael T. Goodrich", "Wiley", 2002);
-		trans.testInsertBook("PR6068.O93 Z68 2003", 403912645, "Re-reading Harry Potter", "Suman Gupta", "Palgrave Macmillan", 2003);
-		trans.testInsertBook("GE160.A35 O35 2010", 781617288, "Africa: the driest continent", "Abdeen Mustafa Omer", "Nova Science", 2010);
-		trans.testInsertBook("QC990.I4 S55 2010", 176580597, "Global warming: India's response to climate change, disasster mitigation and adaptation", "Pawan Sikka", "Uppal Publishing House", 2010);
-		trans.testInsertBook("QA76.73.J38 L25 2000", 534366910, "Java: a framework for program design and data structures", "Martin Osborne", "Brooks/Cole", 2000);
-		trans.testInsertBook("QA76.73.C153 M268 2011", 471383651, "C++ programming: from problem analysis to program design", "D.S. Malik", "Course Technology", 2011);
-		trans.testInsertBook("QA297.A748 2011", 898719976, "A first course in numerical methods", "U.M. Ascher", "Society for Industrial and Applied Mathematics", 2011);
-		trans.testInsertBook("QA76.6.M3585 2009", 0071624724, "Programming: a beginner's guide", "Richard Mansfield", "McGraw-Hill", 2009);
+		trans.insertBook("QA76.73.J38 2004", 1590591232, "Advanced Java Game Programming", "David Wallace Croft", "Berkley Press", 2004);
+		trans.insertBook("QA39.3.E65 2004", 534490964, "Discrete Mathematics with Applications", "Susanna S. Epp", "Thomson-Brooks/Cole", 2004);
+		trans.insertBook("QA76.9.A43 G67 2002", 471383651, "Algorithm Design", "Michael T. Goodrich", "Wiley", 2002);
+		trans.insertBook("PR6068.O93 Z68 2003", 403912645, "Re-reading Harry Potter", "Suman Gupta", "Palgrave Macmillan", 2003);
+		trans.insertBook("GE160.A35 O35 2010", 781617288, "Africa: the driest continent", "Abdeen Mustafa Omer", "Nova Science", 2010);
+		trans.insertBook("QC990.I4 S55 2010", 176580597, "Global warming: India's response to climate change, disasster mitigation and adaptation", "Pawan Sikka", "Uppal Publishing House", 2010);
+		trans.insertBook("QA76.73.J38 L25 2000", 534366910, "Java: a framework for program design and data structures", "Martin Osborne", "Brooks/Cole", 2000);
+		trans.insertBook("QA76.73.C153 M268 2011", 471383651, "C++ programming: from problem analysis to program design", "D.S. Malik", "Course Technology", 2011);
+		trans.insertBook("QA297.A748 2011", 898719976, "A first course in numerical methods", "U.M. Ascher", "Society for Industrial and Applied Mathematics", 2011);
+		trans.insertBook("QA76.6.M3585 2009", 0071624724, "Programming: a beginner's guide", "Richard Mansfield", "McGraw-Hill", 2009);
 	}
 	
 	public void insertHasSubjData() {
@@ -129,23 +129,23 @@ public class TestData {
 	}
 	
 	public void insertHoldReqData() {
-		trans.insertHoldReq(1000,100002,"QA297.A748 2011", "20-NOV-2012");
-		trans.insertHoldReq(1001,100004,"QA39.3.E65 2004", "14-NOV-2012");
-		trans.insertHoldReq(1002,100003,"GE160.A35 O35 2010", "10-Nov-2012");
-		trans.insertHoldReq(1003,100008,"GE160.A35 O35 2010", "12-Nov-2012");
-		trans.insertHoldReq(1004,100002,"QA76.73.C153 M268 2011", "31-oct-2012");
+		trans.insertHoldReqForTestData(1000,"QA297.A748 2011",100002, "20-NOV-2012");
+		trans.insertHoldReqForTestData(1001,"QA39.3.E65 2004",100004, "14-NOV-2012");
+		trans.insertHoldReqForTestData(1002,"GE160.A35 O35 2010",100003, "10-Nov-2012");
+		trans.insertHoldReqForTestData(1003,"GE160.A35 O35 2010",100008, "12-Nov-2012");
+		trans.insertHoldReqForTestData(1004,"QA76.73.C153 M268 2011",100002, "31-oct-2012");
 	}
 	
 	public void insertFineData() {
-		trans.insertFine(1000,"3.00","03-Sep-2011", "10-Sep-2012", 1000);
-		trans.insertFine(1001,"0.50","06-Oct-2012", "07-Oct-2012", 1000);
+		trans.insertFineForTestData(1000,3,"03-Sep-2011", "10-Sep-2012", 1000);
+		trans.insertFineForTestData(1001,1,"06-Oct-2012", "07-Oct-2012", 1000);
 		
-		trans.insertFine(1002,"11.25","01-oct-2012", null, 1008);
+		trans.insertFineForTestData(1002,115,"01-oct-2012", null, 1008);
 		
-		trans.insertFine(1003,"4.50","01-nov-2012", null, 1012);
+		trans.insertFineForTestData(1003,4,"01-nov-2012", null, 1012);
 		
-		trans.insertFine(1004,"1.25","21-aug-2012", null, 1004);
-		trans.insertFine(1005,"0.25","17-nov-2012", null, 1004);	
+		trans.insertFineForTestData(1004,1,"21-aug-2012", null, 1004);
+		trans.insertFineForTestData(1005,13,"17-nov-2012", null, 1004);	
 	}
 	
 }
