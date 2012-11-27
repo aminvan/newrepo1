@@ -172,7 +172,12 @@ public class AddNewBookDialog extends JFrame implements ActionListener {
 
 		
 		if (callNumber.getText().trim().length() != 0) {
-			callNo = Integer.parseInt(callNumber.getText());
+			try {
+				callNo = Integer.parseInt(callNumber.getText());
+			}catch(Exception e){
+				showErrorDialog();
+				return 0;
+			}
 		}
 		else {
 			showErrorDialog();
@@ -180,7 +185,13 @@ public class AddNewBookDialog extends JFrame implements ActionListener {
 		}
 		
 		if (isbn.getText().trim().length() != 0) {
-			iIsbn = Integer.parseInt(isbn.getText());
+			try{
+				iIsbn = Integer.parseInt(isbn.getText());
+			}catch (Exception e)
+			{
+				showErrorDialog();
+				return 0;
+			}
 		}
 		else {
 			showErrorDialog();
@@ -212,7 +223,13 @@ public class AddNewBookDialog extends JFrame implements ActionListener {
 		}
 		
 		if (year.getText().trim().length() != 0) {
-			yr = Integer.parseInt(year.getText());
+			try{
+				yr = Integer.parseInt(year.getText());
+			}catch(Exception e)
+			{
+				showErrorDialog();
+				return 0;
+			}
 		}
 		else {
 			showErrorDialog();
