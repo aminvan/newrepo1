@@ -1371,6 +1371,42 @@ public boolean insertHoldRequest(int callNum, int bid, String issueDate){
 		    return 0;
 		}	
 	}
+	
+public boolean deleteHoldREquest(int hid){
+		
+		try
+		{
+			String query = String.format("DELETE holdRequest WHERE hid = %d", hid);
+			  ps = connection.prepareStatement(query);
+		  //System.out.println("all added");
+		  ps.executeUpdate();
+		  //System.out.println("executed");
+		  // commit work 
+		  connection.commit();
+		  //System.out.println("committed");
+		  ps.close();
+		  System.out.println("Deleted  holdRequest");
+		  return true;
+		}
+		catch (SQLException ex)
+		{
+		    System.out.println("Message: " + ex.getMessage());
+		    try 
+		    {
+			// undo the insert
+			connection.rollback();	
+			return false;
+		    }
+		    catch (SQLException ex2)
+		    {
+			System.out.println("Message: " + ex2.getMessage());
+			System.exit(-1);
+			return false;
+		    }
+		}
+	    }
+	
+	
 }
 
 
