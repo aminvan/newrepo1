@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Random;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -149,7 +150,9 @@ public class CheckOutItemsDialog extends JFrame implements ActionListener{
 			{
 				items = items + callNumber + " ";
 				t.updateBookCopyStatus(Integer.parseInt(callNumber), copyNumber, Constants.OUT);
-				t.insertBorrowing(i, callNumber, copyNumber, Integer.parseInt(borrowerID.getText().trim()), getCurrentDateInStringFormat(), "null");
+				Random r = new Random();
+				
+				t.insertBorrowing(r.nextInt(), callNumber, copyNumber, Integer.parseInt(borrowerID.getText().trim()), getCurrentDateInStringFormat(), "null");
 			}else
 			{
 				failedItems = failedItems + callNumber + " ";

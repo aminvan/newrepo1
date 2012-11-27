@@ -20,6 +20,8 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
 
 import Objects.Borrowing;
+import Objects.Fine;
+import Objects.HoldRequest;
 import Transactions.Transactions;
 
 public class CheckBorrowerAcctDialog extends JFrame implements ActionListener{
@@ -29,8 +31,8 @@ public class CheckBorrowerAcctDialog extends JFrame implements ActionListener{
 	JTable borrowedItems, fines, holdRequests;
 	
 	static List<Borrowing> borrowing;
-	//List<HoldRequest>
-	//List<Fine>
+	static List<HoldRequest> holds;
+	static List<Fine> fineList;
 	static String done = "Done";
 	String returnToBorrowerDialog = "Return to Borrower Dialog";
 	String[] borrowColumns = {"Call Number", "Copy Number", "OutDate", "InDate"};
@@ -93,6 +95,8 @@ public class CheckBorrowerAcctDialog extends JFrame implements ActionListener{
         //Set up the content pane.
         Transactions t = new Transactions();
         borrowing = t.showBorrowingById(borrowerID);
+        fineList = t.showFineById(borrowerID);
+        holds = t.showHoldRequestById(borrowerID);
         frame.addComponentsToPane(frame.getContentPane());
         //Display the window.
         frame.pack();
@@ -154,13 +158,18 @@ public class CheckBorrowerAcctDialog extends JFrame implements ActionListener{
 
 			@Override
 			public int getRowCount() {
-				return 1;
+				return fineList.size();
 			}
 
 			@Override
 			public String getValueAt(int y, int x) {
-				return "";
-				
+				switch(x)
+				{
+					case 0:
+						return Integer.toString(fineList.get(y).amount);
+					default:
+						return fineList.get(y).issuedDate;
+				}
 			}
 			
 		};
@@ -183,12 +192,18 @@ public class CheckBorrowerAcctDialog extends JFrame implements ActionListener{
 
 			@Override
 			public int getRowCount() {
-				return 1;
+				return holds.size();
 			}
 
 			@Override
 			public Object getValueAt(int y, int x) {
-				return "";
+				switch(x)
+				{
+					case 0:
+						return Integer.toString(holds.get(y).callNumber);
+					default:
+						return holds.get(y).issuedDate;
+				}
 				
 			}
 			

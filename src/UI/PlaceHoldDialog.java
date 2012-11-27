@@ -10,6 +10,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Random;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -66,7 +67,7 @@ public class PlaceHoldDialog extends JFrame implements ActionListener{
 	}
     public static void createAndShowGUI(int borrowerID) {
         //Create and set up the window.
-        PlaceHoldDialog frame = new PlaceHoldDialog("Search Dialog");
+        PlaceHoldDialog frame = new PlaceHoldDialog("Place Hold");
        // frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //Set up the content pane.
         frame.addComponentsToPane(frame.getContentPane());
@@ -99,16 +100,22 @@ public class PlaceHoldDialog extends JFrame implements ActionListener{
 	
 	private int placeHold() {
 		
-		String callNum = callNo.getText().trim();
+		int callNum = Integer.parseInt(callNo.getText().trim());
 		
-		if (callNum.length() != 0) {
+		if (callNum != 0) {
 			
 			DateFormat dateFormat = new SimpleDateFormat("dd-MMM-yy");
 			Date date = new Date();
 			String currDate = dateFormat.format(date);
-			System.out.println(currDate);
-			
 			Transactions trans = new Transactions();
+			if (trans.showCopiesOfGivenBook(callNum).size() > 0)
+			{
+				Random r = new Random();
+				trans.insertHoldRequest(r.nextInt(), callNum, bid, currDate);
+			}else
+			{
+				GiveMeTitleAndMessageDialog.createAndShowGUI("Error", "No books with that call number");
+			}
 			// trans.placeHold(bid, callNum, currDate);
 			return 0;
 		}

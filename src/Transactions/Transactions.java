@@ -775,6 +775,43 @@ public class Transactions {
 		}
 	    }
 
+public boolean insertHoldRequest(int hid, int callNum, int bid, String issueDate){
+		
+		try
+		{
+		  ps = connection.prepareStatement("INSERT INTO holdRequest VALUES (?,?,?,?)");
+		  ps.setInt(1, hid);
+		  ps.setInt(2, callNum);
+		  ps.setInt(3, bid);
+		  ps.setString(4, issueDate);
+
+		  //System.out.println("all added");
+		  ps.executeUpdate();
+		  //System.out.println("executed");
+		  // commit work 
+		  connection.commit();
+		  //System.out.println("committed");
+		  ps.close();
+		  System.out.println("Inserted into holdRequest");
+		  return true;
+		}
+		catch (SQLException ex)
+		{
+		    System.out.println("Message: " + ex.getMessage());
+		    try 
+		    {
+			// undo the insert
+			connection.rollback();	
+			return false;
+		    }
+		    catch (SQLException ex2)
+		    {
+			System.out.println("Message: " + ex2.getMessage());
+			System.exit(-1);
+			return false;
+		    }
+		}
+	    }
 	public Borrower showBorrowerById(int bid)
 {
 		
@@ -885,7 +922,7 @@ public class Transactions {
 	}	
 }
 
-	public ArrayList<String> showHoldRequestById(int bidin)
+	public ArrayList<HoldRequest> showHoldRequestById(int bidin)
 	 {
 			
 			//TODO: Make hold class
@@ -895,7 +932,7 @@ public class Transactions {
 		String     bid;
 		String     issueDate;
 
-		ArrayList<String> returnQuery = new ArrayList<String>();
+		ArrayList<HoldRequest> returnQuery = new ArrayList<HoldRequest>();
 		Statement  stmt;
 		ResultSet  rs;
 		
@@ -923,16 +960,15 @@ public class Transactions {
 		     // System.out.printf("%-15s", rsmd.getColumnName(i+1));    
 		  }
 		  //System.out.println(" ");
+		  
 		  while(rs.next())
 		  {
-		      	hid = rs.getString("HID");
-		      	callnum = rs.getString("CALLNUMBER");
-		      	bid = rs.getString("BID");
-		      	issueDate = rs.getString("ISSUEDDATE");
-		  		returnQuery.add(hid);
-		  		returnQuery.add(callnum);
-		  		returnQuery.add(bid);
-		  		returnQuery.add(issueDate);
+			  	HoldRequest hr  = new HoldRequest();
+		      	hr.hid = rs.getInt("HID");
+		      	hr.callNumber = rs.getInt("CALLNUMBER");
+		      	hr.bid = rs.getInt("BID");
+		      	hr.issuedDate = rs.getString("ISSUEDDATE");
+		  		returnQuery.add(hr);
 		  }
 
 		  // close the statement; 
@@ -947,7 +983,7 @@ public class Transactions {
 		}	
 	 }
 
-	public ArrayList<String> showFineById(int boridin)
+	public ArrayList<Fine> showFineById(int boridin)
 	 {
 			
 			//TODO: Make hold class
@@ -958,7 +994,7 @@ public class Transactions {
 		String     issueDate;
 		String     borid;
 
-		ArrayList<String> returnQuery = new ArrayList<String>();
+		ArrayList<Fine> returnQuery = new ArrayList<Fine>();
 		Statement  stmt;
 		ResultSet  rs;
 		
@@ -988,17 +1024,13 @@ public class Transactions {
 		  //System.out.println(" ");
 		  while(rs.next())
 		  {
-
-		      	fid = rs.getString("FID");
-		      	amount = rs.getString("AMOUNT");
-		      	paidDate = rs.getString("PAIDDATE");
-		      	issueDate = rs.getString("ISSUEDDATE");
-		      	borid = rs.getString("BORID");
-		  		returnQuery.add(fid);
-		  		returnQuery.add(amount);
-		  		returnQuery.add(paidDate);
-		  		returnQuery.add(issueDate);
-		  		returnQuery.add(borid);
+			  	Fine f = new Fine();
+			  	f.fid = rs.getInt("FID");
+			  	f.amount = rs.getInt("AMOUNT");
+			  	f.paidDate = rs.getString("PAIDDATE");
+			  	f.issuedDate = rs.getString("ISSUEDDATE");
+			  	f.borid = rs.getInt("BORID");
+		  		returnQuery.add(f);
 		  }
 
 		  // close the statement; 
