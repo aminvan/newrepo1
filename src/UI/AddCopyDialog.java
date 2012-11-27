@@ -95,7 +95,6 @@ public class AddCopyDialog extends JFrame implements ActionListener {
 		
 		int callNo;
 		int copynum;
-		String stat;
 		
 		if (callNumber.getText().trim().length() != 0) {
 			callNo = Integer.parseInt(callNumber.getText().trim());
