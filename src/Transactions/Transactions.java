@@ -1596,7 +1596,7 @@ public boolean insertBorrowingForTestData(int borid, int bid, String callnum,int
 	   
 	   try
 	   {
-	       String query = String.format("INSERT INTO borrowing VALUES (%d, %d, %s, '%d', %d, %d, '%s', '%s')",borid, bid,callnum, copynum,bid, outDate, inDate);
+	       String query = String.format("INSERT INTO borrowing VALUES (%d, %s, %d, '%d', '%s', '%s')", borid, callnum, copynum, bid, outDate, inDate);
 	         ps = connection.prepareStatement(query);
 
 	     //System.out.println("all added");
@@ -1627,12 +1627,12 @@ public boolean insertBorrowingForTestData(int borid, int bid, String callnum,int
 	   }
 	    }
 	
-public boolean insertBorrowerForTestData(String bid, String password, String name, String address, String phone, String email, String sin, String exp, String type){
+public boolean insertBorrowerForTestData(int bid, String password, String name, String address, String phone, String email, String sin, String exp, String type){
     //TODO make date an int?
     
     try
     {
-        String query = String.format("INSERT INTO borrower VALUES (%s, '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')","bid_counter.nextval",password, name, address, phone, email, sin, exp, type);
+        String query = String.format("INSERT INTO borrower VALUES (%d, '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')",bid ,password, name, address, phone, email, sin, exp, type);
       ps = connection.prepareStatement(query);
       ps.executeUpdate();
       // commit work
