@@ -136,7 +136,6 @@ public class CheckOutItemsDialog extends JFrame implements ActionListener{
 	}
 	private void checkOutBooks(String borrowerType)
 	{
-		ArrayList<String> errorCallNumberList = new ArrayList<String>();
 		String items = "";
 		String failedItems = "";
 		for (int i = 0; i < callNumberList.size(); i++)
@@ -149,21 +148,21 @@ public class CheckOutItemsDialog extends JFrame implements ActionListener{
 			if (bc.status.equals(Constants.IN))
 			{
 				items = items + callNumber + " ";
-				t.updateBookCopyStatus(callNumber, copyNumber, Constants.OUT);
-				t.insertBorrowing(i, callNumber, copyNumber, Integer.parseInt(borrowerID.getText().trim()), getCurrentDateInStringFormat(), null);
+				t.updateBookCopyStatus(Integer.parseInt(callNumber), copyNumber, Constants.OUT);
+				t.insertBorrowing(i, callNumber, copyNumber, Integer.parseInt(borrowerID.getText().trim()), getCurrentDateInStringFormat(), "null");
 			}else
 			{
 				failedItems = failedItems + callNumber + " ";
 			}
 			
 		}
-		if (errorCallNumberList.size() == 0)
+		if (failedItems.length() == 0)
 		{
 			GiveMeTitleAndMessageDialog.createAndShowGUI("Check out success", "The following books " + items + "are due on " + this.getReturnDate(borrowerType));
 		}else
 		{
 			GiveMeTitleAndMessageDialog.createAndShowGUI("Check out result", "The following books " + items + "are due on " + this.getReturnDate(borrowerType) + ".  The following" +
-					"items were not checked out successfully " + failedItems);
+					" items were not checked out successfully " + failedItems);
 		}
 		clearAllFields();
 	}
@@ -175,6 +174,7 @@ public class CheckOutItemsDialog extends JFrame implements ActionListener{
 		this.copyNumber.setText("");
 		copyNumberList.clear();
 		callNumberList.clear();
+		listModel.clear();
 	}
 	private void addCallAndCopyNumber()
 	{

@@ -615,12 +615,12 @@ public class Transactions {
 		}	
 	 }
 		
-	public boolean updateBookCopyStatus(String callnum, int copynum, String status){
+	public boolean updateBookCopyStatus(int callnum, int copynum, String status){
 		
 		
 		try
 		{
-			String query = String.format("UPDATE bookCopy SET status = '%s' WHERE callnumber = %s and copyno = %d",status, callnum, copynum);
+			String query = String.format("UPDATE bookCopy SET status = '%s' WHERE callnumber = %d and copyno = %d",status, callnum, copynum);
 			System.out.println(query);
 			ps = connection.prepareStatement(query);
 		  ps.executeUpdate();
@@ -861,10 +861,10 @@ public class Transactions {
 	  while(rs.next())
 	  {
 		    Borrowing b = new Borrowing ();
-	      	b.setBorid(rs.getString("BORID"));
-	  		b.setCallNumber(rs.getString("CALLNUMBER"));
-	  		b.setCopyNo(rs.getString("COPYNO"));
-	  		b.setBid(rs.getString("BID"));
+	      	b.setBorid(rs.getInt("BORID"));
+	  		b.setCallNumber(rs.getInt("CALLNUMBER"));
+	  		b.setCopyNo(rs.getInt("COPYNO"));
+	  		b.setBid(rs.getInt("BID"));
 	  		b.setOutDate(rs.getString("OUTDATE"));
 	  		b.setInDate(rs.getString("INDATE"));
 
@@ -1091,10 +1091,10 @@ public class Transactions {
 	  while(rs.next())
 	  {
 		    Borrowing b = new Borrowing ();
-	      	b.setBorid(rs.getString("BORID"));
-	  		b.setCallNumber(rs.getString("CALLNUMBER"));
-	  		b.setCopyNo(rs.getString("COPYNO"));
-	  		b.setBid(rs.getString("BID"));
+	      	b.setBorid(rs.getInt("BORID"));
+	  		b.setCallNumber(rs.getInt("CALLNUMBER"));
+	  		b.setCopyNo(rs.getInt("COPYNO"));
+	  		b.setBid(rs.getInt("BID"));
 	  		b.setOutDate(rs.getString("OUTDATE"));
 	  		b.setInDate(rs.getString("INDATE"));
 
@@ -1144,10 +1144,10 @@ public class Transactions {
 	  while(rs.next())
 	  {
 		    Borrowing b = new Borrowing ();
-	      	b.setBorid(rs.getString("BORID"));
-	  		b.setCallNumber(rs.getString("CALLNUMBER"));
-	  		b.setCopyNo(rs.getString("COPYNO"));
-	  		b.setBid(rs.getString("BID"));
+	      	b.setBorid(rs.getInt("BORID"));
+	  		b.setCallNumber(rs.getInt("CALLNUMBER"));
+	  		b.setCopyNo(rs.getInt("COPYNO"));
+	  		b.setBid(rs.getInt("BID"));
 	  		b.setOutDate(rs.getString("OUTDATE"));
 	  		b.setInDate(rs.getString("INDATE"));
 

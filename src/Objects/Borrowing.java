@@ -2,12 +2,13 @@ package Objects;
 
 public class Borrowing {
 
-	public String borid, callNumber, copyNo, bid, outDate, inDate;
+	public int callNumber, copyNo, bid, borid;
+	public String outDate, inDate;
 	public Borrowing()
 	{
 		
 	}
-	public Borrowing (String borid, String callNumber, String copyNo, String bid, String outDate, String inDate)
+	public Borrowing (int borid, int callNumber, int copyNo, int bid, String outDate, String inDate)
 	{
 		this.callNumber = callNumber;
 		this.borid = borid;
@@ -18,35 +19,35 @@ public class Borrowing {
 		this.inDate = inDate;
 	}
 
-	public String getCallNumber() {
+	public int getCallNumber() {
 		return callNumber;
 	}
 
-	public void setCallNumber(String callNumber) {
+	public void setCallNumber(int callNumber) {
 		this.callNumber = callNumber;
 	}
 
-	public String getCopyNo() {
+	public int getCopyNo() {
 		return copyNo;
 	}
 
-	public void setCopyNo(String copyNo) {
+	public void setCopyNo(int copyNo) {
 		this.copyNo = copyNo;
 	}
 
-	public String getBorid() {
+	public int getBorid() {
 		return borid;
 	}
 
-	public void setBorid(String borid) {
+	public void setBorid(int borid) {
 		this.borid = borid;
 	}
 
-	public String getBid() {
+	public int getBid() {
 		return bid;
 	}
 
-	public void setBid(String bid) {
+	public void setBid(int bid) {
 		this.bid = bid;
 	}
 
