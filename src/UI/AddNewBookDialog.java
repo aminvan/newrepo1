@@ -1,6 +1,7 @@
 package UI;
 
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Label;
 import java.awt.event.ActionEvent;
@@ -8,11 +9,16 @@ import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 import Transactions.Transactions;
@@ -25,6 +31,16 @@ public class AddNewBookDialog extends JFrame implements ActionListener {
 	JTextField mainAuthor = new JTextField();
 	JTextField publisher = new JTextField();
 	JTextField year = new JTextField();
+	
+	JTextField otherAuthor = new JTextField();
+	JTextField subject = new JTextField();
+	
+	DefaultListModel authorListModel = new DefaultListModel();
+	DefaultListModel subjectListModel = new DefaultListModel();
+	String addAuthor = "Add Author";
+	String addSubject = "Add Subject";
+	List<String> authors = new ArrayList<String>();
+	List<String> subjects = new ArrayList<String>();
 	
 	static String returnToLibrarianDialogCommand = "Return to Librarian Dialog";
 	static String add = "Add";
@@ -42,28 +58,57 @@ public class AddNewBookDialog extends JFrame implements ActionListener {
 	private void addComponentsToPane(final Container pane)
 	{
 		JPanel panel = new JPanel();
-		panel.setLayout(new GridLayout(8, 2));
-		
-		panel.add(new Label("Add a new book"));
-		panel.add(new Label(""));
-		
+		panel.setSize(new Dimension (100, 300));
+		panel.setLayout(new GridLayout(11, 3));
+	
 		panel.add(new Label("Call Number"));
 		panel.add(callNumber);
+		panel.add(new Label(""));
 		
 		panel.add(new Label("ISBN"));
 		panel.add(isbn);
+		panel.add(new Label(""));
 		
 		panel.add(new Label("Title"));
 		panel.add(title);
+		panel.add(new Label(""));
 		
 		panel.add(new Label("Main Author"));
 		panel.add(mainAuthor);
+		panel.add(new Label(""));
+		
+		JButton addAuthorButton = new JButton(addAuthor);
+		addAuthorButton.setActionCommand(addAuthor);
+		addAuthorButton.addActionListener(this);
+		
+		panel.add(new Label("Other Authors"));
+		panel.add(otherAuthor);
+		panel.add(addAuthorButton);
+		
+		panel.add(new Label(""));
+		JList authorList = new JList(authorListModel);
+		panel.add(new JScrollPane(authorList));
+		panel.add(new Label(""));
+		
+		JButton addSubjectButton = new JButton(addSubject);
+		addSubjectButton.setActionCommand(addSubject);
+		addSubjectButton.addActionListener(this);
+		panel.add(new Label("Subject"));
+		panel.add(subject);
+		panel.add(addSubjectButton);
+		
+		panel.add(new Label(""));
+		JList subjectList = new JList(subjectListModel);
+		panel.add(new JScrollPane(subjectList));
+		panel.add(new Label(""));
 		
 		panel.add(new Label("Publisher"));
 		panel.add(publisher);
+		panel.add(new Label(""));
 		
 		panel.add(new Label("Year"));
 		panel.add(year);
+		panel.add(new Label(""));
 		
 		JButton returnToUserDialog = new JButton(returnToLibrarianDialogCommand);
 		returnToUserDialog.setActionCommand(returnToLibrarianDialogCommand);
@@ -73,6 +118,7 @@ public class AddNewBookDialog extends JFrame implements ActionListener {
 		addButton.setActionCommand(add);
 		addButton.addActionListener(this);
 		
+		panel.add(new Label(""));
 		panel.add(returnToUserDialog);
 		panel.add(addButton);
 		
@@ -81,6 +127,7 @@ public class AddNewBookDialog extends JFrame implements ActionListener {
     public static void createAndShowGUI() {
         //Create and set up the window.
         AddNewBookDialog frame = new AddNewBookDialog("Add New Book Dialog");
+        frame.setSize(300, 800);
        // frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //Set up the content pane.
         frame.addComponentsToPane(frame.getContentPane());
@@ -98,6 +145,17 @@ public class AddNewBookDialog extends JFrame implements ActionListener {
 		}else if(arg0.getActionCommand().equals("Add"))
 		{
 			addBook();
+		}else if (this.addAuthor.equals(arg0.getActionCommand()))
+		{
+			authorListModel.addElement(otherAuthor.getText());
+			authors.add(otherAuthor.getText());
+			otherAuthor.setText("");
+			
+		}else if (this.addSubject.equals(arg0.getActionCommand()))
+		{
+			subjectListModel.addElement(subject.getText());
+			subjects.add(subject.getText());
+			subject.setText("");
 		}
 		
 	}
@@ -110,6 +168,8 @@ public class AddNewBookDialog extends JFrame implements ActionListener {
 		String mAuthor;
 		String sPublisher;
 		int yr;
+		
+
 		
 		if (callNumber.getText().trim().length() != 0) {
 			callNo = Integer.parseInt(callNumber.getText());
@@ -173,7 +233,16 @@ public class AddNewBookDialog extends JFrame implements ActionListener {
 		{
 			showErrorDialog();
 		}
-		
+		for (String s : this.subjects)
+		{
+			trans.insertHasSubject(callNo, s);
+		}
+		for (String s : this.authors)
+		{
+			trans.insertHasAuthor(callNo, s);
+		}
+		this.subjects.clear();
+		this.authors.clear();
 		return 0;
 		
 	}

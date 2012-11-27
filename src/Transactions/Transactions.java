@@ -54,6 +54,80 @@ public class Transactions {
    }
  }
 	
+	public boolean insertHasSubject(int callNumber, String subject){
+		
+		
+		try
+		{
+		  ps = connection.prepareStatement("INSERT INTO hasSubject VALUES (?,?)");
+		  ps.setInt(1, callNumber);
+		  ps.setString(2, subject);
+
+		  //System.out.println("all added");
+		  ps.executeUpdate();
+		  //System.out.println("executed");
+		  // commit work 
+		  connection.commit();
+		  //System.out.println("committed");
+		  ps.close();
+		  System.out.println("Inserted into hasSubject");
+		  return true;
+		}
+		catch (SQLException ex)
+		{
+		    System.out.println("Message: " + ex.getMessage());
+		    try 
+		    {
+			// undo the insert
+			connection.rollback();	
+			return false;
+		    }
+		    catch (SQLException ex2)
+		    {
+			System.out.println("Message: " + ex2.getMessage());
+			System.exit(-1);
+			return false;
+		    }
+		}
+	    }
+	
+	public boolean insertHasAuthor(int callNumber, String author){
+		
+		
+		try
+		{
+		  ps = connection.prepareStatement("INSERT INTO hasAuthor VALUES (?,?)");
+		  ps.setInt(1, callNumber);
+		  ps.setString(2, author);
+
+		  //System.out.println("all added");
+		  ps.executeUpdate();
+		  //System.out.println("executed");
+		  // commit work 
+		  connection.commit();
+		  //System.out.println("committed");
+		  ps.close();
+		  System.out.println("Inserted into hasAuthor");
+		  return true;
+		}
+		catch (SQLException ex)
+		{
+		    System.out.println("Message: " + ex.getMessage());
+		    try 
+		    {
+			// undo the insert
+			connection.rollback();	
+			return false;
+		    }
+		    catch (SQLException ex2)
+		    {
+			System.out.println("Message: " + ex2.getMessage());
+			System.exit(-1);
+			return false;
+		    }
+		}
+	    }
+	
 	public void insertBorrowerType(String type, String time){
 		
 		
@@ -1016,8 +1090,6 @@ public boolean insertHoldRequest(int hid, int callNum, int bid, String issueDate
 
 	public ArrayList<Fine> showFineById(int boridin)
 	 {
-			
-			//TODO: Make hold class
 			
 		String     fid;
 		String     amount;
