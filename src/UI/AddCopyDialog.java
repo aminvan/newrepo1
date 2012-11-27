@@ -18,8 +18,7 @@ public class AddCopyDialog extends JFrame implements ActionListener {
 
 	JTextField callNumber = new JTextField();
 	JTextField copyNo = new JTextField();
-	JTextField status = new JTextField();
-
+	
 	static String returnToLibrarianDialogCommand = "Return to Librarian Dialog";
 	static String add = "Add";
 	
@@ -35,7 +34,7 @@ public class AddCopyDialog extends JFrame implements ActionListener {
 	private void addComponentsToPane(final Container pane)
 	{
 		JPanel panel = new JPanel();
-		panel.setLayout(new GridLayout(5, 2));
+		panel.setLayout(new GridLayout(4, 2));
 		
 		panel.add(new Label("Add a copy of a pre-existing book"));
 		panel.add(new Label(""));
@@ -45,9 +44,6 @@ public class AddCopyDialog extends JFrame implements ActionListener {
 		
 		panel.add(new Label("Copy Number"));
 		panel.add(copyNo);
-		
-		panel.add(new Label("Status"));
-		panel.add(status);
 	
 		
 		JButton returnToUserDialog = new JButton(returnToLibrarianDialogCommand);
@@ -85,7 +81,12 @@ public class AddCopyDialog extends JFrame implements ActionListener {
 			
 			// need to check that status is "on-hold", "in" or "out"
 			
-			addCopy();
+			if (addCopy() == 1)
+			{
+				GiveMeTitleAndMessageDialog.createAndShowGUI("Success", "Copy addded Successfully");
+				callNumber.setText("");
+				copyNo.setText("");
+			}
 		}
 		
 	}
@@ -110,20 +111,14 @@ public class AddCopyDialog extends JFrame implements ActionListener {
 			return VALIDATIONERROR;
 		}
 		
-		if (status.getText().trim().length() != 0) {
-			stat = status.getText();
-		}
-		else {
-			return VALIDATIONERROR;
-		}
-		
 		// need to check that callNumber is currently in system before we can add a copy
 		// maybe a sequence to increment copy No
 		
 		Transactions trans = new Transactions();
-		trans.insertBookCopy(callNo, copynum, stat);
-		
-		return 0;
+		if(trans.insertBookCopy(callNo, copynum, Constants.IN))
+		{
+			return 1;
+		}else return VALIDATIONERROR;
 	}
 
 }
