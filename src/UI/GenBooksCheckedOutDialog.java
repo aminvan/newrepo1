@@ -5,6 +5,7 @@ import java.awt.GridLayout;
 import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -92,17 +93,22 @@ public class GenBooksCheckedOutDialog extends JFrame implements ActionListener{
 			if (subject.getText().trim().length() > 0)
 			{
 				subjectStr = subject.getText().trim();
-				List<Borrowing> tempList = outBooks;
+				//List<Borrowing> tempList = outBooks;
+				List<Borrowing> toRemove = new ArrayList<Borrowing>();
 				List<BookCopy> bcs = t.showBookSearch("", "", subjectStr);
+				
+				for (int i = 0; i < outBooks.size(); i++)
 				{
-					for (int i = 0; i < tempList.size(); i++)
+					if (!keepBorrowing(outBooks.get(i), bcs))
 					{
-						if (!keepBorrowing(tempList.get(i), bcs))
-						{
-							outBooks.remove(i);
-						}
+						toRemove.add(outBooks.get(i));
 					}
 				}
+				for (Borrowing b : toRemove)
+				{
+					outBooks.remove(b);
+				}
+				
 				LibrarianDisplayCheckedOutBooks.createAndShowGUI(outBooks);
 			}else
 			{
