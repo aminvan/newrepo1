@@ -95,6 +95,7 @@ public class TestData {
 	} 
 	
 	public void insertBookCopyData() {
+		trans.insertBookCopy("QA76.73.J38 2004", 1, "in");
 		trans.insertBookCopy("QA297.A748 2011", 1, "out");
 		trans.insertBookCopy("QA297.A748 2011", 2, "out");
 		trans.insertBookCopy("QA297.A748 2011", 3, "on-hold");

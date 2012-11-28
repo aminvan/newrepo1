@@ -71,18 +71,10 @@ public class ChooseUserDialog extends JPanel implements ActionListener{
             }
         });       
         //System.out.println(Constants.DateToString(Constants.stringToDate("01-oct-2012")));
-       /* System.out.println(Constants.getCurrentDateInStringFormat());
+       //System.out.println(Constants.getCurrentDateInStringFormat());
         TestData data = new TestData();
-        data.insertBookData();
         data.insertBookCopyData();
-        data.insertBorrowType();
-        System.out.println("finished borrow type");
-        data.insertBorrowerData();
-        data.insertBorrowingData();
-        data.insertFineData();
-        data.insertHasAuthorData();
-        data.insertHasSubjData();
-        data.insertHoldReqData();*/
+   
     }
 
 	@Override
