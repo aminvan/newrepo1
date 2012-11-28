@@ -24,7 +24,7 @@ public class AddBorrowerDialog extends JFrame implements ActionListener{
 	JTextField emailAddress = new JTextField();
 	JTextField sinOrStNo = new JTextField();
 	JTextField expiryDate = new JTextField();
-	String[] types = {Constants.STUDENT, Constants.FACULTY, Constants.STAFF, Constants.GEN_PUB};
+	String[] types = {Constants.STUDENT, Constants.FACULTY, Constants.STAFF};
 	JComboBox type = new JComboBox(types);
 	
 	static String returnToClerkDialogString = "Return to Clerk Dialog";
