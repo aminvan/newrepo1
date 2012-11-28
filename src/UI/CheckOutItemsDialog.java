@@ -153,24 +153,31 @@ public class CheckOutItemsDialog extends JFrame implements ActionListener{
 			int copyNumber = copyNumberList.get(i);
 			
 			BookCopy bc = t.showCopyOfGivenBook(callNumber, copyNumber);
-			HoldRequest h = thisUsersHold(holds, bc);
-			if (bc.status.equals(Constants.IN))
-			{
-				items = items + callNumber + " ";
-				t.updateBookCopyStatus(callNumber, copyNumber, Constants.OUT);
-				
-				t.insertBorrowing(callNumber, copyNumber, Integer.parseInt(borrowerID.getText().trim()), getCurrentDateInStringFormat(), null);
-			}else if (bc.status.equals(Constants.ON_HOLD) && h != null)
-			{
-				
-				items = items + callNumber + " ";
-				t.updateBookCopyStatus(callNumber, copyNumber, Constants.OUT);
-				
-				t.insertBorrowing(callNumber, copyNumber, Integer.parseInt(borrowerID.getText().trim()), getCurrentDateInStringFormat(), null);
-				t.deleteHoldREquest(h.hid);
-			}else
+			if (bc.status == null)
 			{
 				failedItems = failedItems + callNumber + " ";
+				System.out.println(callNumber + " was not found.");
+			}else
+			{
+				HoldRequest h = thisUsersHold(holds, bc);
+				if (bc.status.equals(Constants.IN))
+				{
+					items = items + callNumber + " ";
+					t.updateBookCopyStatus(callNumber, copyNumber, Constants.OUT);
+					
+					t.insertBorrowing(callNumber, copyNumber, Integer.parseInt(borrowerID.getText().trim()), getCurrentDateInStringFormat(), null);
+				}else if (bc.status.equals(Constants.ON_HOLD) && h != null)
+				{
+					
+					items = items + callNumber + " ";
+					t.updateBookCopyStatus(callNumber, copyNumber, Constants.OUT);
+					
+					t.insertBorrowing(callNumber, copyNumber, Integer.parseInt(borrowerID.getText().trim()), getCurrentDateInStringFormat(), null);
+					t.deleteHoldREquest(h.hid);
+				}else
+				{
+					failedItems = failedItems + callNumber + " ";
+				}
 			}
 			
 		}

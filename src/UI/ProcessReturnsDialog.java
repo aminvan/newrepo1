@@ -103,7 +103,8 @@ public class ProcessReturnsDialog extends JFrame implements ActionListener{
 				}
 				
 				placeHoldIfNeeded(bc);
-				
+				bookCallNumber.setText("");
+				bookCopyNo.setText("");
 				
 			}else
 			{
@@ -111,8 +112,7 @@ public class ProcessReturnsDialog extends JFrame implements ActionListener{
 			}
 			String callNumber = bookCallNumber.getText().trim();
 			listModel.addElement(callNumber);
-			bookCallNumber.setText("");
-			bookCopyNo.setText("");
+			
 		}
 		
 		

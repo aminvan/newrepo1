@@ -25,7 +25,7 @@ import Transactions.Transactions;
 
 public class LibrarianDisplayCheckedOutBooks extends JFrame implements ActionListener{
 	
-	String [] columnNames = {"Call Number", "Out Date", "Due Date", "Overdue"}; 
+	String [] columnNames = {"Call Number", "Copy No", "Borrower ID", "Out Date", "Due Date", "Overdue"}; 
 	
 	public LibrarianDisplayCheckedOutBooks(String name)
 	{
@@ -116,12 +116,17 @@ public class LibrarianDisplayCheckedOutBooks extends JFrame implements ActionLis
 					case 0:
 						return borrowing.get(y).callNumber;
 					case 1:{
-						return borrowing.get(y).outDate;
+						return borrowing.get(y).copyNo;
 					}
 					case 2:{
+						return borrowing.get(y).bid;
+					}case 3:{
+						return borrowing.get(y).outDate;
+					}
+					case 4:{
 						return Constants.DateToString(expDate);
 					}
-					case 3:
+					case 5:
 						if (expDate.before(new Date()))
 						{
 							return "YES";

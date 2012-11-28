@@ -95,9 +95,17 @@ public class CheckBorrowerAcctDialog extends JFrame implements ActionListener{
        // frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //Set up the content pane.
         Transactions t = new Transactions();
-        borrowing = t.showBorrowingById(borrowerID);
+        List<Borrowing> tempList = t.showBorrowingById(borrowerID);
+        borrowing = new ArrayList<Borrowing>();
+        for (Borrowing b : tempList)
+        {
+        	if (b.inDate.equals("null"))
+        	{
+        		borrowing.add(b);
+        	}
+        }
         fineList = new ArrayList<Fine>();
-        for (Borrowing borr : borrowing)
+        for (Borrowing borr : tempList)
         {
         	Fine f = t.showFineById(borr.borid);
         	if (f.borid == 0)
