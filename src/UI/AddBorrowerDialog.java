@@ -66,7 +66,7 @@ public class AddBorrowerDialog extends JFrame implements ActionListener{
 		panel.add(new Label("Sin or Student Number"));
 		panel.add(sinOrStNo);
 		
-		panel.add(new Label("Expiry Date"));
+		panel.add(new Label("Expiry Date (YYYY/MM/DD)"));
 		panel.add(expiryDate);
 		
 		panel.add(new Label("Type"));
