@@ -167,7 +167,7 @@ public class Transactions {
 		
 		try
 		{
-			String query = String.format("INSERT INTO borrower VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')","bid_counter.nextval",password, name, address, phone, email, sin, exp, type);
+			String query = String.format("INSERT INTO borrower VALUES (%s, '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')","bid_counter.nextval",password, name, address, phone, email, sin, exp, type);
 		  ps = connection.prepareStatement(query);
 		  ps.executeUpdate();
 		  // commit work 
@@ -890,7 +890,7 @@ public boolean updateHoldRequestIssuedDate(int hid, String issuedDate){
 		try
 		{
 			
-			String query = String.format("INSERT INTO fine VALUES ('%s', %d, '%s', '%s', %d)","fid_counter.nextval",amount, issueDate, paidDate, borid);
+			String query = String.format("INSERT INTO fine VALUES (%s, %d, '%s', '%s', %d)","fid_counter.nextval",amount, issueDate, paidDate, borid);
 			  ps = connection.prepareStatement(query);
 
 
@@ -1175,7 +1175,7 @@ public boolean insertHoldRequest(String callNum, int bid, String issueDate){
 		}	
 	 }
 
-	public ArrayList<Fine> showFineById(int boridin)
+	public Fine showFineById(int boridin)
 	 {
 			
 		String     fid;
@@ -1212,9 +1212,10 @@ public boolean insertHoldRequest(String callNum, int bid, String issueDate){
 		     // System.out.printf("%-15s", rsmd.getColumnName(i+1));    
 		  }
 		  //System.out.println(" ");
+		  Fine f = new Fine();
 		  while(rs.next())
 		  {
-			  	Fine f = new Fine();
+			  	
 			  	f.fid = rs.getInt("FID");
 			  	f.amount = rs.getInt("AMOUNT");
 			  	f.paidDate = rs.getString("PAIDDATE");
@@ -1226,7 +1227,7 @@ public boolean insertHoldRequest(String callNum, int bid, String issueDate){
 		  // close the statement; 
 		  // the ResultSet will also be closed
 		  stmt.close();
-		  return returnQuery;
+		  return f;
 		}
 		catch (SQLException ex)
 		{

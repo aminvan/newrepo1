@@ -23,6 +23,7 @@ import javax.swing.JTextField;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
 
+import Objects.Borrowing;
 import Objects.Fine;
 import Transactions.Transactions;
 
@@ -78,13 +79,18 @@ public class PayFineDialog extends JFrame implements ActionListener{
        // frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Transactions t = new Transactions();
         fines = new ArrayList<Fine>();
-        for (Fine f : t.showFineById(borrowerID))
+        List<Borrowing> borrowing = t.showBorrowingById(borrowerID);
+        for (Borrowing b : borrowing)
+        {
+        	Fine f = t.showFineById(b.borid);
+        	if (f.borid == 0)
         	{
-        		if (f.paidDate == null || f.paidDate.length() < 9)
-        		{
-        			fines.add(f);
-        		}
-        	}
+        		
+        	}else if (f.paidDate == null || f.paidDate.length() < 9)
+    		{
+    			fines.add(f);
+    		}
+        }
         bid = borrowerID;
         //Set up the content pane.
         frame.addComponentsToPane(frame.getContentPane());

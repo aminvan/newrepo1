@@ -7,6 +7,7 @@ import java.awt.GridLayout;
 import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -95,7 +96,19 @@ public class CheckBorrowerAcctDialog extends JFrame implements ActionListener{
         //Set up the content pane.
         Transactions t = new Transactions();
         borrowing = t.showBorrowingById(borrowerID);
-        fineList = t.showFineById(borrowerID);
+        fineList = new ArrayList<Fine>();
+        for (Borrowing borr : borrowing)
+        {
+        	Fine f = t.showFineById(borr.borid);
+        	if (f.borid == 0)
+        	{
+        		
+        	}else if (f.paidDate == null || f.paidDate.length() < 9)
+    		{
+    			fineList.add(f);
+    		}
+        }
+      
         holds = t.showHoldRequestById(borrowerID);
         frame.addComponentsToPane(frame.getContentPane());
         //Display the window.
