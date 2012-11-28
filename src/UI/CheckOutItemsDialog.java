@@ -166,7 +166,7 @@ public class CheckOutItemsDialog extends JFrame implements ActionListener{
 					t.updateBookCopyStatus(callNumber, copyNumber, Constants.OUT);
 					
 					t.insertBorrowing(callNumber, copyNumber, Integer.parseInt(borrowerID.getText().trim()), getCurrentDateInStringFormat(), null);
-				}else if (bc.status.equals(Constants.ON_HOLD) && h != null)
+				}else if (bc.status.equals(Constants.ON_HOLD) && h != null && !(h.issuedDate.equals("null")))
 				{
 					
 					items = items + callNumber + " ";
@@ -196,7 +196,10 @@ public class CheckOutItemsDialog extends JFrame implements ActionListener{
 	{
 		for (HoldRequest hr : holds)
 		{
-			if (hr.issuedDate != "null" && hr.callNumber.equals(bc.callNumber));
+			String hrCallNumber = hr.callNumber;
+			String bcCallNumber =  bc.callNumber;
+			String hrIssuedDate = hr.issuedDate;
+			if (hrCallNumber.equals(bcCallNumber) && !hrIssuedDate.equals("null"))
 			{
 				return hr;
 			}
