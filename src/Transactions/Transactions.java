@@ -167,7 +167,7 @@ public class Transactions {
 		
 		try
 		{
-			String query = String.format("INSERT INTO borrower VALUES (%s, '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')","bid_counter.nextval",password, name, address, phone, email, sin, exp, type);
+			String query = String.format("INSERT INTO borrower VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')","bid_counter.nextval",password, name, address, phone, email, sin, exp, type);
 		  ps = connection.prepareStatement(query);
 		  ps.executeUpdate();
 		  // commit work 
@@ -682,7 +682,7 @@ public class Transactions {
 		
 		try
 		{
-			String query = String.format("UPDATE bookCopy SET status = '%s' WHERE callnumber = %s and copyno = %d",status, callnum, copynum);
+			String query = String.format("UPDATE bookCopy SET status = '%s' WHERE callnumber = '%s' and copyno = %d",status, callnum, copynum);
 			System.out.println(query);
 			ps = connection.prepareStatement(query);
 		  ps.executeUpdate();
@@ -748,7 +748,7 @@ public class Transactions {
 		   
 		try
 		{
-			String query = String.format("SELECT * FROM bookCopy WHERE callNumber = %s", callnum);
+			String query = String.format("SELECT * FROM bookCopy WHERE callNumber = '%s'", callnum);
 		  stmt = connection.createStatement();
 		  rs = stmt.executeQuery(query);
 		  // get info on ResultSet
@@ -890,7 +890,7 @@ public boolean updateHoldRequestIssuedDate(int hid, String issuedDate){
 		try
 		{
 			
-			String query = String.format("INSERT INTO fine VALUES (%s, %d, '%s', '%s', %d)","fid_counter.nextval",amount, issueDate, paidDate, borid);
+			String query = String.format("INSERT INTO fine VALUES ('%s', %d, '%s', '%s', %d)","fid_counter.nextval",amount, issueDate, paidDate, borid);
 			  ps = connection.prepareStatement(query);
 
 
@@ -926,7 +926,7 @@ public boolean insertHoldRequest(String callNum, int bid, String issueDate){
 		
 		try
 		{
-			String query = String.format("INSERT INTO holdRequest VALUES (%s, %s, %d, '%s')","hid_counter.nextval",callNum, bid, issueDate);
+			String query = String.format("INSERT INTO holdRequest VALUES (%s, '%s', %d, '%s')","hid_counter.nextval",callNum, bid, issueDate);
 			  ps = connection.prepareStatement(query);
 		  //System.out.println("all added");
 		  ps.executeUpdate();
@@ -1074,7 +1074,7 @@ public boolean insertHoldRequest(String callNum, int bid, String issueDate){
 		   
 		try
 		{
-			String query = String.format("SELECT * FROM holdRequest WHERE callNumber = %s and issuedDate = 'null'", callNumber);
+			String query = String.format("SELECT * FROM holdRequest WHERE callNumber = '%s' and issuedDate = 'null'", callNumber);
 		  stmt = connection.createStatement();
 		  rs = stmt.executeQuery(query);
 		  // get info on ResultSet
@@ -1235,7 +1235,7 @@ public boolean insertHoldRequest(String callNum, int bid, String issueDate){
 		}	
 	 }
 
-	public BookCopy showCopyOfGivenBook(int callnum, int copynum)
+	public BookCopy showCopyOfGivenBook(String callnum, int copynum)
 	 {
 		ArrayList<BookCopy> returnQuery = new ArrayList<BookCopy>();
 		Statement  stmt;
@@ -1244,7 +1244,7 @@ public boolean insertHoldRequest(String callNum, int bid, String issueDate){
 		   
 		try
 		{
-			String query = String.format("SELECT * FROM bookCopy WHERE callNumber = %d and copyNo = %d", callnum, copynum);
+			String query = String.format("SELECT * FROM bookCopy WHERE callNumber = '%s' and copyNo = %d", callnum, copynum);
 		  stmt = connection.createStatement();
 		  rs = stmt.executeQuery(query);
 		  // get info on ResultSet
@@ -1596,7 +1596,7 @@ public boolean insertBorrowingForTestData(int borid, int bid, String callnum,int
 	   
 	   try
 	   {
-	       String query = String.format("INSERT INTO borrowing VALUES (%d, %s, %d, '%d', '%s', '%s')", borid, callnum, copynum, bid, outDate, inDate);
+	       String query = String.format("INSERT INTO borrowing VALUES (%d, '%s', %d, %d, '%s', '%s')", borid, callnum, copynum, bid, outDate, inDate);
 	         ps = connection.prepareStatement(query);
 
 	     //System.out.println("all added");
@@ -1663,7 +1663,7 @@ public boolean insertHoldReqForTestData(int hid, String callNum, int bid, String
 	
 	try
 	{
-		String query = String.format("INSERT INTO holdRequest VALUES (%d, %s, %d, '%s')",hid,callNum, bid, issueDate);
+		String query = String.format("INSERT INTO holdRequest VALUES (%d, '%s', %d, '%s')",hid,callNum, bid, issueDate);
 		  ps = connection.prepareStatement(query);
 	  //System.out.println("all added");
 	  ps.executeUpdate();

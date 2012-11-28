@@ -197,7 +197,7 @@ public class ProcessReturnsDialog extends JFrame implements ActionListener{
 	{
 		try
 		{
-			int callNumber = Integer.parseInt(bookCallNumber.getText().trim());
+			String callNumber = bookCallNumber.getText().trim();
 			int copyNo = Integer.parseInt(bookCopyNo.getText().trim());
 			Transactions t = new Transactions();
 			BookCopy bc = t.showCopyOfGivenBook(callNumber, copyNo);

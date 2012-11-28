@@ -152,7 +152,7 @@ public class CheckOutItemsDialog extends JFrame implements ActionListener{
 			String callNumber = callNumberList.get(i);
 			int copyNumber = copyNumberList.get(i);
 			
-			BookCopy bc = t.showCopyOfGivenBook(Integer.parseInt(callNumber), copyNumber);
+			BookCopy bc = t.showCopyOfGivenBook(callNumber, copyNumber);
 			HoldRequest h = thisUsersHold(holds, bc);
 			if (bc.status.equals(Constants.IN))
 			{

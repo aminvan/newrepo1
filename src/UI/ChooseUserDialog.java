@@ -71,7 +71,7 @@ public class ChooseUserDialog extends JPanel implements ActionListener{
             }
         });       
         //System.out.println(Constants.DateToString(Constants.stringToDate("01-oct-2012")));
-        System.out.println(Constants.DateToString(Constants.stringToDate("03-SEP-2012")));
+        System.out.println(Constants.getCurrentDateInStringFormat());
         TestData data = new TestData();
         data.insertBookData();
         data.insertBookCopyData();
