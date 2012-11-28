@@ -111,7 +111,6 @@ public class TestData {
 		trans.insertBookCopy("QA76.73.C153 M268 2011", 3, "out");
 		trans.insertBookCopy("QA76.73.C153 M268 2011", 4, "out");
 		trans.insertBookCopy("QA76.73.C153 M268 2011", 5, "out");
-		trans.insertBookCopy("QA297.A748 2011", 1, "in");
 		trans.insertBookCopy("QA76.6.M3585 2009", 1, "in");
 		trans.insertBookCopy("QA76.6.M3585 2009", 2, "out");
 	}
@@ -140,12 +139,12 @@ public class TestData {
 	}
 	
 	public void insertFineData() {
-		trans.insertFineForTestData(1000,3,"03-Sep-2011", "2012/09/10", 1000);
-		trans.insertFineForTestData(1001,1,"06-Oct-2012", "2012/10/07", 1000);
+		trans.insertFineForTestData(1000,3,"2011/09/03", "2012/09/10", 1000);
+		trans.insertFineForTestData(1001,1,"2012/10/06", "2012/10/07", 1000);
 		
 		trans.insertFineForTestData(1002,115,"2012/10/01", null, 1008);
 		
-		trans.insertFineForTestData(1003,4,"2012/11/01", null, 1012);
+		trans.insertFineForTestData(1003,4,"2012/11/01", null, 1005);
 		
 		trans.insertFineForTestData(1004,1,"2012/08/21", null, 1004);
 		trans.insertFineForTestData(1005,13,"2012/11/17", null, 1004);	

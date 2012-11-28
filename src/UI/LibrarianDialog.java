@@ -161,22 +161,27 @@ public class LibrarianDialog extends JFrame implements ActionListener {
 		
 		Transactions trans = new Transactions();
 		List<Borrowing> borrowing = trans.showAllBorrowing();
-		List<Borrowing> tempBorrowing = borrowing;
-		for (int i = 0; i < tempBorrowing.size(); i++){
-			if (Constants.stringToDate(tempBorrowing.get(i).outDate) == null)
+		List<Borrowing> toRemove = new ArrayList<Borrowing>();
+		for (int i = 0; i < borrowing.size(); i++){
+			if (Constants.stringToDate(borrowing.get(i).outDate) == null)
 			{
-				borrowing.remove(i);
+				toRemove.add(borrowing.get(i));
 			}else
 			{
-				int year = Constants.stringToDate(tempBorrowing.get(i).outDate).getYear();
+				int year = Constants.stringToDate(borrowing.get(i).outDate).getYear();
 				if (yr == year)
 				{
-				
+					this.getClass();
 				}else
 				{
-					borrowing.remove(i);
+					toRemove.add(borrowing.get(i));
 				}
 			}
+		}
+		
+		for (Borrowing i : toRemove)
+		{
+			borrowing.remove(i);
 		}
 		HashMap<String, Integer> counts = new HashMap<String, Integer>();
 		for (Borrowing b : borrowing)
