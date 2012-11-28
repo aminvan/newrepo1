@@ -160,6 +160,7 @@ public class ProcessReturnsDialog extends JFrame implements ActionListener{
 			{
 				Transactions t = new Transactions();
 				t.insertFine(2, dateFormat.format(this.getCurrentDate()), null, bor.borid);
+				GiveMeTitleAndMessageDialog.createAndShowGUI("Fine","The item was overdue.  A fine was assessed to " + b.getBid());
 			}
 		}catch (Exception e)
 		{
