@@ -48,28 +48,28 @@ public class AddBorrowerDialog extends JFrame implements ActionListener{
 		panel.add(new Label("Add a Borrower"));
 		panel.add(new Label(""));
 		
-		panel.add(new Label("password"));
+		panel.add(new Label("Password"));
 		panel.add(password);
 		
-		panel.add(new Label("name"));
+		panel.add(new Label("Name"));
 		panel.add(name);
 		
-		panel.add(new Label("address"));
+		panel.add(new Label("Address"));
 		panel.add(address);
 		
-		panel.add(new Label("phone"));
+		panel.add(new Label("Phone Number"));
 		panel.add(phone);
 		
-		panel.add(new Label("emailAddress"));
+		panel.add(new Label("Email Address"));
 		panel.add(emailAddress);
 		
-		panel.add(new Label("Sin or Student Number"));
+		panel.add(new Label("SIN or Student Number"));
 		panel.add(sinOrStNo);
 		
-		panel.add(new Label("Expiry Date"));
+		panel.add(new Label("Expiry Date (YYYY/MM/DD)"));
 		panel.add(expiryDate);
 		
-		panel.add(new Label("Type"));
+		panel.add(new Label("Borrower Type"));
 		panel.add(type);
 		
 		JButton returnToUserDialog = new JButton(returnToClerkDialogString);
