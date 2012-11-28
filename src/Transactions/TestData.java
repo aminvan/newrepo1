@@ -75,23 +75,23 @@ public class TestData {
 	
 	
 	public void insertBorrowerData() {
-		trans.insertBorrowerForTestData(100000, "786362", "John Smith", "200 Beach Ave", "6048233829", "jsmith@mail.com", "12313849", "01-jan-2020", "student");
-		trans.insertBorrowerForTestData(100001, "392024", "Jane Clark", "3829 Sunset Dr", "7882340101", "clarkj@abc.com", "48393202", "27-may-2018", "student");
-		trans.insertBorrowerForTestData(100002, "289238", "Calvin Klein", "100 Church St", "7889112020", "ck@mail.com", "39201391", "05-jan-2013", "student");
-		trans.insertBorrowerForTestData(100003, "992928", "Mickey Mouse", "90 Disney Dr", "2507892343", "mmouse@cartoon.com", "38291111", "25-feb-2020", "student");
-		trans.insertBorrowerForTestData(100004, "123123", "Donald Duck", "88 Space Mountain Rd", "5198093456", "quackers@rus.com", "10020030", "10-oct-2019", "student");
+		trans.insertBorrowerForTestData(100000, "786362", "John Smith", "200 Beach Ave", "6048233829", "jsmith@mail.com", "12313849", "2020/01/01", "student");
+		trans.insertBorrowerForTestData(100001, "392024", "Jane Clark", "3829 Sunset Dr", "7882340101", "clarkj@abc.com", "48393202", "2018/05/27", "student");
+		trans.insertBorrowerForTestData(100002, "289238", "Calvin Klein", "100 Church St", "7889112020", "ck@mail.com", "39201391", "2013/01/05", "student");
+		trans.insertBorrowerForTestData(100003, "992928", "Mickey Mouse", "90 Disney Dr", "2507892343", "mmouse@cartoon.com", "38291111", "2020/02/25", "student");
+		trans.insertBorrowerForTestData(100004, "123123", "Donald Duck", "88 Space Mountain Rd", "5198093456", "quackers@rus.com", "10020030", "2019/10/10", "student");
 		
-		trans.insertBorrowerForTestData(100005, "234213", "Prof Plum", "111 Candlestick Dr", "2322344686", "pplum@instudy.com", "281835829", "12-oct-2016", "faculty");
-		trans.insertBorrowerForTestData(100006, "d8s3k2", "John Brown", "234 River Rd", "2342432879", "jbrown@instudy.com", "465485447", "21-mar-2013", "faculty");
-		trans.insertBorrowerForTestData(100007, "s9sfd8", "Jim Flack", "565 Taylor Way", "8881233829", "flack@up.com", "343532342", "05-nov-2013", "faculty");
-		trans.insertBorrowerForTestData(100008, "32kj42", "Barbara Paul", "2342 Marine Dr", "8272347842", "paulb@here.com", "345364534", "10-may-2014", "faculty");
-		trans.insertBorrowerForTestData(100009, "l23424", "Ian Fleming", "3732 Granville St", "4839202010", "iflem@jb.com", "123123123", "15-mar-2015", "faculty");
+		trans.insertBorrowerForTestData(100005, "234213", "Prof Plum", "111 Candlestick Dr", "2322344686", "pplum@instudy.com", "281835829", "2016/10/12", "faculty");
+		trans.insertBorrowerForTestData(100006, "d8s3k2", "John Brown", "234 River Rd", "2342432879", "jbrown@instudy.com", "465485447", "2013/03/21", "faculty");
+		trans.insertBorrowerForTestData(100007, "s9sfd8", "Jim Flack", "565 Taylor Way", "8881233829", "flack@up.com", "343532342", "2013/11/05", "faculty");
+		trans.insertBorrowerForTestData(100008, "32kj42", "Barbara Paul", "2342 Marine Dr", "8272347842", "paulb@here.com", "345364534", "2014/05/10", "faculty");
+		trans.insertBorrowerForTestData(100009, "l23424", "Ian Fleming", "3732 Granville St", "4839202010", "iflem@jb.com", "123123123", "2015/03/15", "faculty");
 		
-		trans.insertBorrowerForTestData(100010, "234213", "Donna Clark", "546 Lakeway Dr", "6048729312", "dclark@univ.edu", "234165874", "02-oct-2014", "staff");
-		trans.insertBorrowerForTestData(100011, "d8s3k2", "John Green", "123 Hill Rd", "2342234234", "jgreen@why.com", "978351756", "03-mar-2015", "staff");
-		trans.insertBorrowerForTestData(100012, "s9sfd8", "Gail Smith", "435 Lucky Way", "2342235556", "gsmith@sky.com", "393882573", "31-dec-2013", "staff");
-		trans.insertBorrowerForTestData(100013, "32kj42", "Bob Park", "5453 Park Dr", "1028282737", "ballpark@mail.com", "112934228", "30-may-2013", "staff");
-		trans.insertBorrowerForTestData(100014, "l23424", "Lewis Carrol", "352 Sewer St", "2349172732", "lcarroll@mail.co.uk", "445889282", "01-jan-2015", "staff");
+		trans.insertBorrowerForTestData(100010, "234213", "Donna Clark", "546 Lakeway Dr", "6048729312", "dclark@univ.edu", "234165874", "2014/10/02", "staff");
+		trans.insertBorrowerForTestData(100011, "d8s3k2", "John Green", "123 Hill Rd", "2342234234", "jgreen@why.com", "978351756", "2015/03/03", "staff");
+		trans.insertBorrowerForTestData(100012, "s9sfd8", "Gail Smith", "435 Lucky Way", "2342235556", "gsmith@sky.com", "393882573", "2013/12/31", "staff");
+		trans.insertBorrowerForTestData(100013, "32kj42", "Bob Park", "5453 Park Dr", "1028282737", "ballpark@mail.com", "112934228", "2013/05/30", "staff");
+		trans.insertBorrowerForTestData(100014, "l23424", "Lewis Carrol", "352 Sewer St", "2349172732", "lcarroll@mail.co.uk", "445889282", "2015/01/01", "staff");
 	} 
 	
 	public void insertBookCopyData() {
@@ -117,35 +117,35 @@ public class TestData {
 	}
 	
 	public void insertBorrowingData() {
-		trans.insertBorrowingForTestData(1000,100000,"QA297.A748 2011", 1, "03-SEP-2012",null);
-		trans.insertBorrowingForTestData(1001,100001,"QA297.A748 2011", 2, "08-oct-2012",null);
-		trans.insertBorrowingForTestData(1002,100000,"QC990.I4 S55 2010", 1, "01-oct-2012","12-nov-2012");
-		trans.insertBorrowingForTestData(1003,100000,"QA76.73.J38 L25 2000", 1, "01-oct-2012","12-nov-2012");
-		trans.insertBorrowingForTestData(1004,100007,"QA76.73.C153 M268 2011", 2, "28-oct-2012",null);
-		trans.insertBorrowingForTestData(1005,100005,"QA76.73.C153 M268 2011", 3, "16-jul-2012","06-aug-2012");
-		trans.insertBorrowingForTestData(1006,100009,"QA76.73.C153 M268 2011", 4, "17-sep-2012","08-oct-2012");
-		trans.insertBorrowingForTestData(1007,100013,"QA76.73.C153 M268 2011", 5, "15-oct-2012","05-nov-2012");
-		trans.insertBorrowingForTestData(1008,100000,"QA76.6.M3585 2009", 2, "03-SEP-2012",null);
+		trans.insertBorrowingForTestData(1000,100000,"QA297.A748 2011", 1, "2012/09/03",null);
+		trans.insertBorrowingForTestData(1001,100001,"QA297.A748 2011", 2, "2012/10/08",null);
+		trans.insertBorrowingForTestData(1002,100000,"QC990.I4 S55 2010", 1, "2012/10/01","2012/11/12");
+		trans.insertBorrowingForTestData(1003,100000,"QA76.73.J38 L25 2000", 1, "2012/10/01","2012/11/12");
+		trans.insertBorrowingForTestData(1004,100007,"QA76.73.C153 M268 2011", 2, "2012/10/28",null);
+		trans.insertBorrowingForTestData(1005,100005,"QA76.73.C153 M268 2011", 3, "2012/07/16","2012/08/06");
+		trans.insertBorrowingForTestData(1006,100009,"QA76.73.C153 M268 2011", 4, "2012/09/17","2012/10/08");
+		trans.insertBorrowingForTestData(1007,100013,"QA76.73.C153 M268 2011", 5, "2012/10/15","2012/11/05");
+		trans.insertBorrowingForTestData(1008,100000,"QA76.6.M3585 2009", 2, "2012/09/03",null);
 	}
 	
 	public void insertHoldReqData() {
-		trans.insertHoldReqForTestData(1000,"QA297.A748 2011",100002, "20-NOV-2012");
-		trans.insertHoldReqForTestData(1001,"QA39.3.E65 2004",100004, "14-NOV-2012");
-		trans.insertHoldReqForTestData(1002,"GE160.A35 O35 2010",100003, "10-Nov-2012");
-		trans.insertHoldReqForTestData(1003,"GE160.A35 O35 2010",100008, "12-Nov-2012");
-		trans.insertHoldReqForTestData(1004,"QA76.73.C153 M268 2011",100002, "31-oct-2012");
+		trans.insertHoldReqForTestData(1000,"QA297.A748 2011",100002, "2012/11/20");
+		trans.insertHoldReqForTestData(1001,"QA39.3.E65 2004",100004, "2012/11/14");
+		trans.insertHoldReqForTestData(1002,"GE160.A35 O35 2010",100003, "2012/11/10");
+		trans.insertHoldReqForTestData(1003,"GE160.A35 O35 2010",100008, "2012/11/12");
+		trans.insertHoldReqForTestData(1004,"QA76.73.C153 M268 2011",100002, "2012/10/31");
 	}
 	
 	public void insertFineData() {
-		trans.insertFineForTestData(1000,3,"03-Sep-2011", "10-Sep-2012", 1000);
-		trans.insertFineForTestData(1001,1,"06-Oct-2012", "07-Oct-2012", 1000);
+		trans.insertFineForTestData(1000,3,"03-Sep-2011", "2012/09/10", 1000);
+		trans.insertFineForTestData(1001,1,"06-Oct-2012", "2012/10/07", 1000);
 		
-		trans.insertFineForTestData(1002,115,"01-oct-2012", null, 1008);
+		trans.insertFineForTestData(1002,115,"2012/10/01", null, 1008);
 		
-		trans.insertFineForTestData(1003,4,"01-nov-2012", null, 1012);
+		trans.insertFineForTestData(1003,4,"2012/11/01", null, 1012);
 		
-		trans.insertFineForTestData(1004,1,"21-aug-2012", null, 1004);
-		trans.insertFineForTestData(1005,13,"17-nov-2012", null, 1004);	
+		trans.insertFineForTestData(1004,1,"2012/08/21", null, 1004);
+		trans.insertFineForTestData(1005,13,"2012/11/17", null, 1004);	
 	}
 	
 	public void insertBorrowType()
