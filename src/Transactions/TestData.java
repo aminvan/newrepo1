@@ -129,6 +129,7 @@ public class TestData {
 		trans.insertBorrowingForTestData(1009,100010,"GE160.A35 O35 2010",1, "2011/01/14","2011/01/20");
 		trans.insertBorrowingForTestData(1010,100010,"QA39.3.E65 2004",1, "2011/03/14","2011/03/21");
 		trans.insertBorrowingForTestData(1011,100010,"QA39.3.E65 2004",1, "2010/03/14","2010/04/01");
+		System.out.println("Blaaaaaaaaah");
 	}
 	
 	public void insertHoldReqData() {
