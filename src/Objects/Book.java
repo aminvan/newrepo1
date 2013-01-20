@@ -67,4 +67,9 @@ public class Book {
 	public void setYear(String year) {
 		this.year = year;
 	}
+	
+	public void longLab(String year) {
+		this.year = year;
+	}
+	
 }
