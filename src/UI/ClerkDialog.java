@@ -92,6 +92,7 @@ public class ClerkDialog extends JFrame implements ActionListener{
 		if (ClerkDialog.addBorrowerCommand.equals(arg0.getActionCommand()))
 		{
 			//this.setEnabled(false);
+			System.out.println("Printing out things");
 			AddBorrowerDialog.createAndShowGUI();
 		}else if (ClerkDialog.checkOutItemsCommand.equals(arg0.getActionCommand()))
 		{

@@ -128,6 +128,7 @@ public class AddBorrowerDialog extends JFrame implements ActionListener{
 		
 		if (password.getText().trim().length() != 0) {
 			bpw = password.getText().trim();
+			System.out.println("got password: " + bpw);
 		}
 		else {
 			return VALIDATIONERROR;
