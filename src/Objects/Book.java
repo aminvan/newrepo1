@@ -3,7 +3,7 @@ package Objects;
 public class Book {
 
 	public String callNumber;
-	public String isbn, title, mainAuthor, publisher, year, subject;
+	public String isbn, title, mainAuthor, publisher, year, subject, genre;
 	
 	public Book()
 	{
@@ -18,6 +18,7 @@ public class Book {
 		this.title = title;
 		this.year = year;
 		this.subject = subject;
+		this.genre = genre;
 	}
 
 	public String getCallNumber() {
